@@ -11,5 +11,7 @@ public enum ActionType {
     PARLA_CON,
     USA,
     EXIT,
-    SPARA_A
+    SPARA_A,
+    OSSERVA,
+    SPINGI
 }

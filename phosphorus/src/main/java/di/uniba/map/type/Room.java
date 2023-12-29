@@ -10,10 +10,10 @@ public class Room {
     private String roomDescription;
     private String lookDescription;
 
-    private Room south = null;
-    private Room north = null;
-    private Room east = null;
-    private Room west = null;
+    private Integer south;
+    private Integer north;
+    private Integer east;
+    private Integer west;
 
     private int floorNumber;
 
@@ -26,16 +26,30 @@ public class Room {
 
     public Room(int id) {
         this.roomID = id;
+        this.completed = false;
     }
 
-    public Room(int id, String name, String description, boolean visible, boolean oxy, int floorNumber) {
+    public Room(int id, String name, String description, String lookDescription, int floorNumber, boolean visible,  boolean oxy) {
         this.roomID = id;
-        this.roomName = name;
-        this.roomDescription = description;
-        this.floorNumber = floorNumber;
-        this.visible = visible;
-        this.oxygen = oxy;
+        this.setName(name);
+        this.setDescription(lookDescription);
+        this.setLook(lookDescription);
+        this.setFloorNumber(floorNumber);
+        this.setVisible(visible);
+        this.setOxygen(oxy);
+        this.setAdjacentRooms(null, null, null, null);
+        this.completed = false;
+    }
 
+    public void setAdjacentRooms(Integer north, Integer south, Integer east, Integer west){
+        this.setNorth(north);
+        this.setSouth(south);
+        this.setEast(east);
+        this.setWest(west);
+    } 
+
+    public int getRoomID(){
+        return this.roomID;
     }
 
     public String getName() {
@@ -70,8 +84,8 @@ public class Room {
         this.oxygen = oxy;
     }
 
-    public void isVisible(boolean visible) {
-        this.visible = visible;
+    public boolean isVisible() {
+        return this.visible;
     }
 
     public void setVisible(boolean visible) {
@@ -86,35 +100,35 @@ public class Room {
         this.completed = completed;
     }
 
-    public Room getSouth() {
+    public Integer getSouth() {
         return south;
     }
 
-    public void setSouth(Room south) {
+    public void setSouth(Integer south) {
         this.south = south;
     }
 
-    public Room getNorth() {
+    public Integer getNorth() {
         return north;
     }
 
-    public void setNorth(Room north) {
+    public void setNorth(Integer north) {
         this.north = north;
     }
 
-    public Room getEast() {
+    public Integer getEast() {
         return east;
     }
 
-    public void setEast(Room east) {
+    public void setEast(Integer east) {
         this.east = east;
     }
 
-    public Room getWest() {
+    public Integer getWest() {
         return west;
     }
 
-    public void setWest(Room west) {
+    public void setWest(Integer west) {
         this.west = west;
     }
 

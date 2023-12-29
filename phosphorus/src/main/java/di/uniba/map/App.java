@@ -17,13 +17,39 @@ import di.uniba.map.type.Character;
 public class App {
     public static void main(String[] args) throws StreamReadException, DatabindException, IOException {
 
-        File JSON_SOURCE = new File("resources/rooms.json");
+        /*File JSON_SOURCE = new File("resources/rooms.json");
         File JSON_SOURCE2 = new File("resources/characters.json");
 
         Map<String, Object> result = new ObjectMapper().readValue(JSON_SOURCE, HashMap.class);
-        Map<String, Object> result2 = new ObjectMapper().readValue(JSON_SOURCE2, HashMap.class);
+        Map<String, Object> result2 = new ObjectMapper().readValue(JSON_SOURCE2, HashMap.class); */
 
-        Map<?, ?> a = (Map<?, ?>) result.get("0");
+        File JSON_SOURCE_ROOMS = new File("resources/rooms.json");
+        Map<String, Object> fileRooms = new ObjectMapper().readValue(JSON_SOURCE_ROOMS, HashMap.class);
+        List<Room> rooms = new ArrayList<>();
+
+        for (int i = 0; i < 6; i++) {
+            Map<?, ?> result = (Map<?, ?>) fileRooms.get(Integer.toString(i));
+            Room room = new Room((int) result.get("roomId"), (String) result.get("roomName"),
+                    (String) result.get("roomDescription"), (String) result.get("lookDescription"), (int) result.get("floorNumber"), (boolean) result.get("visible"),
+                    (boolean) result.get("oxygen"));
+            room.setAdjacentRooms((Integer) result.get("north"), (Integer) result.get("south"), (Integer) result.get("est"), (Integer) result.get("west"));
+            rooms.add(room);
+
+        }
+
+        for(Room elem : rooms){
+            System.out.println("****************************************************");
+            System.out.println("ROOM NAME : " + elem.getName());
+            System.out.println("NORD : " + elem.getNorth());
+            System.out.println("SUD : " + elem.getSouth());
+            System.out.println("EST : " + elem.getEast());
+            System.out.println("OVEST : " + elem.getWest());
+            System.out.println("****************************************************");
+        }
+
+        
+        /* 
+
         Map<?, ?> a2 = (Map<?, ?>) result2.get("0");
         Map<?, ?> z = (Map<?, ?>) result2.get("1");
         Map<?, ?> x = (Map<?, ?>) result2.get("2");
@@ -65,6 +91,7 @@ public class App {
         }
 
         Map<?, ?> b = (Map<?, ?>) result.get(a.get("north").toString());
+        */
 
     }
 

@@ -15,18 +15,27 @@ public class Room {
     private Room east = null;
     private Room west = null;
 
-    private boolean oxygen = true;
+    private int floorNumber;
 
-    private final List<AdvObject> objects = new ArrayList<>();
+    private boolean oxygen;
+    private boolean visible;
+    private boolean completed;
+
+    private List<AdvObject> objects = new ArrayList<>();
+    private List<Character> characters = new ArrayList<>();
 
     public Room(int id) {
         this.roomID = id;
     }
 
-    public Room(int id, String name, String description) {
+    public Room(int id, String name, String description, boolean visible, boolean oxy, int floorNumber) {
         this.roomID = id;
         this.roomName = name;
         this.roomDescription = description;
+        this.floorNumber = floorNumber;
+        this.visible = visible;
+        this.oxygen = oxy;
+
     }
 
     public String getName() {
@@ -45,12 +54,36 @@ public class Room {
         this.roomDescription = description;
     }
 
+    public int getFloorNumber() {
+        return floorNumber;
+    }
+
+    public void setFloorNumber(int floorNumber) {
+        this.floorNumber = floorNumber;
+    }
+
     public boolean isOxygen() {
         return this.oxygen;
     }
 
     public void setOxygen(boolean oxy) {
         this.oxygen = oxy;
+    }
+
+    public void isVisible(boolean visible) {
+        this.visible = visible;
+    }
+
+    public void setVisible(boolean visible) {
+        this.visible = visible;
+    }
+
+    public void isCompleted(boolean completed) {
+        this.completed = completed;
+    }
+
+    public void setCompleted(boolean completed) {
+        this.completed = completed;
     }
 
     public Room getSouth() {
@@ -85,8 +118,36 @@ public class Room {
         this.west = west;
     }
 
+    public void setObjects(List<AdvObject> objects) {
+        this.objects = objects;
+    }
+
     public List<AdvObject> getObjects() {
         return objects;
+    }
+
+    public void setCharacters(List<Character> characters) {
+        this.characters = characters;
+    }
+
+    public List<Character> getCharacters() {
+        return characters;
+    }
+
+    public void removeCharacter(Character character) {
+        this.characters.remove(character);
+    }
+
+    public void addCharacter(Character character) {
+        this.characters.add(character);
+    }
+
+    public String getLook() {
+        return lookDescription;
+    }
+
+    public void setLook(String look) {
+        this.lookDescription = look;
     }
 
     @Override
@@ -105,14 +166,6 @@ public class Room {
             return false;
         }
         return true;
-    }
-
-    public String getLook() {
-        return lookDescription;
-    }
-
-    public void setLook(String look) {
-        this.lookDescription = look;
     }
 
 }

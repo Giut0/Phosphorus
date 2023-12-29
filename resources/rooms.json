@@ -1,0 +1,134 @@
+{
+    "0": {
+        "roomId": 0,
+        "roomName": "Dormitorio",
+        "roomDescription": "Stanza non molto grande dove dormi con i tuoi colleghi",
+        "lookDescription": "Sei nel dormitorio vicino a te c'è un tuo collega, sullo scaffale trovi una serie di bombole d'ossigeno, a nord trovi la sala meeting, per andarci dei premere il pulsate per aprire la porta.",
+        "floorNumber" : 0,
+        "visible": true,
+        "locked": false,
+        "south": null,
+        "north": 1,
+        "west": null,
+        "est": null,
+        "objects": [
+            0,
+            1
+        ],
+        "characters": [
+            0,
+            1,
+            2
+        ],
+        "oxygen": true,
+        "completed": false
+    },
+    "1": {
+        "roomId": 1,
+        "roomName": "Sala meeting",
+        "roomDescription": "Sala dove si tengono le riunioni con i colleghi",
+        "lookDescription": "Sei nella sala meeting, sul tavolo trovi una pistola, a sud trovi il dormitorio, ad est trovi il laboratorio mentre ad ovest trovi le scale per andare al piano di sotto",
+        "floorNumber" : 0,
+        "visible": true,
+        "locked": false,
+        "south": 0,
+        "north": null,
+        "west": 3,
+        "est": 2,
+        "objects": [
+            3
+        ],
+        "characters": [
+            0,
+            1,
+            2
+        ],
+        "oxygen": true,
+        "completed": false
+    },
+    "2": {
+        "roomId": 2,
+        "roomName": "Laboratorio",
+        "roomDescription": "Stanza dove si studiano gli alieni catturati e si fanno esperimenti pre estrarre da questi il fosforo",
+        "lookDescription": "Sei in laboratorio, sul tavolo trovi delle note strappate, vicino alle stesse vedi un apparecchio che sembra una modifica per la pistola, ad ovest trovi la sala meeting.",
+        "floorNumber" : 0,
+        "visible": true,
+        "locked": true,
+        "south": 12,
+        "north": 0,
+        "west": 0,
+        "est": 5,
+        "objects": [
+            2,
+            4
+        ],
+        "characters": [
+            2,
+            4
+        ],
+        "oxygen": true,
+        "completed": false
+    },
+    "3": {
+        "roomId": 3,
+        "roomName": "Mensa",
+        "roomDescription": "Stanza dove pranzi e ceni con i tuoi colleghi",
+        "lookDescription": "Sei nella mensa, vedi seduti ai tavoli due scienziati, ad ovest trovi le scale ed ad est la sala motori",
+        "floorNumber" : -1,
+        "visible": true,
+        "locked": false,
+        "south": null,
+        "north": null,
+        "west": 1,
+        "est": 4,
+        "objects": null,
+        "characters": [
+            2,
+            3,
+            4
+        ],
+        "oxygen": true,
+        "completed": false
+    },
+    "4": {
+        "roomId": 4,
+        "roomName": "Sala motori",
+        "roomDescription": "Sala dove sono situati tutti i vari componenti che permettere alla navicella di muoversi",
+        "lookDescription": "Sei nella sala motori, vedi uno scienziato morto per terra, vicino ad esso trovi un'agenda, ad ovest trovi la mensa, a sud trovi uno stanzino.",
+        "floorNumber" : -1,
+        "visible": true,
+        "locked": false,
+        "south": 5,
+        "north": null,
+        "west": 3,
+        "est": null,
+        "objects": [
+            6
+        ],
+        "characters": [
+            2,
+            6
+        ],
+        "oxygen": false,
+        "completed": false
+    },
+    "5": {
+        "roomId": 5,
+        "roomName": "Sgabuzzino",
+        "roomDescription": "Stanza molto piccola dove vengono messi i ricambi per i componenti e gli attrezzi per riparare.",
+        "lookDescription": "Stanaza vuota, ad nord trovi la sala motori",
+        "floorNumber" : -1,
+        "visible": false,
+        "locked": false,
+        "south": null,
+        "north": 4,
+        "west": null,
+        "est": null,
+        "objects": null,
+        "characters": [
+            2
+        ],
+        "oxygen": false,
+        "completed": false
+    }
+}

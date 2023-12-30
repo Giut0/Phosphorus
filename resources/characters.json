@@ -8,7 +8,6 @@
             "Cosa c'è non ti ricordi dove si trova? Appena a nord di quì, ti lascio l'onore di premere il pulsante per aprire la porta.",
             "Ti ho detto che è un tipo un po' all'antica, io comunque rimango quì per tenere sotto controllo questa zona, va pure con r17, non è un tipo molto loquace, ma sa il fatto suo."
         ],
-        "alive": true,
         "currentRoom": 0
     },
     "1": {
@@ -20,7 +19,6 @@
             "Cosa c'è ancora? Quale parte di indagate sulla fuga di alcuni alieni non avete capito? Dai su, provate ad andare in laboratorio, solo che ci vuole il codice d'accesso, vedetevela voi. GLORIA AD INGSOC!",
             "GLORIA AD INGSOC!"
         ],
-        "alive": true,
         "currentRoom": 1
     },
     "2": {
@@ -30,7 +28,6 @@
         "dialogs": [
             "..."
         ],
-        "alive": true,
         "currentRoom": 1
     },
     "3": {
@@ -41,8 +38,7 @@
             "Cosa vuoi? La password d'accesso al laboratorio? Lasciami mangaire in santa pace!",
             "Gnam gnam..."
         ],
-        "alive": true,
-        "currentRoom": true
+        "currentRoom": "TODO"
     },
     "4": {
         "characterId": 4,
@@ -52,8 +48,7 @@
             "Salve agenti... *tosse* cosa vi porta quì? La *tosse* password per il laboratorio, *tosse*, mi dispiace ma non tanto sto bene *tosse*, non ricordo...*tosse*.",
             "*tosse*"
         ],
-        "alive": true,
-        "currentRoom": true
+        "currentRoom": "TODO"
     },
     "5": {
         "characterId": 5,
@@ -63,7 +58,7 @@
             "Il tono sembra preoccupato, meglio controllare",
             "Premi il pulsante per aprire la porta",
             "Prendi la postola, ti sarà utile contro gli alieni, è stata progettata per eliminare solo loro.",
-            "Strano che s02 sia malato, non ci sono possibilità di ammalarsi su questa navicella, è tutto sterilizzato, ma vabbè contoniamo ad esplorare, dobbiamo trovare il terzo scienziato.",
+            "Strano che s02 sia malato, non ci sono possibilità di ammalarsi su questa navicella, è tutto sterilizzato, ma vabbè continuamo ad esplorare, dobbiamo trovare il terzo scienziato.",
             "Non c'è ossigeno in questa stanza, meglio equipaggiare la bombola",
             "ELIMINA L'ALIENO!",
             "Abbiamo trovato il codice d'accesso al laboratorio {1342}, andiamo a controllare.",
@@ -71,8 +66,7 @@
             "ELIMINALO!",
             "Ben fatto!"
         ],
-        "alive": true,
-        "currentRoom": true
+        "currentRoom": null
     },
     "6": {
         "characterId": 6,
@@ -81,7 +75,6 @@
         "dialogs": [
             "AAAAAAAAAAAARRRRRRRGGGGGHHHHH"
         ],
-        "alive": true,
         "currentRoom": 5
     }
 }

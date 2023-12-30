@@ -12,7 +12,6 @@ import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import di.uniba.map.type.Room;
-import di.uniba.map.type.Character;
 
 public class App {
     public static void main(String[] args) throws StreamReadException, DatabindException, IOException {
@@ -33,6 +32,7 @@ public class App {
                     (String) result.get("roomDescription"), (String) result.get("lookDescription"), (int) result.get("floorNumber"), (boolean) result.get("visible"),
                     (boolean) result.get("oxygen"));
             room.setAdjacentRooms((Integer) result.get("north"), (Integer) result.get("south"), (Integer) result.get("est"), (Integer) result.get("west"));
+            room.setCharacters((List<Integer>) result.get("characters"));
             rooms.add(room);
 
         }
@@ -44,6 +44,7 @@ public class App {
             System.out.println("SUD : " + elem.getSouth());
             System.out.println("EST : " + elem.getEast());
             System.out.println("OVEST : " + elem.getWest());
+            System.out.println("PERSONAGGI ID: " + elem.getCharacters());
             System.out.println("****************************************************");
         }
 

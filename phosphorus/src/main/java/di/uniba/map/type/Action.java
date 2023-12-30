@@ -1,5 +1,7 @@
 package di.uniba.map.type;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Set;
 
 public class Action {
@@ -11,7 +13,13 @@ public class Action {
     public Action(ActionType type, String name, Set<String> alias) {
         this.commandType = type;
         this.commandName = name;
-        this.commandAlias = alias;
+        this.commandAlias = new HashSet<String>(alias);
+    }
+
+    public Action(ActionType type, String name) {
+        this.commandType = type;
+        this.commandName = name;
+        this.commandAlias = new HashSet<String>();
     }
 
     public void setCommandType(ActionType commandType) {
@@ -22,8 +30,12 @@ public class Action {
         this.commandName = commandName;
     }
 
-    public void setCommandAlias(Set<String> commandAlias) {
-        this.commandAlias = commandAlias;
+    public void setCommandAlias(String[] alias) {
+        this.commandAlias = new HashSet<>(Arrays.asList(alias));
+    }
+
+    public void addCommandAlias(String newAlias){
+        this.commandAlias.add(newAlias);
     }
 
     public ActionType getCommandType() {

@@ -5,7 +5,11 @@ import java.util.Set;
 
 public class Inventory {
 
-    private Set<AdvObject> inventory = new HashSet<AdvObject>();
+    private Set<AdvObject> inventory;
+
+    public Inventory(){
+        inventory = new HashSet<AdvObject>();
+    }
 
     public Set<AdvObject> getInventory() {
         return this.inventory;

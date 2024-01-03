@@ -1,0 +1,22 @@
+{
+    "0": {
+        "itemID": 0,
+        "itemName": "Pistola",
+        "itemDescription": "..."
+    },
+    "1": {
+        "itemID": 1,
+        "itemName": "Modifica pistola",
+        "itemDescription": "..."
+    },
+    "2": {
+        "itemID": 2,
+        "itemName": "Chiave sgabuzzino",
+        "itemDescription": "..."
+    },
+    "3": {
+        "itemID": 3,
+        "itemName": "Tessera laboratorio",
+        "itemDescription": "..."
+    }
+}

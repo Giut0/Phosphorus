@@ -22,16 +22,24 @@ public class PhosphorusGame {
 
     private GameEngine game;
 
-    public void initializeGame() {
+    private void initializeGame() {
         try {
 
-            game = new GameEngine();
-            game.addCommands(initializeActions());
-            game.addRooms(initializeRooms());
+            this.game = new GameEngine();
+            this.game.addCommands(initializeActions());
+            this.game.addRooms(initializeRooms());
 
         } catch (Exception e) {
-            // TODO: gestire eccezioni
+            System.out.println(e.getMessage());
         }
+    }
+
+    public PhosphorusGame() {
+        initializeGame();
+    }
+
+    public GameEngine getGame() {
+        return this.game;
     }
 
     /**
@@ -45,9 +53,9 @@ public class PhosphorusGame {
      * @throws IOException         If an I/O exception occurs while reading the
      *                             file.
      */
-    public List<Room> initializeRooms() throws StreamReadException, DatabindException, IOException {
+    private List<Room> initializeRooms() throws StreamReadException, DatabindException, IOException {
 
-        File JSON_SOURCE_ROOMS = new File("../resources/rooms.json");
+        File JSON_SOURCE_ROOMS = new File("resources/rooms.json");
         Map<String, Object> fileRooms = new ObjectMapper().readValue(JSON_SOURCE_ROOMS, HashMap.class);
         List<Room> rooms = new ArrayList<>();
 
@@ -61,14 +69,13 @@ public class PhosphorusGame {
                     (Integer) result.get("est"), (Integer) result.get("west"));
             room.setCharacters((List<Integer>) result.get("characters"));
             rooms.add(room);
-
         }
 
         return rooms;
 
     }
 
-    public List<Action> initializeActions() {
+    private List<Action> initializeActions() {
 
         List<Action> actions = new ArrayList<>();
 

@@ -1,22 +1,38 @@
 {
     "0": {
         "itemID": 0,
+        "itemType" : "Weapon",
         "itemName": "Pistola",
-        "itemDescription": "..."
+        "itemDescription": "...",
+        "itemLocation" : 1,
+        "itemAction" :"Spara",
+        "itemAlias" : ["Pistola", "Arma"]
     },
     "1": {
         "itemID": 1,
+        "itemType" : "Other",
         "itemName": "Modifica pistola",
-        "itemDescription": "..."
+        "itemDescription": "...",
+        "itemLocation" : 2,
+        "itemAction" :"",
+        "itemAlias" : ["Modifica"]
     },
     "2": {
         "itemID": 2,
+        "itemType" : "Key",
         "itemName": "Chiave sgabuzzino",
-        "itemDescription": "..."
+        "itemDescription": "...",
+        "itemLocation" : 4,
+        "itemAction" :"Usa",
+        "itemAlias" : ["Chiave"]
     },
     "3": {
         "itemID": 3,
+        "itemType" : "Key",
         "itemName": "Tessera laboratorio",
-        "itemDescription": "..."
+        "itemDescription": "...",
+        "itemLocation" : 4,
+        "itemAction" :"Usa",
+        "itemAlias" : ["Tessera", "Carta"]
     }
 }

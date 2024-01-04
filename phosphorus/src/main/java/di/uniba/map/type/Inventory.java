@@ -5,26 +5,26 @@ import java.util.Set;
 
 public class Inventory {
 
-    private Set<AdvObject> inventory;
+    private Set<Item> inventory;
 
     public Inventory(){
-        inventory = new HashSet<AdvObject>();
+        inventory = new HashSet<Item>();
     }
 
-    public Set<AdvObject> getInventory() {
+    public Set<Item> getInventory() {
         return this.inventory;
     }
 
-    public void setInventory(Set<AdvObject> inv) {
+    public void setInventory(Set<Item> inv) {
         this.inventory = inv;
     }
 
-    public void addAvdObj(AdvObject obj) {
-        this.inventory.add(obj);
+    public void addAvdItem(Item item) {
+        this.inventory.add(item);
     }
 
-    public void removeAvdObj(AdvObject obj) {
-        this.inventory.remove(obj);
+    public void removeAvdItem(Item item) {
+        this.inventory.remove(item);
     }
 
 }

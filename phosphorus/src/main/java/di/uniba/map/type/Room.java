@@ -26,7 +26,7 @@ public class Room {
     private boolean visible;
     private boolean completed;
 
-    private List<AdvObject> advObjects = new ArrayList<>();
+    private List<Item> advItems = new ArrayList<>();
     private List<Integer> charactersIDs = new ArrayList<>();
 
     /**
@@ -208,12 +208,16 @@ public class Room {
         this.west = west;
     }
 
-    public void setAdvObjects(List<AdvObject> advObjects) {
-        this.advObjects = advObjects;
+    public void setAdvItems(List<Item> advItems) {
+        this.advItems = advItems;
     }
 
-    public List<AdvObject> getAdvObjects() {
-        return advObjects;
+    public List<Item> getAdvItems() {
+        return advItems;
+    }
+
+    public void addAdvItem(Item item){
+        this.advItems.add(item);
     }
 
     /**

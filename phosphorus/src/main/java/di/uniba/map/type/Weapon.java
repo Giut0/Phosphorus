@@ -5,9 +5,9 @@ public class Weapon extends Item {
     private int weaponDamage;
     private boolean humanLock;
 
-    public Weapon(int id, String name, String description, int damage) {
-        super(id, name, description);
-        this.weaponDamage = damage;
+    public Weapon(int id, String name, String description, int itemLocation) {
+        super(id, name, description, itemLocation);
+        this.weaponDamage = 1;
         this.humanLock = true;
 
     }

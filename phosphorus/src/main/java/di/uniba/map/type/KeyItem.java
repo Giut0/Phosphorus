@@ -4,8 +4,8 @@ public class KeyItem extends Item {
 
     private boolean keyUsed;
 
-    public KeyItem(int id, String name, String description) {
-        super(id, name, description);
+    public KeyItem(int id, String name, String description, int itemLocation) {
+        super(id, name, description, itemLocation);
         this.keyUsed = false;
         
     }

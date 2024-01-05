@@ -1,11 +1,14 @@
 package di.uniba.map.type;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Represents a location or room within game world.
- * Each room serves as a distinct space where interactions occur and holds various attributes
+ * Each room serves as a distinct space where interactions occur and holds
+ * various attributes
  * describing its characteristics and contents.
  */
 public class Room {
@@ -26,7 +29,7 @@ public class Room {
     private boolean visible;
     private boolean completed;
 
-    private List<Item> advItems = new ArrayList<>();
+    private Map<String, Item> advItems = new HashMap<>();
     private List<Integer> charactersIDs = new ArrayList<>();
 
     /**
@@ -159,7 +162,6 @@ public class Room {
         this.oxygen = oxy;
     }
 
-
     public boolean isVisible() {
         return this.visible;
     }
@@ -168,8 +170,8 @@ public class Room {
         this.visible = visible;
     }
 
-    public void isCompleted(boolean completed) {
-        this.completed = completed;
+    public boolean isCompleted() {
+        return this.completed;
     }
 
     public void setCompleted(boolean completed) {
@@ -208,16 +210,19 @@ public class Room {
         this.west = west;
     }
 
-    public void setAdvItems(List<Item> advItems) {
-        this.advItems = advItems;
+    public void setAdvItems(List<Item> items) {
+        for (Item item : items) {
+            this.advItems.put(item.getItemName(), item);
+        }
+
     }
 
-    public List<Item> getAdvItems() {
+    public Map<String, Item> getAdvItems() {
         return advItems;
     }
 
-    public void addAdvItem(Item item){
-        this.advItems.add(item);
+    public void addAdvItem(Item item) {
+        this.advItems.put(item.getItemName(), item);
     }
 
     /**

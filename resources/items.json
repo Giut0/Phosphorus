@@ -1,38 +1,61 @@
 {
     "0": {
         "itemID": 0,
-        "itemType" : "Weapon",
-        "itemName": "Pistola",
-        "itemDescription": "...",
-        "itemLocation" : 1,
-        "itemAction" :"Spara",
-        "itemAlias" : ["Pistola", "Arma"]
+        "itemType": "Weapon",
+        "itemName": "pistola",
+        "itemDescription": "Particolare pistola, ha un meccanismo particolare che ti impedisce si ferire gli esseri umani.",
+        "itemLocation": 1,
+        "itemAction": "Spara",
+        "itemAlias": [
+            "Pistola",
+            "Arma"
+        ]
     },
     "1": {
         "itemID": 1,
-        "itemType" : "Other",
-        "itemName": "Modifica pistola",
-        "itemDescription": "...",
-        "itemLocation" : 2,
-        "itemAction" :"",
-        "itemAlias" : ["Modifica"]
+        "itemType": "Other",
+        "itemName": "modifica pistola",
+        "itemDescription": "Strumento che modifica la tua pistola, adesso è in grado di poter sparare anche agli umani.",
+        "itemLocation": 2,
+        "itemAction": "",
+        "itemAlias": [
+            "Modifica"
+        ]
     },
     "2": {
         "itemID": 2,
-        "itemType" : "Key",
-        "itemName": "Chiave sgabuzzino",
-        "itemDescription": "...",
-        "itemLocation" : 4,
-        "itemAction" :"Usa",
-        "itemAlias" : ["Chiave"]
+        "itemType": "Key",
+        "itemName": "chiave sgabuzzino",
+        "itemDescription": "Chiave che apre lo sgabuzzino.",
+        "itemLocation": 4,
+        "itemAction": "Usa",
+        "itemAlias": [
+            "Chiave"
+        ]
     },
     "3": {
         "itemID": 3,
-        "itemType" : "Key",
-        "itemName": "Tessera laboratorio",
-        "itemDescription": "...",
-        "itemLocation" : 4,
-        "itemAction" :"Usa",
-        "itemAlias" : ["Tessera", "Carta"]
+        "itemType": "Key",
+        "itemName": "tessera laboratorio",
+        "itemDescription": "La tessera per sbloccare la porta del laboratorio, da sola non basta, ti serve il codice di conferma.",
+        "itemLocation": 4,
+        "itemAction": "Usa",
+        "itemAlias": [
+            "Tessera",
+            "Carta"
+        ]
+    },
+    "4": {
+        "itemID": 4,
+        "itemType": "Other",
+        "itemName": "bigliettino",
+        "itemDescription": "Il bigliettino è abbastanza mal ridotto, ma si intravede una scritta: C@di&e la%orato£io 4815.",
+        "itemLocation": 4,
+        "itemAction": "Leggi",
+        "itemAlias": [
+            "cartoncino",
+            "biglietto",
+            "carta"
+        ]
     }
 }

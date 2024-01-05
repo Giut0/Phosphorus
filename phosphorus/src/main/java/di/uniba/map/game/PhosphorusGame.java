@@ -1,37 +1,45 @@
 package di.uniba.map.game;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
 import com.fasterxml.jackson.core.exc.StreamReadException;
 import com.fasterxml.jackson.databind.DatabindException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
+import di.uniba.Utils;
 import di.uniba.map.type.Action;
 import di.uniba.map.type.ActionType;
+import di.uniba.map.type.Item;
+import di.uniba.map.type.KeyItem;
 import di.uniba.map.type.Room;
+import di.uniba.map.type.Weapon;
 
 @SuppressWarnings("unchecked")
 public class PhosphorusGame {
 
-    public final int ROOM_NUMBER = 6;
-
     private GameEngine game;
 
-    public void initializeGame() {
+    private void initializeGame() {
         try {
 
-            game = new GameEngine();
-            game.addCommands(initializeActions());
-            game.addRooms(initializeRooms());
+            this.game = new GameEngine();
+            this.game.addCommands(initializeActions());
+            this.game.addRooms(initializeRooms());
 
         } catch (Exception e) {
-            // TODO: gestire eccezioni
+            e.printStackTrace();
         }
+    }
+
+    public PhosphorusGame() {
+        initializeGame();
+    }
+
+    public GameEngine getGame() {
+        return this.game;
     }
 
     /**
@@ -45,30 +53,37 @@ public class PhosphorusGame {
      * @throws IOException         If an I/O exception occurs while reading the
      *                             file.
      */
-    public List<Room> initializeRooms() throws StreamReadException, DatabindException, IOException {
+    private List<Room> initializeRooms() throws StreamReadException, DatabindException, IOException {
 
-        File JSON_SOURCE_ROOMS = new File("../resources/rooms.json");
-        Map<String, Object> fileRooms = new ObjectMapper().readValue(JSON_SOURCE_ROOMS, HashMap.class);
+        Map<String, Object> roomsFile = Utils.readJSON("resources/rooms.json");
         List<Room> rooms = new ArrayList<>();
+        List<Item> items = initializeItems();
+        if (roomsFile != null) {
 
-        for (int i = 0; i < 6; i++) {
-            Map<?, ?> result = (Map<?, ?>) fileRooms.get(Integer.toString(i));
-            Room room = new Room((int) result.get("roomId"), (String) result.get("roomName"),
-                    (String) result.get("roomDescription"), (String) result.get("lookDescription"),
-                    (int) result.get("floorNumber"), (boolean) result.get("visible"),
-                    (boolean) result.get("oxygen"));
-            room.setAdjacentRooms((Integer) result.get("north"), (Integer) result.get("south"),
-                    (Integer) result.get("est"), (Integer) result.get("west"));
-            room.setCharacters((List<Integer>) result.get("characters"));
-            rooms.add(room);
+            for (int i = 0; i < roomsFile.size(); i++) {
+                Map<?, ?> result = (Map<?, ?>) roomsFile.get(Integer.toString(i));
+                Room room = new Room((int) result.get("roomId"), (String) result.get("roomName"),
+                        (String) result.get("roomDescription"), (String) result.get("lookDescription"),
+                        (int) result.get("floorNumber"), (boolean) result.get("visible"),
+                        (boolean) result.get("oxygen"));
+                room.setAdjacentRooms((Integer) result.get("north"), (Integer) result.get("south"),
+                        (Integer) result.get("est"), (Integer) result.get("west"));
+                room.setCharacters((List<Integer>) result.get("characters"));
+                List<Integer> roomItemsIDs = (List<Integer>) result.get("items");
 
+                for (Integer itemID : roomItemsIDs) {
+                    room.addAdvItem(items.get(itemID));
+                }
+                rooms.add(room);
+
+            }
         }
 
         return rooms;
 
     }
 
-    public List<Action> initializeActions() {
+    private List<Action> initializeActions() {
 
         List<Action> actions = new ArrayList<>();
 
@@ -110,6 +125,30 @@ public class PhosphorusGame {
         actions.add(push);
 
         return actions;
+    }
+
+    private List<Item> initializeItems() throws StreamReadException, DatabindException, IOException {
+        Map<String, Object> itemsFile = Utils.readJSON("resources/items.json");
+        List<Item> items = new ArrayList<>();
+        if (itemsFile != null) {
+
+            for (int i = 0; i < itemsFile.size(); i++) {
+                Map<?, ?> result = (Map<?, ?>) itemsFile.get(Integer.toString(i));
+                if (((String) result.get("itemType")).equals("Weapon")) {
+                    Item item = new Weapon((int) result.get("itemID"), (String) result.get("itemName"),
+                            (String) result.get("itemDescription"), (int) result.get("itemLocation"));
+                    item.setItemAlias(new HashSet<>((List<String>) result.get("itemAlias")));
+                    items.add(item);
+                } else {
+                    Item item = new KeyItem((int) result.get("itemID"), (String) result.get("itemName"),
+                            (String) result.get("itemDescription"), (int) result.get("itemLocation"));
+                    item.setItemAlias(new HashSet<>((List<String>) result.get("itemAlias")));
+                    items.add(item);
+                }
+
+            }
+        }
+        return items;
     }
 
 }

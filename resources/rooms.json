@@ -14,8 +14,7 @@
         "items": [],
         "characters": [
             0,
-            1,
-            2
+            5
         ],
         "oxygen": true
     },
@@ -37,7 +36,8 @@
         "characters": [
             0,
             1,
-            2
+            2,
+            5
         ],
         "oxygen": true
     },
@@ -57,8 +57,9 @@
             1
         ],
         "characters": [
-            2,
-            4
+            7,
+            5,
+            2
         ],
         "oxygen": true
     },
@@ -75,7 +76,12 @@
         "west": 1,
         "est": 4,
         "items": [],
-        "characters": null,
+        "characters": [
+            3,
+            4,
+            5,
+            2
+        ],
         "oxygen": true
     },
     "4": {
@@ -93,11 +99,13 @@
         "items": [
             2,
             3,
-            4
+            4,
+            2
         ],
         "characters": [
-            2,
-            6
+            6,
+            5,
+            2
         ],
         "oxygen": false
     },
@@ -115,6 +123,7 @@
         "est": null,
         "items": [],
         "characters": [
+            5,
             2
         ],
         "oxygen": false

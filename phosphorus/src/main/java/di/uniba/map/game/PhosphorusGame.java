@@ -12,6 +12,8 @@ import com.fasterxml.jackson.databind.DatabindException;
 import di.uniba.Utils;
 import di.uniba.map.type.Action;
 import di.uniba.map.type.ActionType;
+import di.uniba.map.type.Character;
+import di.uniba.map.type.Enemy;
 import di.uniba.map.type.Item;
 import di.uniba.map.type.KeyItem;
 import di.uniba.map.type.Room;
@@ -58,6 +60,7 @@ public class PhosphorusGame {
         Map<String, Object> roomsFile = Utils.readJSON("resources/rooms.json");
         List<Room> rooms = new ArrayList<>();
         List<Item> items = initializeItems();
+        List<Character> characters = initializeCharacters();
         if (roomsFile != null) {
 
             for (int i = 0; i < roomsFile.size(); i++) {
@@ -68,12 +71,17 @@ public class PhosphorusGame {
                         (boolean) result.get("oxygen"));
                 room.setAdjacentRooms((Integer) result.get("north"), (Integer) result.get("south"),
                         (Integer) result.get("est"), (Integer) result.get("west"));
-                room.setCharacters((List<Integer>) result.get("characters"));
+                List<Integer> charactersIDs = (List<Integer>) result.get("characters");
                 List<Integer> roomItemsIDs = (List<Integer>) result.get("items");
 
                 for (Integer itemID : roomItemsIDs) {
                     room.addAdvItem(items.get(itemID));
                 }
+
+                for (Integer characterID : charactersIDs) {
+                    room.addCharacter(characters.get(characterID));
+                }
+
                 rooms.add(room);
 
             }
@@ -124,6 +132,10 @@ public class PhosphorusGame {
         push.setCommandAlias(new String[] { "premi", "attiva" });
         actions.add(push);
 
+        Action talk = new Action(ActionType.PARLA_CON, "parla");
+        talk.setCommandAlias(new String[] { "parla", "chiedi", "conversa" });
+        actions.add(talk);
+
         return actions;
     }
 
@@ -151,4 +163,49 @@ public class PhosphorusGame {
         return items;
     }
 
+    private List<Character> initializeCharacters() throws StreamReadException, DatabindException, IOException {
+        Map<String, Object> charactersFile = Utils.readJSON("resources/characters.json");
+        List<Character> characters = new ArrayList<>();
+
+        if (charactersFile != null) {
+
+            for (int i = 0; i < charactersFile.size(); i++) {
+                Map<?, ?> result = (Map<?, ?>) charactersFile.get(Integer.toString(i));
+                if (((String) result.get("type")).equals("enemy")) {
+                    Enemy enemy = new Enemy((int) result.get("characterId"), (String) result.get("characterName"),
+                            (String) result.get("characterDescription"));
+                    List<String> dialogs = (List<String>) result.get("dialogs");
+                    enemy.setDialogs(dialogs);
+                    characters.add(enemy);
+                } else {
+                    Character character = new Character((int) result.get("characterId"),
+                            (String) result.get("characterName"),
+                            (String) result.get("characterDescription"));
+                    List<String> dialogs = (List<String>) result.get("dialogs");
+                    character.setDialogs(dialogs);
+                    characters.add(character);
+                }
+            }
+
+        }
+
+        return characters;
+    }
 }
+
+/*
+ * "0": {
+ * "characterId": 0,
+ * "characterName": "Agente u13",
+ * "characterDescription": "...",
+ * "dialogs": [
+ * "Buongiorno f24, ho saputo che sei nuovo, hai sentito il comandante, dobbiamo andare in sala meeting. Il comandante è un tipo un po all'antica, sembra fermo al 1984, ma vabbè andiamo."
+ * ,
+ * "Cosa c'è non ti ricordi dove si trova? Appena a nord di quì, ti lascio l'onore di premere il pulsante per aprire la porta."
+ * ,
+ * "Ti ho detto che è un tipo un po' all'antica, io comunque rimango quì per tenere sotto controllo questa zona, va pure con r17, non è un tipo molto loquace, ma sa il fatto suo."
+ * ],
+ * "type": "enemy"
+ * 
+ * 
+ */

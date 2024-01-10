@@ -1,6 +1,8 @@
 package di.uniba.map.type;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class Inventory {
@@ -13,6 +15,12 @@ public class Inventory {
 
     public Set<Item> getInventory() {
         return this.inventory;
+    }
+
+    public List<Item> getAdvItemList(){
+        List<Item> items = new ArrayList<>();
+        items.addAll(this.inventory);
+        return items;
     }
 
     public void setInventory(Set<Item> inv) {

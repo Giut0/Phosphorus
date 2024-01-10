@@ -30,7 +30,7 @@ public class Room {
     private boolean completed;
 
     private Map<String, Item> advItems = new HashMap<>();
-    private List<Integer> charactersIDs = new ArrayList<>();
+    private List<Character> characters = new ArrayList<>();
 
     /**
      * Constructs a Room object with a given ID.
@@ -97,6 +97,10 @@ public class Room {
      */
     public String getName() {
         return roomName;
+    }
+
+    public void removeItem(String itemName){
+        this.advItems.remove(itemName.toLowerCase());
     }
 
     /**
@@ -221,6 +225,12 @@ public class Room {
         return advItems;
     }
 
+    public List<Item> getAdvItemsAList(){
+        List<Item> items = new ArrayList<>();
+        items.addAll(this.advItems.values());
+        return items;
+    }
+
     public void addAdvItem(Item item) {
         this.advItems.put(item.getItemName(), item);
     }
@@ -230,12 +240,12 @@ public class Room {
      *
      * @param character The character to be added.
      */
-    public void setCharacters(List<Integer> charactersIDs) {
-        this.charactersIDs = charactersIDs;
+    public void setCharacters(List<Character> characters) {
+        this.characters = characters;
     }
 
-    public List<Integer> getCharacters() {
-        return this.charactersIDs;
+    public List<Character> getCharacters() {
+        return this.characters;
     }
 
     /**
@@ -243,12 +253,12 @@ public class Room {
      *
      * @param character The character to be removed.
      */
-    public void removeCharacter(Integer characterID) {
-        this.charactersIDs.remove(characterID);
+    public void removeCharacter(Character character) {
+        this.characters.remove(character);
     }
 
-    public void addCharacter(Integer characterID) {
-        this.charactersIDs.add(characterID);
+    public void addCharacter(Character character) {
+        this.characters.add(character);
     }
 
     /**

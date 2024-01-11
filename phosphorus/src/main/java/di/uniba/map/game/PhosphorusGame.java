@@ -8,8 +8,9 @@ import java.util.Map;
 
 import com.fasterxml.jackson.core.exc.StreamReadException;
 import com.fasterxml.jackson.databind.DatabindException;
-
+import java.io.PrintStream;
 import di.uniba.Utils;
+import di.uniba.map.parser.ParserOutput;
 import di.uniba.map.type.Action;
 import di.uniba.map.type.ActionType;
 import di.uniba.map.type.Character;
@@ -127,14 +128,23 @@ public class PhosphorusGame {
         Action open = new Action(ActionType.APRI, "apri");
         open.setCommandAlias(new String[] {});
         actions.add(open);
-
-        Action push = new Action(ActionType.SPINGI, "spingi");
-        push.setCommandAlias(new String[] { "premi", "attiva" });
-        actions.add(push);
+        ;
 
         Action talk = new Action(ActionType.PARLA_CON, "parla");
         talk.setCommandAlias(new String[] { "parla", "chiedi", "conversa" });
         actions.add(talk);
+
+        Action invetory = new Action(ActionType.INVENTARIO, "inventario");
+        invetory.setCommandAlias(new String[] { "zaino", "oggeti", "items" });
+        actions.add(invetory);
+
+        Action shot = new Action(ActionType.SPARA_A, "spara");
+        shot.setCommandAlias(new String[] { "uccidi", "ammazza", "elimina", "termina", "fredda" });
+        actions.add(shot);
+
+        Action use = new Action(ActionType.USA, "usa");
+        use.setCommandAlias(new String[] { "interagisci", "utilizza" });
+        actions.add(use);
 
         return actions;
     }
@@ -191,21 +201,142 @@ public class PhosphorusGame {
 
         return characters;
     }
-}
 
-/*
- * "0": {
- * "characterId": 0,
- * "characterName": "Agente u13",
- * "characterDescription": "...",
- * "dialogs": [
- * "Buongiorno f24, ho saputo che sei nuovo, hai sentito il comandante, dobbiamo andare in sala meeting. Il comandante è un tipo un po all'antica, sembra fermo al 1984, ma vabbè andiamo."
- * ,
- * "Cosa c'è non ti ricordi dove si trova? Appena a nord di quì, ti lascio l'onore di premere il pulsante per aprire la porta."
- * ,
- * "Ti ho detto che è un tipo un po' all'antica, io comunque rimango quì per tenere sotto controllo questa zona, va pure con r17, non è un tipo molto loquace, ma sa il fatto suo."
- * ],
- * "type": "enemy"
- * 
- * 
- */
+    public void nextMove(ParserOutput p, PrintStream out) {
+        switch (p.getAction().getCommandType()) {
+
+            case EXIT:
+                out.println("STO USCENDO");
+                System.exit(0);
+                break;
+
+            case NORD:
+                if (game.getCurrentRoom().getNorth() != null) {
+                    this.game.setCurrentRoom(this.game.getRooms().get(this.game.getCurrentRoom().getNorth()));
+                    out.println("Sei entrato: " + this.game.getCurrentRoom().getName());
+                    out.println(this.game.getCurrentRoom().getDescription());
+                } else {
+                    out.println("Non ci sono stanze a nord");
+                }
+                break;
+
+            case SUD:
+                if (game.getCurrentRoom().getSouth() != null) {
+                    this.game.setCurrentRoom(this.game.getRooms().get(this.game.getCurrentRoom().getSouth()));
+                    out.println("Sei entrato: " + this.game.getCurrentRoom().getName());
+                    out.println(this.game.getCurrentRoom().getDescription());
+                } else {
+                    out.println("Non ci sono stanze a sud");
+                }
+                break;
+
+            case EST:
+                if (game.getCurrentRoom().getEast() != null) {
+                    this.game.setCurrentRoom(this.game.getRooms().get(this.game.getCurrentRoom().getEast()));
+                    out.println("Sei entrato: " + this.game.getCurrentRoom().getName());
+                    out.println(this.game.getCurrentRoom().getDescription());
+                } else {
+                    out.println("Non ci sono stanze a est");
+                }
+                break;
+
+            case OVEST:
+                if (game.getCurrentRoom().getWest() != null) {
+                    this.game.setCurrentRoom(this.game.getRooms().get(this.game.getCurrentRoom().getWest()));
+                    out.println("Sei entrato: " + this.game.getCurrentRoom().getName());
+                    out.println(this.game.getCurrentRoom().getDescription());
+                } else {
+                    out.println("Non ci sono stanze a ovest");
+                }
+                break;
+
+            case PARLA_CON:
+                if (game.getCurrentRoom().getCharacters().size() != 0) {
+                    if (p.getCharacter().isAlive()) {
+                        System.out.println(p.getCharacter().getCharacterName());
+                        System.out.println(p.getCharacter().getDialogs().get(0)); // TODO: Cambiare i dialoghi in
+                                                                                  // maniera dinamica
+                    } else {
+                        System.out.println(p.getCharacter().getCharacterName() + " è morto, non puoi parlarci.");
+                    }
+
+                } else {
+                    out.println(p.getCharacter().getCharacterName() + "Non è presente in questa stanza."); // TODO:
+                                                                                                           // veriricare
+                                                                                                           // se è da
+                                                                                                           // togliere
+                }
+
+                break;
+
+            case RACCOGLI:
+                if (game.getCurrentRoom().getAdvItemsAList().size() != 0) {
+                    game.getInventory().addAvdItem(p.getObject());
+                    System.out.println("Hai raccolto: " + p.getObject().getItemName());
+                    game.getCurrentRoom().removeItem(p.getObject().getItemName());
+                } else {
+                    System.out.println("Non ci sono oggetti nella stanza");
+                }
+                break;
+
+            case INVENTARIO:
+                if (!game.getInventory().getInventory().isEmpty()) {
+                    for (Item invItem : game.getInventory().getInventory()) {
+                        out.println(invItem.getItemName());
+                    }
+                } else {
+                    out.println("L'inventario è vuoto");
+                }
+
+                break;
+
+            case APRI:
+                if (game.getCurrentRoom().getWest() != null) {
+                    this.game.setCurrentRoom(this.game.getRooms().get(this.game.getCurrentRoom().getWest()));
+                    out.println("Sei entrato: " + this.game.getCurrentRoom().getName());
+                    out.println(this.game.getCurrentRoom().getDescription());
+                } else {
+                    out.println("Non ci sono stanze a ovest");
+                }
+                break;
+
+            case OSSERVA:
+                if (game.getCurrentRoom().getAdvItemsAList().size() != 0) {
+                    for (int i = 0; i < game.getCurrentRoom().getAdvItemsAList().size(); i++) {
+                        System.out.println("Oggetto n." + (i + 1) + " "
+                                + game.getCurrentRoom().getAdvItemsAList().get(i).getItemName());
+                    }
+                } else {
+                    System.out.println("Non ci sono oggetti nella stanza");
+                }
+                break;
+
+            case SPARA_A: //TODO: da compattare
+                if (!(p.getCharacter() == null)) {
+                    if (p.getCharacter().isAlive()) {
+                        if (game.getInventory().contains("pistola")) {
+                            if (p.getCharacter() instanceof Enemy || game.getInventory().contains("modifica pistola")) {
+                                out.println("Hai sparato a: " + p.getCharacter().getCharacterName() + ", adesso non è più in vita.");
+                                p.getCharacter().setAlive(false);
+                            } else {
+                                out.println("La tua pistola non è abilitata a ferire " + p.getCharacter().getCharacterName());
+                            }
+
+                        } else {
+                            out.println("Non puoi sparare senza un'arma, prova a cercarne una.");
+                        }
+
+                    } else {
+                        out.println(p.getCharacter().getCharacterName() + " è già morto");
+                    }
+
+                } else {
+                    out.println("Non capisco a chi vuoi sparare");
+                }
+                break;
+
+            default:
+                break;
+        }
+    }
+}

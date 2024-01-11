@@ -35,4 +35,17 @@ public class Inventory {
         this.inventory.remove(item);
     }
 
+    public boolean contains(Item item){
+        return this.inventory.contains(item);
+    }
+
+    public boolean contains(String itemName){
+        for (Item item : inventory) {
+            if(item.getItemName().equals(itemName)){
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

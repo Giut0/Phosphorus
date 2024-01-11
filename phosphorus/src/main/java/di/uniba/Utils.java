@@ -39,7 +39,7 @@ public class Utils {
 
     public static List<String> parseString(String string, Set<String> stopwords) {
         List<String> tokens = new ArrayList<>();
-        String[] split = string.toLowerCase().split("\\s+");
+        String[] split = string.toLowerCase().split("\\s+|\'");
         for (String t : split) {
             if (!stopwords.contains(t)) {
                 tokens.add(t);

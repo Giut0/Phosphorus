@@ -5,10 +5,10 @@
         "itemName": "pistola",
         "itemDescription": "Particolare pistola, ha un meccanismo particolare che ti impedisce si ferire gli esseri umani.",
         "itemLocation": 1,
-        "itemAction": "Spara",
+        "itemAction": "spara",
         "itemAlias": [
-            "Pistola",
-            "Arma"
+            "pistola",
+            "arma"
         ]
     },
     "1": {
@@ -19,7 +19,7 @@
         "itemLocation": 2,
         "itemAction": "",
         "itemAlias": [
-            "Modifica"
+            "modifica"
         ]
     },
     "2": {
@@ -28,9 +28,9 @@
         "itemName": "chiave sgabuzzino",
         "itemDescription": "Chiave che apre lo sgabuzzino.",
         "itemLocation": 4,
-        "itemAction": "Usa",
+        "itemAction": "usa",
         "itemAlias": [
-            "Chiave"
+            "chiave"
         ]
     },
     "3": {
@@ -39,10 +39,10 @@
         "itemName": "tessera laboratorio",
         "itemDescription": "La tessera per sbloccare la porta del laboratorio, da sola non basta, ti serve il codice di conferma.",
         "itemLocation": 4,
-        "itemAction": "Usa",
+        "itemAction": "usa",
         "itemAlias": [
-            "Tessera",
-            "Carta"
+            "tessera",
+            "carta"
         ]
     },
     "4": {
@@ -51,7 +51,7 @@
         "itemName": "bigliettino",
         "itemDescription": "Il bigliettino è abbastanza mal ridotto, ma si intravede una scritta: C@di&e la%orato£io 4815.",
         "itemLocation": 4,
-        "itemAction": "Leggi",
+        "itemAction": "leggi",
         "itemAlias": [
             "cartoncino",
             "biglietto",

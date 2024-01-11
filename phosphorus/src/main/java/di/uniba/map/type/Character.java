@@ -83,4 +83,5 @@ public class Character {
         this.dialogs = dialogs;
     }
 
+
 }

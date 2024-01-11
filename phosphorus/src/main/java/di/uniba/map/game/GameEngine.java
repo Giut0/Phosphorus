@@ -79,5 +79,4 @@ public class GameEngine {
     public void setCurrentRoom(Room currentRoom) {
         this.currentRoom = currentRoom;
     }
-
 }

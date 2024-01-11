@@ -12,6 +12,5 @@ public enum ActionType {
     USA,
     EXIT,
     SPARA_A,
-    OSSERVA,
-    SPINGI
+    OSSERVA
 }

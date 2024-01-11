@@ -24,6 +24,7 @@ import di.uniba.map.type.Weapon;
 public class PhosphorusGame {
 
     private GameEngine game;
+    private boolean menuLock;
 
     private void initializeGame() {
         try {
@@ -31,7 +32,7 @@ public class PhosphorusGame {
             this.game = new GameEngine();
             this.game.addCommands(initializeActions());
             this.game.addRooms(initializeRooms());
-
+            this.menuLock = true;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -43,6 +44,14 @@ public class PhosphorusGame {
 
     public GameEngine getGame() {
         return this.game;
+    }
+
+    public boolean getMenuLock(){
+        return this.menuLock;
+    }
+
+    public void setMenuLock(boolean menuLock) {
+        this.menuLock = menuLock;
     }
 
     /**
@@ -81,6 +90,10 @@ public class PhosphorusGame {
 
                 for (Integer characterID : charactersIDs) {
                     room.addCharacter(characters.get(characterID));
+                }
+
+                if ((boolean) result.get("locked")) {
+                    room.setLocked(true);
                 }
 
                 rooms.add(room);
@@ -125,11 +138,6 @@ public class PhosphorusGame {
         pickup.setCommandAlias(new String[] { "prendi" });
         actions.add(pickup);
 
-        Action open = new Action(ActionType.APRI, "apri");
-        open.setCommandAlias(new String[] {});
-        actions.add(open);
-        ;
-
         Action talk = new Action(ActionType.PARLA_CON, "parla");
         talk.setCommandAlias(new String[] { "parla", "chiedi", "conversa" });
         actions.add(talk);
@@ -145,6 +153,18 @@ public class PhosphorusGame {
         Action use = new Action(ActionType.USA, "usa");
         use.setCommandAlias(new String[] { "interagisci", "utilizza" });
         actions.add(use);
+
+        Action start = new Action(ActionType.START, "inizia");
+        start.setCommandAlias(new String[] { "start", "comincia", "begin"});
+        actions.add(start);
+
+        Action resume = new Action(ActionType.RESUME, "continua");
+        resume.setCommandAlias(new String[] { "resume", "riprendi"});
+        actions.add(resume);
+
+        Action map_ground = new Action(ActionType.MAPPA, "mappa");
+        map_ground.setCommandAlias(new String[] { "piantina"});
+        actions.add(map_ground);
 
         return actions;
     }
@@ -202,6 +222,31 @@ public class PhosphorusGame {
         return characters;
     }
 
+    public void menuMove(ParserOutput p, PrintStream out){
+        switch (p.getAction().getCommandType()) {
+
+            case EXIT:
+                out.println("STO USCENDO");
+                System.exit(0);
+                break;
+
+            case START:
+                out.println("\nTi trovi a bordo di una navicella spaziale, sei di ritorno dopo un lungo viaggio per recuperare il fosforo \n" +
+                "che attualmente sulla terra scarseggia, avete catturato due alieni che producono fosforo naturalmente rilasciandolo come meccanismo di difesa.");
+                setMenuLock(false);
+                break;
+
+            case RESUME: //TODO
+                
+                setMenuLock(false);
+                break;
+
+            default:
+                out.println("\nNon ho capito, ti ricordo che sei ancora nel menù principale.");
+                break;
+        }
+    }
+
     public void nextMove(ParserOutput p, PrintStream out) {
         switch (p.getAction().getCommandType()) {
 
@@ -210,43 +255,71 @@ public class PhosphorusGame {
                 System.exit(0);
                 break;
 
+            case MAPPA:
+                if(game.getCurrentRoom().getFloorNumber() == 0){
+                    UI.printGroundFloorMap(out);
+                }else{
+                    UI.printFirstFloorMap(out);
+                }
+                break;
+
             case NORD:
                 if (game.getCurrentRoom().getNorth() != null) {
-                    this.game.setCurrentRoom(this.game.getRooms().get(this.game.getCurrentRoom().getNorth()));
-                    out.println("Sei entrato: " + this.game.getCurrentRoom().getName());
-                    out.println(this.game.getCurrentRoom().getDescription());
+                    if (!this.game.getRooms().get(this.game.getCurrentRoom().getNorth()).getLocked()) {
+                        this.game.setCurrentRoom(this.game.getRooms().get(this.game.getCurrentRoom().getNorth()));
+                        out.println("\nSei entrato: " + this.game.getCurrentRoom().getName());
+                        out.println(this.game.getCurrentRoom().getDescription());
+                    } else {
+                        out.println("\nLa stanza è chiusa a chiave, non puoi entrarci.");
+                    }
+
                 } else {
-                    out.println("Non ci sono stanze a nord");
+                    out.println("\nNon ci sono stanze a nord");
                 }
                 break;
 
             case SUD:
                 if (game.getCurrentRoom().getSouth() != null) {
-                    this.game.setCurrentRoom(this.game.getRooms().get(this.game.getCurrentRoom().getSouth()));
-                    out.println("Sei entrato: " + this.game.getCurrentRoom().getName());
-                    out.println(this.game.getCurrentRoom().getDescription());
+                    if (!this.game.getRooms().get(this.game.getCurrentRoom().getSouth()).getLocked()) {
+                        this.game.setCurrentRoom(this.game.getRooms().get(this.game.getCurrentRoom().getSouth()));
+                        out.println("\nSei entrato: " + this.game.getCurrentRoom().getName());
+                        out.println(this.game.getCurrentRoom().getDescription());
+                    } else {
+                        out.println("\nLa stanza è chiusa a chiave, non puoi entrarci.");
+                    }
+
                 } else {
-                    out.println("Non ci sono stanze a sud");
+                    out.println("\nNon ci sono stanze a sud");
                 }
                 break;
 
             case EST:
                 if (game.getCurrentRoom().getEast() != null) {
-                    this.game.setCurrentRoom(this.game.getRooms().get(this.game.getCurrentRoom().getEast()));
-                    out.println("Sei entrato: " + this.game.getCurrentRoom().getName());
-                    out.println(this.game.getCurrentRoom().getDescription());
+                    if (!this.game.getRooms().get(this.game.getCurrentRoom().getEast()).getLocked()) {
+                        this.game.setCurrentRoom(this.game.getRooms().get(this.game.getCurrentRoom().getEast()));
+                        out.println("\nSei entrato: " + this.game.getCurrentRoom().getName());
+                        out.println(this.game.getCurrentRoom().getDescription());
+                    } else {
+                        out.println("\nLa stanza è chiusa a chiave, non puoi entrarci.");
+                    }
+
                 } else {
-                    out.println("Non ci sono stanze a est");
+                    out.println("\nNon ci sono stanze a est");
                 }
                 break;
 
             case OVEST:
                 if (game.getCurrentRoom().getWest() != null) {
-                    this.game.setCurrentRoom(this.game.getRooms().get(this.game.getCurrentRoom().getWest()));
-                    out.println("Sei entrato: " + this.game.getCurrentRoom().getName());
-                    out.println(this.game.getCurrentRoom().getDescription());
+                    if (!this.game.getRooms().get(this.game.getCurrentRoom().getWest()).getLocked()) {
+                        this.game.setCurrentRoom(this.game.getRooms().get(this.game.getCurrentRoom().getWest()));
+                        out.println("\nSei entrato: " + this.game.getCurrentRoom().getName());
+                        out.println(this.game.getCurrentRoom().getDescription());
+                    } else {
+                        out.println("\nLa stanza è chiusa a chiave, non puoi entrarci.");
+                    }
+
                 } else {
-                    out.println("Non ci sono stanze a ovest");
+                    out.println("\nNon ci sono stanze a ovest");
                 }
                 break;
 
@@ -254,17 +327,13 @@ public class PhosphorusGame {
                 if (game.getCurrentRoom().getCharacters().size() != 0) {
                     if (p.getCharacter().isAlive()) {
                         System.out.println(p.getCharacter().getCharacterName());
-                        System.out.println(p.getCharacter().getDialogs().get(0)); // TODO: Cambiare i dialoghi in
-                                                                                  // maniera dinamica
+                        System.out.println(p.getCharacter().getDialogs().get(0)); // TODO: Cambiare i dialoghi in maniera dinamica
                     } else {
-                        System.out.println(p.getCharacter().getCharacterName() + " è morto, non puoi parlarci.");
+                        System.out.println("\n" + p.getCharacter().getCharacterName() + " è morto, non puoi parlarci.");
                     }
 
                 } else {
-                    out.println(p.getCharacter().getCharacterName() + "Non è presente in questa stanza."); // TODO:
-                                                                                                           // veriricare
-                                                                                                           // se è da
-                                                                                                           // togliere
+                    out.println("\n" + p.getCharacter().getCharacterName() + "Non è presente in questa stanza."); // TODO: veriricare e è da ogliere
                 }
 
                 break;
@@ -272,10 +341,10 @@ public class PhosphorusGame {
             case RACCOGLI:
                 if (game.getCurrentRoom().getAdvItemsAList().size() != 0) {
                     game.getInventory().addAvdItem(p.getObject());
-                    System.out.println("Hai raccolto: " + p.getObject().getItemName());
+                    System.out.println("\nHai raccolto: " + p.getObject().getItemName());
                     game.getCurrentRoom().removeItem(p.getObject().getItemName());
                 } else {
-                    System.out.println("Non ci sono oggetti nella stanza");
+                    System.out.println("\nNon ci sono oggetti nella stanza");
                 }
                 break;
 
@@ -285,53 +354,45 @@ public class PhosphorusGame {
                         out.println(invItem.getItemName());
                     }
                 } else {
-                    out.println("L'inventario è vuoto");
+                    out.println("\nL'inventario è vuoto");
                 }
 
                 break;
 
-            case APRI:
-                if (game.getCurrentRoom().getWest() != null) {
-                    this.game.setCurrentRoom(this.game.getRooms().get(this.game.getCurrentRoom().getWest()));
-                    out.println("Sei entrato: " + this.game.getCurrentRoom().getName());
-                    out.println(this.game.getCurrentRoom().getDescription());
-                } else {
-                    out.println("Non ci sono stanze a ovest");
-                }
-                break;
-
-            case OSSERVA:
+            case OSSERVA: //TODO
                 if (game.getCurrentRoom().getAdvItemsAList().size() != 0) {
                     for (int i = 0; i < game.getCurrentRoom().getAdvItemsAList().size(); i++) {
                         System.out.println("Oggetto n." + (i + 1) + " "
                                 + game.getCurrentRoom().getAdvItemsAList().get(i).getItemName());
                     }
                 } else {
-                    System.out.println("Non ci sono oggetti nella stanza");
+                    System.out.println("\nNon ci sono oggetti nella stanza");
                 }
                 break;
 
-            case SPARA_A: //TODO: da compattare
+            case SPARA_A: // TODO: da compattare
                 if (!(p.getCharacter() == null)) {
                     if (p.getCharacter().isAlive()) {
                         if (game.getInventory().contains("pistola")) {
                             if (p.getCharacter() instanceof Enemy || game.getInventory().contains("modifica pistola")) {
-                                out.println("Hai sparato a: " + p.getCharacter().getCharacterName() + ", adesso non è più in vita.");
+                                out.println("\nHai sparato a: " + p.getCharacter().getCharacterName()
+                                        + ", adesso non è più in vita.");
                                 p.getCharacter().setAlive(false);
                             } else {
-                                out.println("La tua pistola non è abilitata a ferire " + p.getCharacter().getCharacterName());
+                                out.println("\nLa tua pistola non è abilitata a ferire "
+                                        + p.getCharacter().getCharacterName());
                             }
 
                         } else {
-                            out.println("Non puoi sparare senza un'arma, prova a cercarne una.");
+                            out.println("\nNon puoi sparare senza un'arma, prova a cercarne una.");
                         }
 
                     } else {
-                        out.println(p.getCharacter().getCharacterName() + " è già morto");
+                        out.println("\n" + p.getCharacter().getCharacterName() + " è già morto");
                     }
 
                 } else {
-                    out.println("Non capisco a chi vuoi sparare");
+                    out.println("\nNon capisco a chi vuoi sparare");
                 }
                 break;
 

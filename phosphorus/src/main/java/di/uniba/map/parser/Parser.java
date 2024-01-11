@@ -43,7 +43,8 @@ public class Parser {
         return -1;
     }
 
-    public ParserOutput parseAction(String action, List<Action> actions, List<Item> objects, List<Character> characters) {
+    public ParserOutput parseAction(String action, List<Action> actions, List<Item> objects,
+            List<Character> characters) {
         List<String> tokens = Utils.parseString(action, stopwords); // Elminiazione stopwords
 
         if (!tokens.isEmpty()) {
@@ -60,12 +61,14 @@ public class Parser {
 
                     if (ch > -1) {
                         return new ParserOutput(actions.get(ic), characters.get(ch)); // <Action> <Character>
-                    }else{
+                    } else {
                         return new ParserOutput(actions.get(ic), null, null);
                     }
 
                 }
 
+            } else if (ic > -1) {
+                return new ParserOutput(actions.get(ic)); // <Action>
             } else {
                 return new ParserOutput(null);
             }

@@ -6,6 +6,7 @@ import com.fasterxml.jackson.core.exc.StreamReadException;
 import com.fasterxml.jackson.databind.DatabindException;
 import di.uniba.Utils;
 import di.uniba.map.game.PhosphorusGame;
+import di.uniba.map.game.UI;
 import di.uniba.map.parser.Parser;
 import di.uniba.map.parser.ParserOutput;
 
@@ -18,9 +19,12 @@ public class App {
 
         game.getGame().setCurrentRoom(game.getGame().getRooms().get(0));
 
-        Parser parser = new Parser(Utils.loadFileListInSet(new File("resources/stopwords")));
+        UI.printTitle(System.out);
+        UI.printMainMenu(System.out);
 
+        Parser parser = new Parser(Utils.loadFileListInSet(new File("resources/stopwords")));
         Scanner scanner = new Scanner(System.in);
+        System.out.print("\n>> ");
         while (scanner.hasNextLine()) {
             String command = scanner.nextLine();
             ParserOutput p = parser.parseAction(command, game.getGame().getCommandsAsList(),
@@ -29,7 +33,14 @@ public class App {
             if (p.getAction() == null) {
                 System.out.println("Non ho capito");
             } else {
-                game.nextMove(p, System.out);
+                if(game.getMenuLock()){
+                    game.menuMove(p, System.out);
+                    System.out.print("\n>> ");
+                }else{
+                    game.nextMove(p, System.out);
+                    System.out.print("\n>> ");
+                }
+                
             }
 
         }

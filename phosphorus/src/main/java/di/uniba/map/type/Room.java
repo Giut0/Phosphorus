@@ -25,6 +25,8 @@ public class Room {
 
     private int floorNumber;
 
+    private boolean locked;
+
     private boolean oxygen;
     private boolean visible;
     private boolean completed;
@@ -277,6 +279,14 @@ public class Room {
      */
     public void setLook(String look) {
         this.lookDescription = look;
+    }
+
+    public void setLocked(boolean locked) {
+        this.locked = locked;
+    }
+
+    public boolean getLocked() {
+        return locked;
     }
 
     /**

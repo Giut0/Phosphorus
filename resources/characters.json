@@ -1,54 +1,54 @@
 {
     "0": {
         "characterId": 0,
-        "characterName": "Agente u13",
+        "characterName": "Agente13",
         "characterDescription": "...",
         "dialogs": [
             "Buongiorno f24, ho saputo che sei nuovo, hai sentito il comandante, dobbiamo andare in sala meeting. Il comandante è un tipo un po all'antica, sembra fermo al 1984, ma vabbè andiamo.",
-            "Cosa c'è non ti ricordi dove si trova? Appena a nord di quì, ti lascio l'onore di premere il pulsante per aprire la porta.",
+            "Cosa c'è non ti ricordi dove si trova? Appena a nord di quì.",
             "Ti ho detto che è un tipo un po' all'antica, io comunque rimango quì per tenere sotto controllo questa zona, va pure con r17, non è un tipo molto loquace, ma sa il fatto suo."
         ],
-        "currentRoom": 0
+        "type": "friend"
     },
     "1": {
         "characterId": 1,
-        "characterName": "Comandante a4",
+        "characterName": "Comandante",
         "characterDescription": "...",
         "dialogs": [
             "Bentrovati a tutti, non prediamoci in chaicchiere, vi ho convocati con così poco preavviso perchè dovete indagare sulla fuga di alcuni alieni dal laboratorio, prendete le pistole dal quel tavolo laggiù, potrebbero essere ostili. GLORIA AD INGSOC!",
             "Cosa c'è ancora? Quale parte di indagate sulla fuga di alcuni alieni non avete capito? Dai su, provate ad andare in laboratorio, solo che ci vuole il codice d'accesso, vedetevela voi. GLORIA AD INGSOC!",
             "GLORIA AD INGSOC!"
         ],
-        "currentRoom": 1
+        "type": "friend"
     },
     "2": {
         "characterId": 2,
-        "characterName": "Agente r17",
+        "characterName": "Agente17",
         "characterDescription": "...",
         "dialogs": [
             "..."
         ],
-        "currentRoom": 1
+        "type": "friend"
     },
     "3": {
         "characterId": 3,
-        "characterName": "Agente s01",
+        "characterName": "Agente01",
         "characterDescription": "...",
         "dialogs": [
             "Cosa vuoi? La password d'accesso al laboratorio? Lasciami mangaire in santa pace!",
             "Gnam gnam..."
         ],
-        "currentRoom": "TODO"
+        "type": "friend"
     },
     "4": {
         "characterId": 4,
-        "characterName": "Agente s02",
+        "characterName": "Agente02",
         "characterDescription": "...",
         "dialogs": [
             "Salve agenti... *tosse* cosa vi porta quì? La *tosse* password per il laboratorio, *tosse*, mi dispiace ma non tanto sto bene *tosse*, non ricordo...*tosse*.",
             "*tosse*"
         ],
-        "currentRoom": "TODO"
+        "type": "friend"
     },
     "5": {
         "characterId": 5,
@@ -56,7 +56,6 @@
         "characterDescription": "...",
         "dialogs": [
             "Il tono sembra preoccupato, meglio controllare",
-            "Premi il pulsante per aprire la porta",
             "Prendi la postola, ti sarà utile contro gli alieni, è stata progettata per eliminare solo loro.",
             "Strano che s02 sia malato, non ci sono possibilità di ammalarsi su questa navicella, è tutto sterilizzato, ma vabbè continuamo ad esplorare, dobbiamo trovare il terzo scienziato.",
             "Non c'è ossigeno in questa stanza, meglio equipaggiare la bombola",
@@ -66,15 +65,24 @@
             "ELIMINALO!",
             "Ben fatto!"
         ],
-        "currentRoom": null
+        "type": "friend"
     },
     "6": {
         "characterId": 6,
-        "characterName": "Alieno x28",
+        "characterName": "Alieno",
         "characterDescription": "...",
         "dialogs": [
             "AAAAAAAAAAAARRRRRRRGGGGGHHHHH"
         ],
-        "currentRoom": 5
+        "type": "enemy"
+    },
+    "7": {
+        "characterId": 7,
+        "characterName": "Alieno",
+        "characterDescription": "...",
+        "dialogs": [
+            "GGGGRRRRRRRRRRRRRRRRRR"
+        ],
+        "type": "enemy"
     }
 }

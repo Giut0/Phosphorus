@@ -21,6 +21,11 @@ public class Enemy extends Character{
         this.attackDamage = attackDamage;
     }
 
+    public Enemy(int id, String name, String desc){
+        super(id, name, desc);
+        this.attackDamage = 1;
+    }
+
     public int getAttackDamage() {
         return attackDamage;
     }

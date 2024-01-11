@@ -1,5 +1,6 @@
 package di.uniba.map.game;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,11 +13,13 @@ public class GameEngine {
 
     private Map<String, Action> commands;
 
-    private Map<String, Room> rooms;
+    private Map<Integer, Room> rooms;
+
+    private Room currentRoom;
 
     private Inventory inventory;
 
-    public GameEngine(Map<String, Action> commands, Map<String, Room> rooms) {
+    public GameEngine(Map<String, Action> commands, Map<Integer, Room> rooms) {
         this.commands = commands;
         this.rooms = rooms;
         this.inventory = new Inventory();
@@ -24,7 +27,7 @@ public class GameEngine {
 
     public GameEngine() {
         this.commands = new HashMap<String, Action>();
-        this.rooms = new HashMap<String, Room>();
+        this.rooms = new HashMap<Integer, Room>();
         this.inventory = new Inventory();
     }
 
@@ -41,11 +44,11 @@ public class GameEngine {
     public void addRooms(List<Room> list) {
 
         for (Room room : list) {
-            this.rooms.put(room.getName(), room);
+            this.rooms.put(room.getRoomID(), room);
         }
     }
 
-    public Map<String, Room> getRooms() {
+    public Map<Integer, Room> getRooms() {
         return this.rooms;
     }
 
@@ -53,12 +56,27 @@ public class GameEngine {
         return this.commands;
     }
 
+    public List<Action> getCommandsAsList() {
+        List<Action> actions = new ArrayList<>();
+        actions.addAll(this.commands.values());
+        return actions;
+    }
+
+    public List<Room> getRoomsAsList() {
+        List<Room> rooms = new ArrayList<>();
+        rooms.addAll(this.rooms.values());
+        return rooms;
+    }
+
     public Inventory getInventory() {
         return this.inventory;
     }
 
-    public void init() {
-
+    public Room getCurrentRoom() {
+        return currentRoom;
     }
 
+    public void setCurrentRoom(Room currentRoom) {
+        this.currentRoom = currentRoom;
+    }
 }

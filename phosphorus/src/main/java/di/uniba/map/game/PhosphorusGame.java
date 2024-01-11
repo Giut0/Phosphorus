@@ -1,5 +1,6 @@
 package di.uniba.map.game;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -10,6 +11,7 @@ import com.fasterxml.jackson.core.exc.StreamReadException;
 import com.fasterxml.jackson.databind.DatabindException;
 import java.io.PrintStream;
 import di.uniba.Utils;
+import di.uniba.map.parser.Parser;
 import di.uniba.map.parser.ParserOutput;
 import di.uniba.map.type.Action;
 import di.uniba.map.type.ActionType;
@@ -19,6 +21,7 @@ import di.uniba.map.type.Item;
 import di.uniba.map.type.KeyItem;
 import di.uniba.map.type.Room;
 import di.uniba.map.type.Weapon;
+import java.util.Scanner;
 
 @SuppressWarnings("unchecked")
 public class PhosphorusGame {
@@ -40,6 +43,7 @@ public class PhosphorusGame {
 
     public PhosphorusGame() {
         initializeGame();
+        this.getGame().setCurrentRoom(this.getGame().getRooms().get(0));
     }
 
     public GameEngine getGame() {
@@ -162,6 +166,10 @@ public class PhosphorusGame {
         resume.setCommandAlias(new String[] { "resume", "riprendi"});
         actions.add(resume);
 
+        Action music = new Action(ActionType.MUSIC, "musica");
+        music.setCommandAlias(new String[] { "music", "canzone", "musichetta"});
+        actions.add(music);
+
         Action map_ground = new Action(ActionType.MAPPA, "mappa");
         map_ground.setCommandAlias(new String[] { "piantina"});
         actions.add(map_ground);
@@ -234,6 +242,7 @@ public class PhosphorusGame {
                 out.println("\nTi trovi a bordo di una navicella spaziale, sei di ritorno dopo un lungo viaggio per recuperare il fosforo \n" +
                 "che attualmente sulla terra scarseggia, avete catturato due alieni che producono fosforo naturalmente rilasciandolo come meccanismo di difesa.");
                 setMenuLock(false);
+                this.getGame().setCurrentRoom(this.getGame().getRooms().get(0));
                 break;
 
             case RESUME: //TODO
@@ -399,5 +408,31 @@ public class PhosphorusGame {
             default:
                 break;
         }
+    }
+
+    public void initGame() throws IOException{
+        Parser parser = new Parser(Utils.loadFileListInSet(new File("resources/stopwords")));
+                Scanner scanner = new Scanner(System.in);
+                System.out.print("\n>> ");
+                while (scanner.hasNextLine()) {
+                    String command = scanner.nextLine();
+                    ParserOutput p = parser.parseAction(command, this.getGame().getCommandsAsList(),
+                            this.getGame().getCurrentRoom().getAdvItemsAList(),
+                            this.getGame().getCurrentRoom().getCharacters());
+                    if (p.getAction() == null) {
+                        System.out.println("Non ho capito");
+                    } else {
+                        if ( this.getMenuLock()) {
+                            this.menuMove(p, System.out);
+                            System.out.print("\n>> ");
+                        } else {
+                            this.nextMove(p, System.out);
+                            System.out.print("\n>> ");
+                        }
+
+                    }
+
+                }
+                scanner.close();
     }
 }

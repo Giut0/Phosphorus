@@ -1,4 +1,4 @@
-package di.uniba;
+package di.uniba.map;
 
 import java.io.File;
 import java.io.IOException;

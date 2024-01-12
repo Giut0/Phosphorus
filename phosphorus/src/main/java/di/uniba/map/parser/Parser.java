@@ -1,6 +1,6 @@
 package di.uniba.map.parser;
 
-import di.uniba.Utils;
+import di.uniba.map.Utils;
 import di.uniba.map.type.Action;
 import di.uniba.map.type.Character;
 import di.uniba.map.type.Item;

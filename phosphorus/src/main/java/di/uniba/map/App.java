@@ -4,22 +4,12 @@ import java.io.IOException;
 import java.io.File;
 import com.fasterxml.jackson.core.exc.StreamReadException;
 import com.fasterxml.jackson.databind.DatabindException;
-import di.uniba.Utils;
-import di.uniba.map.game.MusicPlayer;
 import di.uniba.map.game.PhosphorusGame;
 import di.uniba.map.game.UI;
-import di.uniba.map.parser.Parser;
-import di.uniba.map.parser.ParserOutput;
-
 import java.util.Scanner;
 
 import javax.sound.sampled.*;
-import java.io.File;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.util.Scanner;
 
 public class App {
     public static void main(String[] args) throws StreamReadException, DatabindException, IOException {
@@ -29,7 +19,7 @@ public class App {
         UI.printTitle(System.out);
         UI.printMainMenu(System.out);
 
-        String audioFilePath = "resources/music/Menu song.wav"; // Percorso assoluto del tuo file audio
+        String audioFilePath = "phosphorus/resources/music/Short_circuit.wav"; // Percorso assoluto del tuo file audio
 
         try {
             AudioInputStream audioStream = AudioSystem.getAudioInputStream(new File(audioFilePath));
@@ -41,14 +31,14 @@ public class App {
 
             Scanner MusicScanner = new Scanner(System.in);
 
-            audioClip.start();
+            audioClip.loop(Clip.LOOP_CONTINUOUSLY);
 
             // Attendi fino a quando il clip non è terminato
             while (!audioClip.isRunning()) {
                 Thread.sleep(10);
             }
             while (audioClip.isRunning()) {
-                game.initGame();
+                game.initGame(audioClip);
                 Thread.sleep(10);
             }
 

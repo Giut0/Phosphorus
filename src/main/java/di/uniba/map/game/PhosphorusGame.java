@@ -484,7 +484,7 @@ public class PhosphorusGame {
                     this.getGame().getCurrentRoom().getAdvItemsAList(),
                     this.getGame().getCurrentRoom().getCharacters());
             if (p.getAction() == null) {
-                System.out.println("Non ho capito");
+                System.out.println("\nNon ho capito");
                 System.out.print("\n>> ");
             } else {
                 if (this.getMenuLock()) {

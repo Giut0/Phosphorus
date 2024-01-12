@@ -27,6 +27,23 @@ public class UI {
                 "Quando sei pronto ad iniziare digita Inizia.");
     }
 
+    public static void printCommandsList(PrintStream out){
+        out.println("\nLista di tutti i comandi che puoi eseguire in game:\n" + //
+                "\n" + //
+                "\t- Esci: per uscire dal gioco e tornare al menù principale,\n" + //
+                "\t- Musica: per disattivare o attivare la musica del gioco,\n" + //
+                "\t- Mappa: per visualizzare la mappa di gioco,\n" + //
+                "\t- Nord: per muoversi a nord,\n" + //
+                "\t- Sud: per muoversi a sud,\n" + //
+                "\t- Est: per muoversi a est,\n" + //
+                "\t- Ovest: per muoversi a ovest,\n" + //
+                "\t- Parla: per parlare ad un NPC,\n" + //
+                "\t- Raccogli: per prendere un oggetto,\n" + //
+                "\t- Inventario: per visualizzare tutti gli oggetti che hai raccolto,\n" + //
+                "\t- Osserva: per ispezionare l'ambente circostante,\n" + //
+                "\t- Spara: per sparare ad un avversario.");
+    }
+
     public static void printGroundFloorMap(PrintStream out){
             out.println("\n╔═════════════════════════════════════════════════════════════════╗");
             out.println("║                        Mappa piano terra                        ║");

@@ -59,8 +59,8 @@ public class Room {
             boolean oxy) {
         this.roomID = id;
         this.setName(name);
-        this.setDescription(lookDescription);
-        this.setLook(lookDescription);
+        this.setDescription(description);
+        this.setLookDescription(lookDescription);
         this.setFloorNumber(floorNumber);
         this.setVisible(visible);
         this.setOxygen(oxy);
@@ -268,17 +268,12 @@ public class Room {
      *
      * @return The visual description of the room.
      */
-    public String getLook() {
-        return lookDescription;
+    public String getLookDescription() {
+        return this.lookDescription;
     }
 
-    /**
-     * Sets the visual description of the room.
-     *
-     * @param look The visual description of the room.
-     */
-    public void setLook(String look) {
-        this.lookDescription = look;
+    public void setLookDescription(String lookDescription) {
+        this.lookDescription = lookDescription;
     }
 
     public void setLocked(boolean locked) {

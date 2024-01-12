@@ -1,13 +1,11 @@
 package di.uniba.map.type;
 
-import java.util.List;
-
 public class Enemy extends Character{
     
     private int attackDamage;
 
-    public Enemy(int id, String name, String desc, Room room, List<String> dialog, int attackDamage) {
-        super(id, name, desc, room, dialog);
+    public Enemy(int id, String name, String desc, Room room, String mainDialog, String defDialog, int attackDamage) {
+        super(id, name, desc, room, mainDialog, defDialog);
         this.attackDamage = attackDamage;
     }
 

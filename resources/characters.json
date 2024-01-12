@@ -3,9 +3,11 @@
         "characterId": 0,
         "characterName": "Agente13",
         "characterDescription": "...",
+        "mainDialog" : "Buongiorno f24, ho saputo che sei nuovo, hai sentito il comandante, dobbiamo andare in sala meeting. Il comandante è un tipo un po all'antica, sembra fermo al 1984, ma vabbè andiamo.",
+        "defaultDialog" : "Cosa c'è non ti ricordi dove si trova la sala meeting? Appena a nord di quì.",
         "dialogs": [
             "Buongiorno f24, ho saputo che sei nuovo, hai sentito il comandante, dobbiamo andare in sala meeting. Il comandante è un tipo un po all'antica, sembra fermo al 1984, ma vabbè andiamo.",
-            "Cosa c'è non ti ricordi dove si trova? Appena a nord di quì.",
+            "Cosa c'è non ti ricordi dove si trova la sala meeting? Appena a nord di quì.",
             "Ti ho detto che è un tipo un po' all'antica, io comunque rimango quì per tenere sotto controllo questa zona, va pure con r17, non è un tipo molto loquace, ma sa il fatto suo."
         ],
         "type": "friend"
@@ -14,6 +16,8 @@
         "characterId": 1,
         "characterName": "Comandante",
         "characterDescription": "...",
+        "mainDialog" : "...",
+        "defaultDialog" : "...",
         "dialogs": [
             "Bentrovati a tutti, non prediamoci in chaicchiere, vi ho convocati con così poco preavviso perchè dovete indagare sulla fuga di alcuni alieni dal laboratorio, prendete le pistole dal quel tavolo laggiù, potrebbero essere ostili. GLORIA AD INGSOC!",
             "Cosa c'è ancora? Quale parte di indagate sulla fuga di alcuni alieni non avete capito? Dai su, provate ad andare in laboratorio, solo che ci vuole il codice d'accesso, vedetevela voi. GLORIA AD INGSOC!",
@@ -25,15 +29,16 @@
         "characterId": 2,
         "characterName": "Agente17",
         "characterDescription": "...",
-        "dialogs": [
-            "..."
-        ],
+        "mainDialog" : "...",
+        "defaultDialog" : "...",
         "type": "friend"
     },
     "3": {
         "characterId": 3,
-        "characterName": "Agente01",
+        "characterName": "Sci01",
         "characterDescription": "...",
+        "mainDialog" : "...",
+        "defaultDialog" : "...",
         "dialogs": [
             "Cosa vuoi? La password d'accesso al laboratorio? Lasciami mangaire in santa pace!",
             "Gnam gnam..."
@@ -42,8 +47,10 @@
     },
     "4": {
         "characterId": 4,
-        "characterName": "Agente02",
+        "characterName": "Sci02",
         "characterDescription": "...",
+        "mainDialog" : "...",
+        "defaultDialog" : "...",
         "dialogs": [
             "Salve agenti... *tosse* cosa vi porta quì? La *tosse* password per il laboratorio, *tosse*, mi dispiace ma non tanto sto bene *tosse*, non ricordo...*tosse*.",
             "*tosse*"
@@ -51,35 +58,22 @@
         "type": "friend"
     },
     "5": {
-        "characterId": 5,
-        "characterName": "Cortana",
-        "characterDescription": "...",
-        "dialogs": [
-            "Il tono sembra preoccupato, meglio controllare",
-            "Prendi la postola, ti sarà utile contro gli alieni, è stata progettata per eliminare solo loro.",
-            "Strano che s02 sia malato, non ci sono possibilità di ammalarsi su questa navicella, è tutto sterilizzato, ma vabbè continuamo ad esplorare, dobbiamo trovare il terzo scienziato.",
-            "Non c'è ossigeno in questa stanza, meglio equipaggiare la bombola",
-            "ELIMINA L'ALIENO!",
-            "Abbiamo trovato il codice d'accesso al laboratorio {1342}, andiamo a controllare.",
-            "S02 è il traditore, è stato lui a liberare gli alieni, ELIMINALO!",
-            "ELIMINALO!",
-            "Ben fatto!"
-        ],
-        "type": "friend"
-    },
-    "6": {
         "characterId": 6,
         "characterName": "Alieno",
         "characterDescription": "...",
+        "mainDialog" : "AAAAAAAAAAAARRRRRRRGGGGGHHHHH",
+        "defaultDialog" : "AAAAAAAAAAAARRRRRRRGGGGGHHHHH",
         "dialogs": [
             "AAAAAAAAAAAARRRRRRRGGGGGHHHHH"
         ],
         "type": "enemy"
     },
-    "7": {
+    "6": {
         "characterId": 7,
         "characterName": "Alieno",
         "characterDescription": "...",
+        "mainDialog" : "GGGGRRRRRRRRRRRRRRRRRR",
+        "defaultDialog" : "GGGGRRRRRRRRRRRRRRRRRR",
         "dialogs": [
             "GGGGRRRRRRRRRRRRRRRRRR"
         ],

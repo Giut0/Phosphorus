@@ -103,7 +103,7 @@ public class PhosphorusGame {
      */
     private List<Room> initializeRooms() throws StreamReadException, DatabindException, IOException {
 
-        Map<String, Object> roomsFile = Utils.readJSON("phosphorus/resources/rooms.json");
+        Map<String, Object> roomsFile = Utils.readJSON("resources/rooms.json");
         List<Room> rooms = new ArrayList<>();
         List<Item> items = initializeItems();
         List<Character> characters = initializeCharacters();
@@ -210,7 +210,7 @@ public class PhosphorusGame {
     }
 
     private List<Item> initializeItems() throws StreamReadException, DatabindException, IOException {
-        Map<String, Object> itemsFile = Utils.readJSON("phosphorus/resources/items.json");
+        Map<String, Object> itemsFile = Utils.readJSON("resources/items.json");
         List<Item> items = new ArrayList<>();
         if (itemsFile != null) {
 
@@ -234,7 +234,7 @@ public class PhosphorusGame {
     }
 
     private List<Character> initializeCharacters() throws StreamReadException, DatabindException, IOException {
-        Map<String, Object> charactersFile = Utils.readJSON("phosphorus/resources/characters.json");
+        Map<String, Object> charactersFile = Utils.readJSON("resources/characters.json");
         List<Character> characters = new ArrayList<>();
 
         if (charactersFile != null) {
@@ -475,7 +475,7 @@ public class PhosphorusGame {
     }
 
     public void initGame(Clip clip) throws IOException {
-        Parser parser = new Parser(Utils.loadFileListInSet(new File("phosphorus/resources/stopwords")));
+        Parser parser = new Parser(Utils.loadFileListInSet(new File("resources/stopwords")));
         Scanner scanner = new Scanner(System.in);
         System.out.print("\n>> ");
         while (scanner.hasNextLine()) {
@@ -485,6 +485,7 @@ public class PhosphorusGame {
                     this.getGame().getCurrentRoom().getCharacters());
             if (p.getAction() == null) {
                 System.out.println("Non ho capito");
+                System.out.print("\n>> ");
             } else {
                 if (this.getMenuLock()) {
                     this.menuMove(p, System.out, clip);

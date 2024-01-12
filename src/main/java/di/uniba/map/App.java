@@ -19,7 +19,7 @@ public class App {
         UI.printTitle(System.out);
         UI.printMainMenu(System.out);
 
-        String audioFilePath = "phosphorus/resources/music/Short_circuit.wav"; // Percorso assoluto del tuo file audio
+        String audioFilePath = "resources/music/Short_circuit.wav"; // Percorso assoluto del tuo file audio
 
         try {
             AudioInputStream audioStream = AudioSystem.getAudioInputStream(new File(audioFilePath));

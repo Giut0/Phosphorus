@@ -5,13 +5,14 @@
         "roomDescription": "Stanza non molto grande dove dormi con i tuoi colleghi",
         "lookDescription": "Sei nel dormitorio, vicino a te c'è un tuo collega, l'agente13 sullo scaffale trovi una serie di bombole con dentro l'ossigeno, a nord trovi la sala meeting.",
         "floorNumber": 0,
-        "visible": true,
         "locked": false,
         "south": null,
         "north": 1,
         "west": null,
         "est": null,
-        "items": [],
+        "items": [
+            5
+        ],
         "characters": [
             0
         ],
@@ -23,7 +24,6 @@
         "roomDescription": "Sala dove si tengono le riunioni con i colleghi",
         "lookDescription": "Sei nella sala meeting, al centro della stanza c'è il comandante seduto sulla poltrona ergonomica, \nsul tavolo trovi una pistola, a sud trovi il dormitorio, ad est trovi il laboratorio, probabilmente chiuso a chiave, mentre ad ovest trovi le scale per andare al piano di sotto.",
         "floorNumber": 0,
-        "visible": true,
         "locked": false,
         "south": 0,
         "north": null,
@@ -45,7 +45,6 @@
         "roomDescription": "Stanza dove si studiano gli alieni catturati e si fanno esperimenti pre estrarre da questi il fosforo",
         "lookDescription": "Sei in laboratorio, sul tavolo trovi delle note strappate, vicino alle stesse vedi un apparecchio che sembra una modifica per la pistola, ad ovest trovi la sala meeting.",
         "floorNumber": 0,
-        "visible": true,
         "locked": true,
         "south": null,
         "north": null,
@@ -66,13 +65,14 @@
         "roomDescription": "Stanza dove pranzi e ceni con i tuoi colleghi",
         "lookDescription": "Sei nella mensa, vedi seduti ai tavoli due scienziati, Sci01 e Sci02, ad ovest trovi le scale ed ad est la sala motori",
         "floorNumber": -1,
-        "visible": true,
         "locked": false,
         "south": null,
         "north": null,
         "west": 1,
         "est": 4,
-        "items": [],
+        "items": [
+            2
+        ],
         "characters": [
             3,
             4,
@@ -86,17 +86,13 @@
         "roomDescription": "Sala dove sono situati tutti i vari componenti che permettere alla navicella di muoversi",
         "lookDescription": "Sei nella sala motori, vedi uno scienziato morto per terra, vicino ad esso trovi un'agenda, ad ovest trovi la mensa, a sud trovi uno stanzino.",
         "floorNumber": -1,
-        "visible": true,
         "locked": false,
         "south": 5,
         "north": null,
         "west": 3,
         "est": null,
         "items": [
-            2,
-            3,
-            4,
-            2
+            3
         ],
         "characters": [
             6,
@@ -110,13 +106,14 @@
         "roomDescription": "Stanza molto piccola dove vengono messi i ricambi per i componenti e gli attrezzi per riparare.",
         "lookDescription": "Stanaza vuota, ad nord trovi la sala motori",
         "floorNumber": -1,
-        "visible": false,
         "locked": false,
         "south": null,
         "north": 4,
         "west": null,
         "est": null,
-        "items": [],
+        "items": [
+            4
+        ],
         "characters": [
             2
         ],

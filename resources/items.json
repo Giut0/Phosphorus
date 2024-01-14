@@ -27,7 +27,7 @@
         "itemType": "Key",
         "itemName": "chiave sgabuzzino",
         "itemDescription": "Chiave che apre lo sgabuzzino.",
-        "itemLocation": 4,
+        "itemLocation": 3,
         "itemAction": "usa",
         "itemAlias": [
             "chiave"
@@ -50,12 +50,25 @@
         "itemType": "Other",
         "itemName": "bigliettino",
         "itemDescription": "Il bigliettino è abbastanza mal ridotto, ma si intravede una scritta: C@di&e la%orato£io 4815.",
-        "itemLocation": 4,
+        "itemLocation": 5,
         "itemAction": "leggi",
         "itemAlias": [
             "cartoncino",
             "biglietto",
             "carta"
+        ]
+    }
+    ,
+    "5": {
+        "itemID": 5,
+        "itemType": "Other",
+        "itemName": "bombola",
+        "itemDescription": "Una bombola contenente l'ossigeno.",
+        "itemLocation": 0,
+        "itemAction": "",
+        "itemAlias": [
+            "ossigeno",
+            "bomboletta"
         ]
     }
 }

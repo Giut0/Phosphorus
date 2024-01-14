@@ -113,8 +113,7 @@ public class PhosphorusGame {
                 Map<?, ?> result = (Map<?, ?>) roomsFile.get(Integer.toString(i));
                 Room room = new Room((int) result.get("roomId"), (String) result.get("roomName"),
                         (String) result.get("roomDescription"), (String) result.get("lookDescription"),
-                        (int) result.get("floorNumber"), (boolean) result.get("visible"),
-                        (boolean) result.get("oxygen"));
+                        (int) result.get("floorNumber"), (boolean) result.get("oxygen"));
                 room.setAdjacentRooms((Integer) result.get("north"), (Integer) result.get("south"),
                         (Integer) result.get("est"), (Integer) result.get("west"));
                 List<Integer> charactersIDs = (List<Integer>) result.get("characters");
@@ -220,15 +219,16 @@ public class PhosphorusGame {
             for (int i = 0; i < itemsFile.size(); i++) {
                 Map<?, ?> result = (Map<?, ?>) itemsFile.get(Integer.toString(i));
                 if (((String) result.get("itemType")).equals("Weapon")) {
-                    Item item = new Weapon((int) result.get("itemID"), (String) result.get("itemName"),
-                            (String) result.get("itemDescription"), (int) result.get("itemLocation"));
+                    Item item = new Weapon((int) result.get("itemID"), ((String) result.get("itemName")).toLowerCase(),
+                            ((String) result.get("itemDescription")).toLowerCase(), (int) result.get("itemLocation"));
                     item.setItemAlias(new HashSet<>((List<String>) result.get("itemAlias")));
                     items.add(item);
                 } else {
-                    Item item = new KeyItem((int) result.get("itemID"), (String) result.get("itemName"),
-                            (String) result.get("itemDescription"), (int) result.get("itemLocation"));
+                    Item item = new KeyItem((int) result.get("itemID"), ((String) result.get("itemName")).toLowerCase(),
+                            ((String) result.get("itemDescription")).toLowerCase(), (int) result.get("itemLocation"));
                     item.setItemAlias(new HashSet<>((List<String>) result.get("itemAlias")));
                     items.add(item);
+                    System.out.println(item.getItemName());
                 }
 
             }
@@ -295,9 +295,9 @@ public class PhosphorusGame {
                                 +
                                 "che attualmente sulla terra scarseggia, avete catturato due alieni che producono fosforo naturalmente rilasciandolo come meccanismo di difesa.\n"
                                 +
-                                "Hai appena aperto gli occhi dopo un lungo sonno, senti il corpo tutto intorpidito, ti alzi dal letto, senti dagli autoparlanti\n"
+                                "Hai appena aperto gli occhi dopo un lungo sonno, senti il corpo tutto intorpidito, ti alzi dal letto, vedi il tuo collega l'agente13 già in piedi,\n"
                                 +
-                                "una voce molto fastidiosa: \"A tutti gli agenti, venite immediatamente nella sala meeting!\"");
+                                "senti dagli autoparlanti una voce molto fastidiosa: \"A tutti gli agenti, venite immediatamente nella sala meeting!\"");
 
                 setMenuLock(false);
 
@@ -433,7 +433,7 @@ public class PhosphorusGame {
             case RACCOGLI:
                 if (game.getCurrentRoom().getAdvItemsAList().size() != 0) {
                     game.getInventory().addAvdItem(p.getObject());
-                    System.out.println("\nHai raccolto: " + p.getObject().getItemName());
+                    System.out.println("\nHai raccolto: " + p.getObject().getItemName() + ", " + p.getObject().getItemDescription());
                     game.getCurrentRoom().removeItem(p.getObject().getItemName());
 
                 } else {

@@ -28,7 +28,6 @@ public class Room {
     private boolean locked;
 
     private boolean oxygen;
-    private boolean visible;
     private boolean completed;
 
     private Map<String, Item> advItems = new HashMap<>();
@@ -55,14 +54,13 @@ public class Room {
      * @param visible         Determines if the room is visible.
      * @param oxy             Indicates if the room has oxygen.
      */
-    public Room(int id, String name, String description, String lookDescription, int floorNumber, boolean visible,
+    public Room(int id, String name, String description, String lookDescription, int floorNumber,
             boolean oxy) {
         this.roomID = id;
         this.setName(name);
         this.setDescription(description);
         this.setLookDescription(lookDescription);
         this.setFloorNumber(floorNumber);
-        this.setVisible(visible);
         this.setOxygen(oxy);
         this.setAdjacentRooms(null, null, null, null);
         this.completed = false;
@@ -166,14 +164,6 @@ public class Room {
      */
     public void setOxygen(boolean oxy) {
         this.oxygen = oxy;
-    }
-
-    public boolean isVisible() {
-        return this.visible;
-    }
-
-    public void setVisible(boolean visible) {
-        this.visible = visible;
     }
 
     public boolean isCompleted() {

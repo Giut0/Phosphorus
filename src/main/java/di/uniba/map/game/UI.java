@@ -87,4 +87,12 @@ public class UI {
                         "║                                                                 ║");
            out.println("╚═════════════════════════════════════════════════════════════════╝");
     }
+
+    public static void badEning(PrintStream out){
+        out.println("\nSono scattati gli allarmi, vedi il tuo collega che ti seguiva come un'ombra tirare fuori la pistola, te le punta addoso, vedi bianco...");
+    }
+
+    public static void trueEnding(PrintStream out){
+        out.println("\nAdesso tutti e due gli alieni sono morti, una vocina nella tua testa ti sussurra <<hai completato la missione, contribuendo allo sruttamento di altri esseri viventi per il benessere di altri, complimenti!>>");
+    }
 }

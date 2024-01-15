@@ -27,7 +27,7 @@ public class Parser {
 
     private int checkForObject(String token, List<Item> obejcts) {
         for (int i = 0; i < obejcts.size(); i++) {
-            if (obejcts.get(i).getItemName().equals(token) || obejcts.get(i).getItemAlias().contains(token)) {
+            if (obejcts.get(i).getItemName().toLowerCase().equals(token) || obejcts.get(i).getItemAlias().contains(token)) {
                 return i;
             }
         }

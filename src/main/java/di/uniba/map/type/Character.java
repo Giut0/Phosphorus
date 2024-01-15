@@ -1,8 +1,5 @@
 package di.uniba.map.type;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Character {
 
     private int characterId;
@@ -10,14 +7,18 @@ public class Character {
     private String characterDescription;
     private Boolean alive = true;
     private Room currentRoom;
-    private List<String> dialogs = new ArrayList<>();
+    private String defaultDialog;
+    private String mainDialog;
+    private boolean completed;
 
-    public Character(int id, String name, String desc, Room room, List<String> dialog) {
+    public Character(int id, String name, String desc, Room room, String mainDialog, String defaultDialog) {
         this.characterId = id;
         this.characterName = name;
         this.characterDescription = desc;
         this.currentRoom = room;
-        this.dialogs = dialog;
+        this.mainDialog = mainDialog;
+        this.defaultDialog = defaultDialog;
+        this.completed = false;
 
     }
 
@@ -26,12 +27,14 @@ public class Character {
         this.characterName = name;
         this.characterDescription = desc;
         this.currentRoom = room;
+        this.completed = false;
     }
 
     public Character(int id, String name, String desc) {
         this.characterId = id;
         this.characterName = name;
         this.characterDescription = desc;
+        
 
     }
 
@@ -75,13 +78,28 @@ public class Character {
         this.currentRoom = currentRoom;
     }
 
-    public List<String> getDialogs() {
-        return dialogs;
+    public String getDefaultDialog() {
+        return defaultDialog;
     }
 
-    public void setDialogs(List<String> dialogs) {
-        this.dialogs = dialogs;
+    public void setDefaultDialog(String defaultDialog) {
+        this.defaultDialog = defaultDialog;
     }
 
+    public void setMainDialog(String mainDialog) {
+        this.mainDialog = mainDialog;
+    }
+
+    public String getMainDialog() {
+        return mainDialog;
+    }
+
+    public void setCompleted(boolean completed) {
+        this.completed = completed;
+    }
+    
+    public boolean getCompleted(){
+        return this.completed;
+    }
 
 }

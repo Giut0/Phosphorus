@@ -5,7 +5,6 @@ import java.io.File;
 import com.fasterxml.jackson.core.exc.StreamReadException;
 import com.fasterxml.jackson.databind.DatabindException;
 import di.uniba.map.game.PhosphorusGame;
-import di.uniba.map.game.UI;
 import java.util.Scanner;
 
 import javax.sound.sampled.*;
@@ -14,10 +13,7 @@ import javax.sound.sampled.*;
 public class App {
     public static void main(String[] args) throws StreamReadException, DatabindException, IOException {
 
-        PhosphorusGame game = new PhosphorusGame();      
-
-        UI.printTitle(System.out);
-        UI.printMainMenu(System.out);
+        PhosphorusGame game = new PhosphorusGame();     
 
         String audioFilePath = "resources/music/Short_circuit.wav"; // Percorso assoluto del tuo file audio
 

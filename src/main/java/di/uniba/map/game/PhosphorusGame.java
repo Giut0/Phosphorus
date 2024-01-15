@@ -33,6 +33,7 @@ public class PhosphorusGame {
     private boolean hadGun;
     private boolean gunLocked;
     private boolean musicStatus;
+    private int enemyCount;
 
     private void initializeGame() {
         try {
@@ -42,8 +43,9 @@ public class PhosphorusGame {
             this.game.addRooms(initializeRooms());
             this.menuLock = true;
             this.hadGun = false;
-            this.gunLocked = false;
+            this.gunLocked = true;
             this.musicStatus = true;
+            this.enemyCount = 0;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -90,6 +92,26 @@ public class PhosphorusGame {
         this.menuLock = menuLock;
     }
 
+    public void updateEnemyCount() {
+        this.enemyCount++;
+    }
+
+    public void reduceEnemyCount() {
+        this.enemyCount--;
+    }
+
+    public int getEnemyCount() {
+        return enemyCount;
+    }
+
+    public boolean checkEnd() {
+        if (this.getEnemyCount() == 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     /**
      * Initializes and retrieves a list of rooms by reading data from a JSON file.
      *
@@ -113,8 +135,7 @@ public class PhosphorusGame {
                 Map<?, ?> result = (Map<?, ?>) roomsFile.get(Integer.toString(i));
                 Room room = new Room((int) result.get("roomId"), (String) result.get("roomName"),
                         (String) result.get("roomDescription"), (String) result.get("lookDescription"),
-                        (int) result.get("floorNumber"), (boolean) result.get("visible"),
-                        (boolean) result.get("oxygen"));
+                        (int) result.get("floorNumber"), (boolean) result.get("oxygen"));
                 room.setAdjacentRooms((Integer) result.get("north"), (Integer) result.get("south"),
                         (Integer) result.get("est"), (Integer) result.get("west"));
                 List<Integer> charactersIDs = (List<Integer>) result.get("characters");
@@ -123,7 +144,6 @@ public class PhosphorusGame {
                 for (Integer itemID : roomItemsIDs) {
                     room.addAdvItem(items.get(itemID));
                 }
-
                 for (Integer characterID : charactersIDs) {
                     room.addCharacter(characters.get(characterID));
                 }
@@ -206,6 +226,10 @@ public class PhosphorusGame {
         map_ground.setCommandAlias(new String[] { "piantina" });
         actions.add(map_ground);
 
+        Action commands_help = new Action(ActionType.COMMAND_LIST, "comandi");
+        commands_help.setCommandAlias(new String[] { "commands", "help", "aiuto" });
+        actions.add(commands_help);
+
         return actions;
     }
 
@@ -217,13 +241,13 @@ public class PhosphorusGame {
             for (int i = 0; i < itemsFile.size(); i++) {
                 Map<?, ?> result = (Map<?, ?>) itemsFile.get(Integer.toString(i));
                 if (((String) result.get("itemType")).equals("Weapon")) {
-                    Item item = new Weapon((int) result.get("itemID"), (String) result.get("itemName"),
-                            (String) result.get("itemDescription"), (int) result.get("itemLocation"));
+                    Item item = new Weapon((int) result.get("itemID"), ((String) result.get("itemName")).toLowerCase(),
+                            ((String) result.get("itemDescription")).toLowerCase(), (int) result.get("itemLocation"));
                     item.setItemAlias(new HashSet<>((List<String>) result.get("itemAlias")));
                     items.add(item);
                 } else {
-                    Item item = new KeyItem((int) result.get("itemID"), (String) result.get("itemName"),
-                            (String) result.get("itemDescription"), (int) result.get("itemLocation"));
+                    Item item = new KeyItem((int) result.get("itemID"), ((String) result.get("itemName")).toLowerCase(),
+                            ((String) result.get("itemDescription")).toLowerCase(), (int) result.get("itemLocation"));
                     item.setItemAlias(new HashSet<>((List<String>) result.get("itemAlias")));
                     items.add(item);
                 }
@@ -244,15 +268,19 @@ public class PhosphorusGame {
                 if (((String) result.get("type")).equals("enemy")) {
                     Enemy enemy = new Enemy((int) result.get("characterId"), (String) result.get("characterName"),
                             (String) result.get("characterDescription"));
-                    List<String> dialogs = (List<String>) result.get("dialogs");
-                    enemy.setDialogs(dialogs);
+
+                    enemy.setMainDialog((String) result.get("mainDialog"));
+                    enemy.setDefaultDialog((String) result.get("defaultDialog"));
+
                     characters.add(enemy);
+                    this.updateEnemyCount();
                 } else {
                     Character character = new Character((int) result.get("characterId"),
                             (String) result.get("characterName"),
                             (String) result.get("characterDescription"));
-                    List<String> dialogs = (List<String>) result.get("dialogs");
-                    character.setDialogs(dialogs);
+                    character.setMainDialog((String) result.get("mainDialog"));
+                    character.setDefaultDialog((String) result.get("defaultDialog"));
+
                     characters.add(character);
                 }
             }
@@ -265,13 +293,13 @@ public class PhosphorusGame {
     public void menuMove(ParserOutput p, PrintStream out, Clip clip) {
         switch (p.getAction().getCommandType()) {
 
-            case EXIT:
+            case EXIT: // TODO: migliorare
                 out.println("STO USCENDO");
                 System.exit(0);
                 break;
 
             case MUSIC:
-                if (getMusicStatus()) {
+                if (getMusicStatus()) { // TODO: migliorare UI
                     out.println("STOP MUSIC");
                     setMusicStatus(false);
                     clip.stop();
@@ -286,8 +314,14 @@ public class PhosphorusGame {
                 out.println(
                         "\nTi trovi a bordo di una navicella spaziale, sei di ritorno dopo un lungo viaggio per recuperare il fosforo \n"
                                 +
-                                "che attualmente sulla terra scarseggia, avete catturato due alieni che producono fosforo naturalmente rilasciandolo come meccanismo di difesa.");
+                                "che attualmente sulla terra scarseggia, avete catturato due alieni che producono fosforo naturalmente rilasciandolo come meccanismo di difesa.\n"
+                                +
+                                "Hai appena aperto gli occhi dopo un lungo sonno, senti il corpo tutto intorpidito, ti alzi dal letto, vedi il tuo collega l'agente13 già in piedi,\n"
+                                +
+                                "senti dagli autoparlanti una voce molto fastidiosa: \"A tutti gli agenti, venite immediatamente nella sala meeting!\"");
+
                 setMenuLock(false);
+
                 this.getGame().setCurrentRoom(this.getGame().getRooms().get(0));
                 break;
 
@@ -305,12 +339,16 @@ public class PhosphorusGame {
     public void nextMove(ParserOutput p, PrintStream out, Clip clip) {
         switch (p.getAction().getCommandType()) {
 
-            case EXIT:
+            case EXIT: // TODO: migliorare
                 out.println("STO USCENDO");
                 System.exit(0);
                 break;
 
-            case MUSIC:
+            case COMMAND_LIST:
+                UI.printCommandsList(out);
+                break;
+
+            case MUSIC: // TODO: migliorare UI
                 if (getMusicStatus()) {
                     out.println("STOP MUSIC");
                     setMusicStatus(false);
@@ -331,11 +369,19 @@ public class PhosphorusGame {
                 break;
 
             case NORD:
+
                 if (game.getCurrentRoom().getNorth() != null) {
                     if (!this.game.getRooms().get(this.game.getCurrentRoom().getNorth()).getLocked()) {
-                        this.game.setCurrentRoom(this.game.getRooms().get(this.game.getCurrentRoom().getNorth()));
-                        out.println("\nSei entrato: " + this.game.getCurrentRoom().getName());
-                        out.println(this.game.getCurrentRoom().getDescription());
+                        if (this.game.getInventory().contains("bombola")
+                                || this.game.getRooms().get(this.game.getCurrentRoom().getNorth()).isOxygen()) {
+                            this.game.setCurrentRoom(this.game.getRooms().get(this.game.getCurrentRoom().getNorth()));
+                            out.println("\n" + this.game.getCurrentRoom().getLookDescription());
+                        } else {
+                            out.println("\nIn "
+                                    + this.game.getRooms().get(this.game.getCurrentRoom().getNorth()).getName()
+                                    + " non c'è ossigeno, devi avere una bombola d'ossigeno con te per proseguire");
+                        }
+
                     } else {
                         out.println("\nLa stanza è chiusa a chiave, non puoi entrarci.");
                     }
@@ -348,9 +394,15 @@ public class PhosphorusGame {
             case SUD:
                 if (game.getCurrentRoom().getSouth() != null) {
                     if (!this.game.getRooms().get(this.game.getCurrentRoom().getSouth()).getLocked()) {
-                        this.game.setCurrentRoom(this.game.getRooms().get(this.game.getCurrentRoom().getSouth()));
-                        out.println("\nSei entrato: " + this.game.getCurrentRoom().getName());
-                        out.println(this.game.getCurrentRoom().getDescription());
+                        if (this.game.getInventory().contains("bombola")
+                                || this.game.getRooms().get(this.game.getCurrentRoom().getSouth()).isOxygen()) {
+                            this.game.setCurrentRoom(this.game.getRooms().get(this.game.getCurrentRoom().getSouth()));
+                            out.println("\n" + this.game.getCurrentRoom().getLookDescription());
+                        } else {
+                            out.println("\nIn "
+                                    + this.game.getRooms().get(this.game.getCurrentRoom().getSouth()).getName()
+                                    + " non c'è ossigeno, devi avere una bombola d'ossigeno con te per proseguire");
+                        }
                     } else {
                         out.println("\nLa stanza è chiusa a chiave, non puoi entrarci.");
                     }
@@ -363,9 +415,15 @@ public class PhosphorusGame {
             case EST:
                 if (game.getCurrentRoom().getEast() != null) {
                     if (!this.game.getRooms().get(this.game.getCurrentRoom().getEast()).getLocked()) {
-                        this.game.setCurrentRoom(this.game.getRooms().get(this.game.getCurrentRoom().getEast()));
-                        out.println("\nSei entrato: " + this.game.getCurrentRoom().getName());
-                        out.println(this.game.getCurrentRoom().getDescription());
+                        if (this.game.getInventory().contains("bombola")
+                                || this.game.getRooms().get(this.game.getCurrentRoom().getEast()).isOxygen()) {
+                            this.game.setCurrentRoom(this.game.getRooms().get(this.game.getCurrentRoom().getEast()));
+                            out.println("\n" + this.game.getCurrentRoom().getLookDescription());
+                        } else {
+                            out.println("\nIn "
+                                    + this.game.getRooms().get(this.game.getCurrentRoom().getEast()).getName()
+                                    + " non c'è ossigeno, devi avere una bombola d'ossigeno con te per proseguire");
+                        }
                     } else {
                         out.println("\nLa stanza è chiusa a chiave, non puoi entrarci.");
                     }
@@ -378,9 +436,15 @@ public class PhosphorusGame {
             case OVEST:
                 if (game.getCurrentRoom().getWest() != null) {
                     if (!this.game.getRooms().get(this.game.getCurrentRoom().getWest()).getLocked()) {
-                        this.game.setCurrentRoom(this.game.getRooms().get(this.game.getCurrentRoom().getWest()));
-                        out.println("\nSei entrato: " + this.game.getCurrentRoom().getName());
-                        out.println(this.game.getCurrentRoom().getDescription());
+                        if (this.game.getInventory().contains("bombola")
+                                || this.game.getRooms().get(this.game.getCurrentRoom().getWest()).isOxygen()) {
+                            this.game.setCurrentRoom(this.game.getRooms().get(this.game.getCurrentRoom().getWest()));
+                            out.println("\n" + this.game.getCurrentRoom().getLookDescription());
+                        } else {
+                            out.println("\nIn "
+                                    + this.game.getRooms().get(this.game.getCurrentRoom().getWest()).getName()
+                                    + "non c'è ossigeno, devi avere una bombola d'ossigeno con te per proseguire");
+                        }
                     } else {
                         out.println("\nLa stanza è chiusa a chiave, non puoi entrarci.");
                     }
@@ -393,9 +457,15 @@ public class PhosphorusGame {
             case PARLA_CON:
                 if (game.getCurrentRoom().getCharacters().size() != 0) {
                     if (p.getCharacter().isAlive()) {
-                        System.out.println(p.getCharacter().getCharacterName());
-                        System.out.println(p.getCharacter().getDialogs().get(0)); // TODO: Cambiare i dialoghi in
-                                                                                  // maniera dinamica
+                        System.out.print("\n[" + p.getCharacter().getCharacterName() + "]: \"");
+                        if (!p.getCharacter().getCompleted()) {
+
+                            System.out.println(p.getCharacter().getMainDialog() + "\"");
+                            p.getCharacter().setCompleted(true);
+                        } else {
+                            System.out.println(p.getCharacter().getDefaultDialog() + "\"");
+                        }
+
                     } else {
                         System.out.println("\n" + p.getCharacter().getCharacterName() + " è morto, non puoi parlarci.");
                     }
@@ -413,7 +483,8 @@ public class PhosphorusGame {
             case RACCOGLI:
                 if (game.getCurrentRoom().getAdvItemsAList().size() != 0) {
                     game.getInventory().addAvdItem(p.getObject());
-                    System.out.println("\nHai raccolto: " + p.getObject().getItemName());
+                    System.out.println("\nHai raccolto: " + p.getObject().getItemName() + ", "
+                            + p.getObject().getItemDescription());
                     game.getCurrentRoom().removeItem(p.getObject().getItemName());
 
                 } else {
@@ -433,24 +504,21 @@ public class PhosphorusGame {
                 break;
 
             case OSSERVA: // TODO
-                if (game.getCurrentRoom().getAdvItemsAList().size() != 0) {
-                    for (int i = 0; i < game.getCurrentRoom().getAdvItemsAList().size(); i++) {
-                        System.out.println("Oggetto n." + (i + 1) + " "
-                                + game.getCurrentRoom().getAdvItemsAList().get(i).getItemName());
-                    }
-                } else {
-                    System.out.println("\nNon ci sono oggetti nella stanza");
-                }
+                out.println("\n" + game.getCurrentRoom().getLookDescription());
                 break;
 
             case SPARA_A:
                 if (!(p.getCharacter() == null)) {
                     if (p.getCharacter().isAlive()) {
                         if (getHadGun()) {
-                            if (getGunLocked()) {
+                            if (p.getCharacter() instanceof Enemy)
+                                this.reduceEnemyCount();
+                            if (!getGunLocked()) {
                                 out.println("\nHai sparato a: " + p.getCharacter().getCharacterName()
                                         + ", adesso non è più in vita.");
                                 p.getCharacter().setAlive(false);
+                                UI.badEning(out);
+                                System.exit(0);
                             } else {
                                 out.println("\nLa tua pistola non è abilitata a ferire "
                                         + p.getCharacter().getCharacterName());
@@ -475,6 +543,10 @@ public class PhosphorusGame {
     }
 
     public void initGame(Clip clip) throws IOException {
+
+        UI.printTitle(System.out);
+        UI.printMainMenu(System.out);
+
         Parser parser = new Parser(Utils.loadFileListInSet(new File("resources/stopwords")));
         Scanner scanner = new Scanner(System.in);
         System.out.print("\n>> ");
@@ -484,15 +556,21 @@ public class PhosphorusGame {
                     this.getGame().getCurrentRoom().getAdvItemsAList(),
                     this.getGame().getCurrentRoom().getCharacters());
             if (p.getAction() == null) {
-                System.out.println("Non ho capito");
+                System.out.println("\nNon ho capito");
                 System.out.print("\n>> ");
             } else {
                 if (this.getMenuLock()) {
                     this.menuMove(p, System.out, clip);
                     System.out.print("\n>> ");
                 } else {
-                    this.nextMove(p, System.out, clip);
-                    System.out.print("\n>> ");
+                    if (!this.checkEnd()) {
+                        this.nextMove(p, System.out, clip);
+                        System.out.print("\n>> ");
+                    } else {
+                        UI.trueEnding(System.out);
+                        System.exit(0);
+                    }
+
                 }
 
             }

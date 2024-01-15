@@ -63,7 +63,7 @@
         "itemID": 5,
         "itemType": "Other",
         "itemName": "bombola",
-        "itemDescription": "Una bombola contenente l'ossigeno.",
+        "itemDescription": "Una bombola contenente l'ossigeno, d'ora in poi potrai entrare nella stanze prive di quest'ultimo.",
         "itemLocation": 0,
         "itemAction": "",
         "itemAlias": [

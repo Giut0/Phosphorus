@@ -11,8 +11,8 @@
         "characterId": 1,
         "characterName": "Comandante",
         "characterDescription": "...",
-        "mainDialog" : "Bentrovati a tutti, non prediamoci in chaicchiere, vi ho convocati con così poco preavviso perchè dovete indagare sulla fuga di alcuni alieni dal laboratorio, f24 prendi la pistola dal quel tavolo, potrebbero essere ostili.\nTi accompagnerà l'agente17, GLORIA AD INGSOC!",
-        "defaultDialog" : "Cosa c'è ancora? Quale parte di indagate sulla fuga di alcuni alieni non avete capito? Dai su, provate ad andare in laboratorio, solo che ci vuole il codice d'accesso, vedetevela voi. GLORIA AD INGSOC!",
+        "mainDialog" : "Bentrovati a tutti, non prediamoci in chaicchiere, vi ho convocati con così poco preavviso perchè dovete indagare sulla fuga di alcuni alieni dal laboratorio, f24 prendi la pistola dal quel tavolo, potrebbero essere ostili.\nTi accompagnerà l'agente17, GLORIA AD INGSOC! \nAh quasi dimenticavo... la fuga ha compromesso la sala motori, ti conviene recuperare la bombola d'ossigeno dal dormitorio.",
+        "defaultDialog" : "Cosa c'è ancora? Quale parte di indagate sulla fuga di alcuni alieni non avete capito? Dai su, provate ad andare in laboratorio, solo che ci vuole il codice d'accesso, vedetevela voi, ricordatevi la bombola d'ossigeno nel dormitorio. GLORIA AD INGSOC!",
         "type": "friend"
     },
     "2": {

@@ -42,7 +42,7 @@ public class PhosphorusGame {
             this.game.addRooms(initializeRooms());
             this.menuLock = true;
             this.hadGun = false;
-            this.gunLocked = false;
+            this.gunLocked = true;
             this.musicStatus = true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -348,10 +348,16 @@ public class PhosphorusGame {
                 break;
 
             case NORD:
+
                 if (game.getCurrentRoom().getNorth() != null) {
                     if (!this.game.getRooms().get(this.game.getCurrentRoom().getNorth()).getLocked()) {
-                        this.game.setCurrentRoom(this.game.getRooms().get(this.game.getCurrentRoom().getNorth()));
-                        out.println("\n" + this.game.getCurrentRoom().getLookDescription());
+                        if (this.game.getInventory().contains("bombola")) {
+                            this.game.setCurrentRoom(this.game.getRooms().get(this.game.getCurrentRoom().getNorth()));
+                            out.println("\n" + this.game.getCurrentRoom().getLookDescription());
+                        }else{
+                            out.println("\nIn " + this.game.getRooms().get(this.game.getCurrentRoom().getNorth()).getName() + " non c'è ossigeno, devi avere una bombola d'ossigeno con te per proseguire");
+                        }
+
                     } else {
                         out.println("\nLa stanza è chiusa a chiave, non puoi entrarci.");
                     }
@@ -364,8 +370,12 @@ public class PhosphorusGame {
             case SUD:
                 if (game.getCurrentRoom().getSouth() != null) {
                     if (!this.game.getRooms().get(this.game.getCurrentRoom().getSouth()).getLocked()) {
-                        this.game.setCurrentRoom(this.game.getRooms().get(this.game.getCurrentRoom().getSouth()));
-                        out.println("\n" + this.game.getCurrentRoom().getLookDescription());
+                        if (this.game.getInventory().contains("bombola")) {
+                            this.game.setCurrentRoom(this.game.getRooms().get(this.game.getCurrentRoom().getSouth()));
+                            out.println("\n" + this.game.getCurrentRoom().getLookDescription());
+                        }else{
+                            out.println("\nIn " + this.game.getRooms().get(this.game.getCurrentRoom().getSouth()).getName() + " non c'è ossigeno, devi avere una bombola d'ossigeno con te per proseguire");
+                        }
                     } else {
                         out.println("\nLa stanza è chiusa a chiave, non puoi entrarci.");
                     }
@@ -377,9 +387,13 @@ public class PhosphorusGame {
 
             case EST:
                 if (game.getCurrentRoom().getEast() != null) {
-                    if (!this.game.getRooms().get(this.game.getCurrentRoom().getEast()).getLocked()) {
-                        this.game.setCurrentRoom(this.game.getRooms().get(this.game.getCurrentRoom().getEast()));
-                        out.println("\n" + this.game.getCurrentRoom().getLookDescription());
+                    if (!this.game.getRooms().get(this.game.getCurrentRoom().getEast()).getLocked() ) {
+                        if (this.game.getInventory().contains("bombola")) {
+                            this.game.setCurrentRoom(this.game.getRooms().get(this.game.getCurrentRoom().getEast()));
+                            out.println("\n" + this.game.getCurrentRoom().getLookDescription());
+                        }else{
+                            out.println("\nIn " + this.game.getRooms().get(this.game.getCurrentRoom().getEast()).getName() + " non c'è ossigeno, devi avere una bombola d'ossigeno con te per proseguire");
+                        }
                     } else {
                         out.println("\nLa stanza è chiusa a chiave, non puoi entrarci.");
                     }
@@ -392,8 +406,12 @@ public class PhosphorusGame {
             case OVEST:
                 if (game.getCurrentRoom().getWest() != null) {
                     if (!this.game.getRooms().get(this.game.getCurrentRoom().getWest()).getLocked()) {
-                        this.game.setCurrentRoom(this.game.getRooms().get(this.game.getCurrentRoom().getWest()));
-                        out.println("\n" + this.game.getCurrentRoom().getLookDescription());
+                        if (this.game.getInventory().contains("bombola")) {
+                            this.game.setCurrentRoom(this.game.getRooms().get(this.game.getCurrentRoom().getWest()));
+                            out.println("\n" + this.game.getCurrentRoom().getLookDescription());
+                        }else{
+                            out.println("\nIn " + this.game.getRooms().get(this.game.getCurrentRoom().getWest()).getName() + "non c'è ossigeno, devi avere una bombola d'ossigeno con te per proseguire");
+                        }
                     } else {
                         out.println("\nLa stanza è chiusa a chiave, non puoi entrarci.");
                     }
@@ -433,7 +451,8 @@ public class PhosphorusGame {
             case RACCOGLI:
                 if (game.getCurrentRoom().getAdvItemsAList().size() != 0) {
                     game.getInventory().addAvdItem(p.getObject());
-                    System.out.println("\nHai raccolto: " + p.getObject().getItemName() + ", " + p.getObject().getItemDescription());
+                    System.out.println("\nHai raccolto: " + p.getObject().getItemName() + ", "
+                            + p.getObject().getItemDescription());
                     game.getCurrentRoom().removeItem(p.getObject().getItemName());
 
                 } else {
@@ -460,7 +479,7 @@ public class PhosphorusGame {
                 if (!(p.getCharacter() == null)) {
                     if (p.getCharacter().isAlive()) {
                         if (getHadGun()) {
-                            if (getGunLocked()) {
+                            if (!getGunLocked()) {
                                 out.println("\nHai sparato a: " + p.getCharacter().getCharacterName()
                                         + ", adesso non è più in vita.");
                                 p.getCharacter().setAlive(false);

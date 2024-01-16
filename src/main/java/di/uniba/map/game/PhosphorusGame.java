@@ -33,7 +33,7 @@ public class PhosphorusGame {
     private boolean hadGun;
     private boolean gunLocked;
     private boolean musicStatus;
-    private int enemyCount;
+    private int enemyCount = 0;
 
     private void initializeGame() {
         try {
@@ -45,7 +45,7 @@ public class PhosphorusGame {
             this.hadGun = false;
             this.gunLocked = true;
             this.musicStatus = true;
-            this.enemyCount = 0;
+  
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -105,11 +105,7 @@ public class PhosphorusGame {
     }
 
     public boolean checkEnd() {
-        if (this.getEnemyCount() == 0) {
-            return true;
-        } else {
-            return false;
-        }
+        return this.getEnemyCount() == 0;
     }
 
     /**
@@ -542,13 +538,14 @@ public class PhosphorusGame {
         }
     }
 
-    public void initGame(Clip clip) throws IOException {
-
+    public void initGame(Clip clip) throws IOException {        
+        
         UI.printTitle(System.out);
         UI.printMainMenu(System.out);
 
         Parser parser = new Parser(Utils.loadFileListInSet(new File("resources/stopwords")));
         Scanner scanner = new Scanner(System.in);
+        
         System.out.print("\n>> ");
         while (scanner.hasNextLine()) {
             String command = scanner.nextLine();
@@ -563,6 +560,7 @@ public class PhosphorusGame {
                     this.menuMove(p, System.out, clip);
                     System.out.print("\n>> ");
                 } else {
+                    System.out.println(this.getEnemyCount() + "----------------");
                     if (!this.checkEnd()) {
                         this.nextMove(p, System.out, clip);
                         System.out.print("\n>> ");

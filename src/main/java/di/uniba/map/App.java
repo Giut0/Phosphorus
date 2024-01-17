@@ -34,7 +34,7 @@ public class App {
                 Thread.sleep(10);
             }
             while (audioClip.isRunning()) {
-                game.initGame(audioClip);
+                game.initGame(System.out, audioClip);
                 Thread.sleep(10);
             }
 

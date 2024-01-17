@@ -4,17 +4,15 @@ public class Character {
 
     private int characterId;
     private String characterName;
-    private String characterDescription;
     private Boolean alive = true;
     private Room currentRoom;
     private String defaultDialog;
     private String mainDialog;
     private boolean completed;
 
-    public Character(int id, String name, String desc, Room room, String mainDialog, String defaultDialog) {
+    public Character(int id, String name, Room room, String mainDialog, String defaultDialog) {
         this.characterId = id;
         this.characterName = name;
-        this.characterDescription = desc;
         this.currentRoom = room;
         this.mainDialog = mainDialog;
         this.defaultDialog = defaultDialog;
@@ -22,18 +20,16 @@ public class Character {
 
     }
 
-    public Character(int id, String name, String desc, Room room) {
+    public Character(int id, String name, Room room) {
         this.characterId = id;
         this.characterName = name;
-        this.characterDescription = desc;
         this.currentRoom = room;
         this.completed = false;
     }
 
-    public Character(int id, String name, String desc) {
+    public Character(int id, String name) {
         this.characterId = id;
         this.characterName = name;
-        this.characterDescription = desc;
         
 
     }
@@ -46,9 +42,7 @@ public class Character {
         return characterName;
     }
 
-    public String getCharacterDescription() {
-        return characterDescription;
-    }
+ 
 
     public Boolean isAlive() {
         return this.alive;
@@ -60,10 +54,6 @@ public class Character {
 
     public void setCharacterName(String characterName) {
         this.characterName = characterName;
-    }
-
-    public void setCharacterDescription(String characterDescription) {
-        this.characterDescription = characterDescription;
     }
 
     public void setAlive(Boolean alive) {

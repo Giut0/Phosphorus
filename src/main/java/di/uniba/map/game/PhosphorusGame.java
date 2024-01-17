@@ -270,8 +270,7 @@ public class PhosphorusGame {
             for (int i = 0; i < charactersFile.size(); i++) {
                 Map<?, ?> result = (Map<?, ?>) charactersFile.get(Integer.toString(i));
                 if (((String) result.get("type")).equals("enemy")) {
-                    Enemy enemy = new Enemy((int) result.get("characterId"), (String) result.get("characterName"),
-                            (String) result.get("characterDescription"));
+                    Enemy enemy = new Enemy((int) result.get("characterId"), (String) result.get("characterName"));
 
                     enemy.setMainDialog((String) result.get("mainDialog"));
                     enemy.setDefaultDialog((String) result.get("defaultDialog"));
@@ -280,8 +279,7 @@ public class PhosphorusGame {
                     this.updateEnemyCount();
                 } else {
                     Character character = new Character((int) result.get("characterId"),
-                            (String) result.get("characterName"),
-                            (String) result.get("characterDescription"));
+                            (String) result.get("characterName"));
                     character.setMainDialog((String) result.get("mainDialog"));
                     character.setDefaultDialog((String) result.get("defaultDialog"));
 
@@ -297,18 +295,19 @@ public class PhosphorusGame {
     public void menuMove(ParserOutput p, PrintStream out, Clip clip) {
         switch (p.getAction().getCommandType()) {
 
-            case EXIT: // TODO: migliorare
-                out.println("STO USCENDO");
+            case EXIT:
+                UI.printEnd(out);
+                clip.close();
                 System.exit(0);
                 break;
 
             case MUSIC:
-                if (getMusicStatus()) { // TODO: migliorare UI
-                    out.println("STOP MUSIC");
+                if (getMusicStatus()) {
+                    out.println("\nInterruzione musica...");
                     setMusicStatus(false);
                     clip.stop();
                 } else {
-                    out.println("RESUME MUSIC");
+                    out.println("\nRiproduzione musica...");
                     setMusicStatus(true);
                     clip.loop(Clip.LOOP_CONTINUOUSLY);
                 }
@@ -337,22 +336,22 @@ public class PhosphorusGame {
             throws InvocationTargetException, InterruptedException {
         switch (p.getAction().getCommandType()) {
 
-            case EXIT: // TODO: migliorare
-                out.println("STO USCENDO");
-                System.exit(0);
+            case EXIT:
+                UI.printEnd(out);
+                clip.close();
                 break;
 
             case COMMAND_LIST:
                 UI.printCommandsList(out);
                 break;
 
-            case MUSIC: // TODO: migliorare UI
+            case MUSIC:
                 if (getMusicStatus()) {
-                    out.println("STOP MUSIC");
+                    out.println("\nInterruzione musica...");
                     setMusicStatus(false);
                     clip.stop();
                 } else {
-                    out.println("RESUME MUSIC");
+                    out.println("\nRiproduzione musica...");
                     setMusicStatus(true);
                     clip.loop(Clip.LOOP_CONTINUOUSLY);
                 }
@@ -367,7 +366,6 @@ public class PhosphorusGame {
                 break;
 
             case NORD:
-
                 if (game.getCurrentRoom().getNorth() != null) {
                     if (!this.game.getRooms().get(this.game.getCurrentRoom().getNorth()).getLocked()) {
                         if (this.game.getInventory().contains("bombola")
@@ -380,6 +378,7 @@ public class PhosphorusGame {
                                     + " non c'è ossigeno, devi avere una bombola d'ossigeno con te per proseguire");
                         }
                     } else if (this.game.getRooms().get(this.game.getCurrentRoom().getNorth()).getPasswordRequired()) {
+                        out.println("\nInserire password..." + this.game.getRooms().get(this.game.getCurrentRoom().getNorth()).getName().toLowerCase());
                         JKeypad jKeypad = new JKeypad(this.game.getRooms().get(this.game.getCurrentRoom().getNorth()));
                         jKeypad.setVisible(true);
                     } else {
@@ -404,6 +403,7 @@ public class PhosphorusGame {
                                     + " non c'è ossigeno, devi avere una bombola d'ossigeno con te per proseguire");
                         }
                     } else if (this.game.getRooms().get(this.game.getCurrentRoom().getSouth()).getPasswordRequired()) {
+                        out.println("\nInserire password..." + this.game.getRooms().get(this.game.getCurrentRoom().getSouth()).getName().toLowerCase());
                         JKeypad jKeypad = new JKeypad(this.game.getRooms().get(this.game.getCurrentRoom().getSouth()));
                         jKeypad.setVisible(true);
                     } else {
@@ -428,6 +428,7 @@ public class PhosphorusGame {
                                     + " non c'è ossigeno, devi avere una bombola d'ossigeno con te per proseguire");
                         }
                     } else if (this.game.getRooms().get(this.game.getCurrentRoom().getEast()).getPasswordRequired()) {
+                        out.println("\nInserire password..." + this.game.getRooms().get(this.game.getCurrentRoom().getEast()).getName().toLowerCase());
                         JKeypad jKeypad = new JKeypad(this.game.getRooms().get(this.game.getCurrentRoom().getEast()));
                         jKeypad.setVisible(true);
                     } else {
@@ -448,10 +449,11 @@ public class PhosphorusGame {
                             out.println("\n" + this.game.getCurrentRoom().getDescription());
                         } else {
                             out.println("\nIn "
-                                    + this.game.getRooms().get(this.game.getCurrentRoom().getWest()).getName()
+                                    + this.game.getRooms().get(this.game.getCurrentRoom().getWest()).getName().toLowerCase()
                                     + "non c'è ossigeno, devi avere una bombola d'ossigeno con te per proseguire");
                         }
                     } else if (this.game.getRooms().get(this.game.getCurrentRoom().getWest()).getPasswordRequired()) {
+                        out.println("\nInserire password... " + this.game.getRooms().get(this.game.getCurrentRoom().getWest()).getName().toLowerCase());
                         JKeypad jKeypad = new JKeypad(this.game.getRooms().get(this.game.getCurrentRoom().getWest()));
                         jKeypad.setVisible(true);
                     } else {
@@ -534,14 +536,24 @@ public class PhosphorusGame {
                 if (!(p.getCharacter() == null)) {
                     if (p.getCharacter().isAlive()) {
                         if (getHadGun()) {
-                            if (p.getCharacter() instanceof Enemy)
+                            if (p.getCharacter() instanceof Enemy){
                                 this.reduceEnemyCount();
-                            if (getGunLocked() == false) {
                                 out.println("\nHai sparato a: " + p.getCharacter().getCharacterName()
                                         + ", adesso non è più in vita.");
                                 p.getCharacter().setAlive(false);
-                                UI.badEning(out);
-                                System.exit(0);
+                                if(this.checkEnd()){
+                                    UI.trueEnding(out);
+                                    System.exit(0);
+                                }
+                            }else if (getGunLocked() == false) {
+                                out.println("\nHai sparato a: " + p.getCharacter().getCharacterName()
+                                        + ", adesso non è più in vita.");
+                                p.getCharacter().setAlive(false);
+                                if (!(p.getCharacter() instanceof Enemy)) {
+                                    UI.badEning(out);
+                                    System.exit(0);
+                                }
+
                             } else {
                                 out.println("\nLa tua pistola non è abilitata a ferire "
                                         + p.getCharacter().getCharacterName());
@@ -565,33 +577,34 @@ public class PhosphorusGame {
         }
     }
 
-    public void initGame(Clip clip) throws IOException, InvocationTargetException, InterruptedException {
+    public void initGame(PrintStream out, Clip clip)
+            throws IOException, InvocationTargetException, InterruptedException {
 
-        UI.printTitle(System.out);
-        UI.printMainMenu(System.out);
+        UI.printTitle(out);
+        UI.printMainMenu(out);
 
         Parser parser = new Parser(Utils.loadFileListInSet(new File("resources/stopwords")));
         Scanner scanner = new Scanner(System.in);
 
-        System.out.print("\n>> ");
+        out.print("\n>> ");
         while (scanner.hasNextLine()) {
             String command = scanner.nextLine();
             ParserOutput p = parser.parseAction(command, this.getGame().getCommandsAsList(),
                     this.getGame().getCurrentRoom().getAdvItemsAList(),
                     this.getGame().getCurrentRoom().getCharacters());
             if (p.getAction() == null) {
-                System.out.println("\nNon ho capito");
-                System.out.print("\n>> ");
+                out.println("\nNon ho capito");
+                out.print("\n>> ");
             } else {
                 if (this.getMenuLock()) {
-                    this.menuMove(p, System.out, clip);
-                    System.out.print("\n>> ");
+                    this.menuMove(p, out, clip);
+                    out.print("\n>> ");
                 } else {
                     if (!this.checkEnd()) {
-                        this.nextMove(p, System.out, clip);
-                        System.out.print("\n>> ");
+                        this.nextMove(p, out, clip);
+                        out.print("\n>> ");
                     } else {
-                        UI.trueEnding(System.out);
+                        UI.printEnd(out);
                         System.exit(0);
                     }
 

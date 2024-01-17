@@ -38,7 +38,7 @@
         "itemID": 3,
         "itemType": "Other",
         "itemName": "bigliettino",
-        "itemDescription": "Il bigliettino è abbastanza mal ridotto, ma si intravede una scritta: C@di&e la%orato£io 4815.",
+        "itemDescription": "Il bigliettino è abbastanza mal ridotto, ma si intravede una scritta: C@di&e la%orato£io \u001B[35m4815\u001B[0m.",
         "itemLocation": 5,
         "itemAction": "leggi",
         "itemAlias": [

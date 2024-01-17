@@ -44,10 +44,10 @@
     "2": {
         "roomId": 2,
         "roomName": "Laboratorio",
-        "roomDescription": "Stanza dove si studiano gli alieni catturati e si fanno esperimenti pre estrarre da questi il fosforo, ad ovest trovi la \u001B[32msala meeting\u001B[0m.",
-        "lookDescription": "Sei nel laboratorio, vedi un \u001B[31malieno\u001B[0m inerme che cerca di proteggersi, tra voi si frappone lo \u001B[34mSci47\u001B[0m cercando di proteggerlo, \nsul tavolo trovi delle note strappate, vicino alle stesse vedi un apparecchio che sembra una \u001B[33mmodifica\u001B[0m per la pistola, ad ovest trovi la sala \u001B[32mmeeting\u001B[0m.",
+        "roomDescription": "Stanza dove si studiano gli alieni catturati e si fanno esperimenti per estrarre da questi il fosforo, ad ovest trovi la \u001B[32msala meeting\u001B[0m.",
+        "lookDescription": "Sei nel laboratorio, vedi un \u001B[31malieno2\u001B[0m inerme che cerca di proteggersi, tra voi si frappone lo \u001B[34mSci47\u001B[0m cercando di proteggerlo, \nsul tavolo trovi delle note strappate, vicino alle stesse vedi un apparecchio che sembra una \u001B[33mmodifica\u001B[0m per la pistola, ad ovest trovi la sala \u001B[32mmeeting\u001B[0m.",
         "floorNumber": 0,
-        "locked": false,
+        "locked": true,
         "south": null,
         "north": null,
         "west": 1,
@@ -66,17 +66,15 @@
     "3": {
         "roomId": 3,
         "roomName": "Mensa",
-        "roomDescription": "Stanza dove pranzi e ceni con i tuoi colleghi, ad ovest trovi le scale per andare alla sala \u001B[32mmeeting\u001B[0m, mentre a est trovi la \u001B[32msala motori\u001B[0m.",
-        "lookDescription": "Sei nella mensa, vedi seduti ai tavoli due scienziati, \u001B[34mSci01\u001B[0m e \u001B[34mSci02\u001B[0m, su di un tavolo poco lontano da loro vedi una \u001B[33mchiave\u001B[0m ad ovest trovi le scale ed ad est la \u001B[32msala motori\u001B[0m.",
+        "roomDescription": "Sei nella mensa, vedi seduti ai tavoli due scienziati, \u001B[34mSci01\u001B[0m e \u001B[34mSci02\u001B[0m, ad ovest trovi le scale ed ad est la \u001B[32msala motori\u001B[0m.",
+        "lookDescription": "Sei nella mensa, vedi seduti ai tavoli due scienziati, \u001B[34mSci01\u001B[0m e \u001B[34mSci02\u001B[0m, ad ovest trovi le scale ed ad est la \u001B[32msala motori\u001B[0m.",
         "floorNumber": -1,
         "locked": false,
         "south": null,
         "north": null,
         "west": 1,
         "est": 4,
-        "items": [
-            2
-        ],
+        "items": [],
         "characters": [
             3,
             4,
@@ -89,16 +87,18 @@
         "roomId": 4,
         "roomName": "Sala motori",
         "roomDescription": "Sala dove sono situati tutti i vari componenti che permettere alla navicella di muoversi, ad est trovi la \u001B[32mmensa\u001B[0m, mentre a sud vai nello \u001B[32msgabuzzino\u001B[0m.",
-        "lookDescription": "Sei nella sala motori, vedi uno scienziato morto per terra, alzando un po' lo sguardo vedi un \u001B[31malieno\u001B[0m che ti ringhia, sembra ferito, \nad ovest trovi la \u001B[32mmensa\u001B[0m, a sud trovi uno \u001B[32msgabuzzino\u001B[0m.",
+        "lookDescription": "Sei nella sala motori, vedi uno scienziato morto per terra, alzando un po' lo sguardo vedi un \u001B[31malieno1\u001B[0m che ti ringhia, sembra ferito, su di un tavolo poco lontano da loro vedi una \u001B[33mchiave\u001B[0m, \nad ovest trovi la \u001B[32mmensa\u001B[0m, a sud trovi uno \u001B[32msgabuzzino\u001B[0m.",
         "floorNumber": -1,
         "locked": false,
         "south": 5,
         "north": null,
         "west": 3,
         "est": null,
-        "items": [],
+        "items": [
+            2
+        ],
         "characters": [
-            6,
+            5,
             2
         ],
         "oxygen": false,

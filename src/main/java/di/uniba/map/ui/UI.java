@@ -45,9 +45,7 @@ public class UI {
     }
 
     public static void printIntro(PrintStream out){
-        out.println("\\u001B[34ml'agente13\\u001B[0m");
-        out.println(
-                        "\nTi trovi a bordo di una navicella spaziale, sei di ritorno dopo un lungo viaggio per recuperare il fosforo \n"
+        out.println("\nTi trovi a bordo di una navicella spaziale, sei di ritorno dopo un lungo viaggio per recuperare il fosforo \n"
                                 +
                                 "che attualmente sulla terra scarseggia, avete catturato due alieni che producono fosforo naturalmente rilasciandolo come meccanismo di difesa.\n"
                                 +
@@ -63,9 +61,9 @@ public class UI {
             out.println("║                                                                 ║\n" + //
                         "║    ╔═══════════════════════════════════╗                        ║\n" + //
                         "║    ║                                   ║                        ║\n" + //
-                        "║    ║                                   ╠════════════════╗       ║\n" + //
-                        "║    ║                                   ║                ║       ║\n" + //
-                        "║    ║                                   ╨                ║       ║\n" + //
+                        "║    ║  ╞═╡                              ╠════════════════╗       ║\n" + //
+                        "║    ║  ╞═╡                              ║                ║       ║\n" + //
+                        "║    ║  ╞═╡                              ╨                ║       ║\n" + //
                         "║    ║                                   ╥                ║       ║\n" + //
                         "║    ║                                   ║  Laboratorio   ║       ║\n" + //
                         "║    ║  Sala meeting                     ╠════════════════╝       ║\n" + //
@@ -85,9 +83,9 @@ public class UI {
             out.println("║                                                                 ║\n" + //
                         "║    ╔══════════════════╦════════════════════════════════╗        ║\n" + //
                         "║    ║                  ║                                ║        ║\n" + //
-                        "║    ║                  ║                                ║        ║\n" + //
-                        "║    ║                  ╨                                ║        ║\n" + //
-                        "║    ║                  ╥                                ║        ║\n" + //
+                        "║    ║  ╞═╡             ║                                ║        ║\n" + //
+                        "║    ║  ╞═╡             ╨                                ║        ║\n" + //
+                        "║    ║  ╞═╡             ╥                                ║        ║\n" + //
                         "║    ║                  ║                  Sala mototi   ║        ║\n" + //
                         "║    ║                  ║                 ╔══════════════╝        ║\n" + //
                         "║    ║  Mensa           ║                 ║                       ║\n" + 
@@ -105,8 +103,18 @@ public class UI {
         printEnd(out);
     }
 
-    private static void printEnd(PrintStream out) {
-        out.println("TODO");
+    public static void printEnd(PrintStream out) {
+        out.println("\nGrazie mille per aver giocato a phosphorus!");
+        out.println("\nArt director: Vito Proscia \n" + //
+                "Game designer: Vito Proscia \n" + //
+                "Graphic designer: Vito Proscia \n" + //
+                "Sound designer: Vito Proscia\n" + //
+                "Project Manager: Vito Proscia\n" + //
+                "Writer: Vito Proscia \n" + //
+                "Developer: Vito Proscia\n" + //
+                "Producer: Vito Proscia\n" + //
+                "Concept Artist: Vito Proscia \n" + //
+                "Game tester: Vito Proscia\n");
     }
 
     public static void trueEnding(PrintStream out){

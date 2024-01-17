@@ -2,7 +2,6 @@
     "0": {
         "characterId": 0,
         "characterName": "Agente13",
-        "characterDescription": "...",
         "mainDialog": "Buongiorno f24, ho saputo che sei nuovo, hai sentito il comandante, dobbiamo andare in sala meeting. Il comandante è un tipo un po all'antica, sembra fermo al 1984, ma vabbè andiamo.",
         "defaultDialog": "Cosa c'è non ti ricordi dove si trova la sala meeting? Appena a nord di quì.",
         "type": "friend"
@@ -10,7 +9,6 @@
     "1": {
         "characterId": 1,
         "characterName": "Comandante",
-        "characterDescription": "...",
         "mainDialog": "Bentrovati a tutti, non prediamoci in chaicchiere, vi ho convocati con così poco preavviso perchè dovete indagare sulla fuga di alcuni alieni dal laboratorio, f24 prendi la pistola dal quel tavolo, potrebbero essere ostili.\nTi accompagnerà l'agente17, GLORIA AD INGSOC! \nAh quasi dimenticavo... la fuga ha compromesso la sala motori, ti conviene recuperare la bombola d'ossigeno dal dormitorio.",
         "defaultDialog": "Cosa c'è ancora? Quale parte di indagate sulla fuga di alcuni alieni non avete capito? Dai su, provate ad andare in laboratorio, solo che ci vuole il codice d'accesso, vedetevela voi, ricordatevi la bombola d'ossigeno nel dormitorio. GLORIA AD INGSOC!",
         "type": "friend"
@@ -18,7 +16,6 @@
     "2": {
         "characterId": 2,
         "characterName": "Agente17",
-        "characterDescription": "...",
         "mainDialog": "...",
         "defaultDialog": "...",
         "type": "friend"
@@ -26,7 +23,6 @@
     "3": {
         "characterId": 3,
         "characterName": "Sci01",
-        "characterDescription": "...",
         "mainDialog": "Cosa vuoi? La password d'accesso al laboratorio? Lasciami mangaire in santa pace!",
         "defaultDialog": "Gnam gnam...",
         "type": "friend"
@@ -34,15 +30,13 @@
     "4": {
         "characterId": 4,
         "characterName": "Sci02",
-        "characterDescription": "...",
         "mainDialog": "Salve agenti... *tosse* cosa vi porta quì? La *tosse* password per il laboratorio, *tosse*, mi dispiace ma non tanto sto bene *tosse*, non ricordo...*tosse*, forse è nello sgabuzzino della sala motori *tosse*.",
         "defaultDialog": "Provate ad andare nella sala motori, *tosse*",
         "type": "friend"
     },
     "5": {
         "characterId": 5,
-        "characterName": "Alieno",
-        "characterDescription": "...",
+        "characterName": "Alieno1",
         "mainDialog": "AAAAAAAAAAAARRRRRRRGGGGGHHHHH",
         "defaultDialog": "AAAAAAAAAAAARRRRRRRGGGGGHHHHH",
         "dialogs": [
@@ -52,8 +46,7 @@
     },
     "6": {
         "characterId": 6,
-        "characterName": "Alieno",
-        "characterDescription": "...",
+        "characterName": "Alieno2",
         "mainDialog": "GGGGRRRRRRRRRRRRRRRRRR",
         "defaultDialog": "GGGGRRRRRRRRRRRRRRRRRR",
         "dialogs": [
@@ -64,8 +57,7 @@
     "7": {
         "characterId": 7,
         "characterName": "Sci47",
-        "characterDescription": "...",
-        "mainDialog": "...",
+        "mainDialog": "Aspetta! Non sparare! Questo alieno è una vittima di uno sfruttamento per la produzione di fosforo, so benissimo che il fosforo è importante per il funzionamento delle membrane cellulari, ma torturare altre forme di vita per produrlo non è la soluzione, bisogna trovare un altro metodo, altrimenti che farete quando avrete sterminato anche tutti gli alieni che lo producono?",
         "defaultDialog": "Ti prego non sparare!",
         "type": "friend"
     }

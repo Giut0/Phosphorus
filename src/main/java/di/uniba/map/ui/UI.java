@@ -1,4 +1,4 @@
-package di.uniba.map.game;
+package di.uniba.map.ui;
 import java.io.PrintStream;
 
 public class UI {
@@ -89,10 +89,16 @@ public class UI {
     }
 
     public static void badEning(PrintStream out){
-        out.println("\nSono scattati gli allarmi, vedi il tuo collega che ti seguiva come un'ombra tirare fuori la pistola, te le punta addoso, vedi bianco...");
+        out.println("\nSono scattati gli allarmi, vedi il tuo collega che ti seguiva come un'ombra tirare fuori la pistola, te le punta addoso, vedi bianco...\n");
+        printEnd(out);
+    }
+
+    private static void printEnd(PrintStream out) {
+        out.println("TODO");
     }
 
     public static void trueEnding(PrintStream out){
         out.println("\nAdesso tutti e due gli alieni sono morti, una vocina nella tua testa ti sussurra \"hai completato la missione, contribuendo allo sruttamento di altri esseri viventi per il benessere di altri, complimenti!\"");
+        printEnd(out);
     }
 }

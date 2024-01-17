@@ -19,7 +19,8 @@
         "itemLocation": 2,
         "itemAction": "",
         "itemAlias": [
-            "modifica"
+            "modifica",
+            "mod"
         ]
     },
     "2": {
@@ -35,18 +36,6 @@
     },
     "3": {
         "itemID": 3,
-        "itemType": "Key",
-        "itemName": "tessera laboratorio",
-        "itemDescription": "La tessera per sbloccare la porta del laboratorio, da sola non basta, ti serve il codice di conferma.",
-        "itemLocation": 4,
-        "itemAction": "usa",
-        "itemAlias": [
-            "tessera",
-            "carta"
-        ]
-    },
-    "4": {
-        "itemID": 4,
         "itemType": "Other",
         "itemName": "bigliettino",
         "itemDescription": "Il bigliettino è abbastanza mal ridotto, ma si intravede una scritta: C@di&e la%orato£io 4815.",
@@ -55,12 +44,16 @@
         "itemAlias": [
             "cartoncino",
             "biglietto",
-            "carta"
+            "carta",
+            "pezzettino",
+            "foglio",
+            "foglietto",
+            "fogliettino"
         ]
     }
     ,
-    "5": {
-        "itemID": 5,
+    "4": {
+        "itemID": 4,
         "itemType": "Other",
         "itemName": "bombola",
         "itemDescription": "Una bombola contenente l'ossigeno, d'ora in poi potrai entrare nella stanze prive di quest'ultimo.",
@@ -68,7 +61,9 @@
         "itemAction": "",
         "itemAlias": [
             "ossigeno",
-            "bomboletta"
+            "bomboletta",
+            "bombolette",
+            "bombole"
         ]
     }
 }

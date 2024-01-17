@@ -2,8 +2,8 @@
     "0": {
         "roomId": 0,
         "roomName": "Dormitorio",
-        "roomDescription": "Stanza non molto grande dove dormi con i tuoi colleghi",
-        "lookDescription": "Sei nel dormitorio, vicino a te c'è un tuo collega, l'agente13 sullo scaffale trovi una serie di bombole con dentro l'ossigeno, a nord trovi la sala meeting.",
+        "roomDescription": "Dormitorio non molto grande dove dormi con i tuoi colleghi, a nord trovi la sala meeting\u001B[0m.",
+        "lookDescription": "Sei nel dormitorio, vicino a te c'è un tuo collega, \u001B[34ml'agente13\u001B[0m sullo scaffale trovi una serie di \u001B[33mbombole\u001B[0m con dentro l'ossigeno, a nord trovi la \u001B[32msala meeting\u001B[0m.",
         "floorNumber": 0,
         "locked": false,
         "south": null,
@@ -11,18 +11,19 @@
         "west": null,
         "est": null,
         "items": [
-            5
+            4
         ],
         "characters": [
             0
         ],
-        "oxygen": true
+        "oxygen": true,
+        "passwordRequired": false
     },
     "1": {
         "roomId": 1,
         "roomName": "Sala meeting",
-        "roomDescription": "Sala dove si tengono le riunioni con i colleghi",
-        "lookDescription": "Sei nella sala meeting, al centro della stanza c'è il comandante seduto sulla poltrona ergonomica, \nsul tavolo trovi una pistola, a sud trovi il dormitorio, ad est trovi il laboratorio, probabilmente chiuso a chiave, mentre ad ovest trovi le scale per andare al piano di sotto.",
+        "roomDescription": "Sala dove si tengono le riunioni con i colleghi, ad est trovi il \u001B[32mlaboratorio\u001B[0m, a sud il \u001B[32mdormitorio\u001B[0m, mentre a ovest trovi le scale per raggiungere la \u001B[32mmensa\u001B[0m",
+        "lookDescription": "Sei nella sala meeting, al centro della stanza c'è il \u001B[34mcomandante\u001B[0m seduto sulla poltrona ergonomica, \nsul tavolo trovi una \u001B[33mpistola\u001B[0m, a sud trovi il \u001B[32mdormitorio\u001B[0m, ad est trovi il \u001B[32mlaboratorio\u001B[0m, probabilmente chiuso con password, mentre ad ovest trovi le scale per raggiungere la \u001B[32mmensa\u001B[0m.",
         "floorNumber": 0,
         "locked": false,
         "south": 0,
@@ -37,15 +38,16 @@
             1,
             2
         ],
-        "oxygen": true
+        "oxygen": true,
+        "passwordRequired": false
     },
     "2": {
         "roomId": 2,
         "roomName": "Laboratorio",
-        "roomDescription": "Stanza dove si studiano gli alieni catturati e si fanno esperimenti pre estrarre da questi il fosforo",
-        "lookDescription": "Sei in laboratorio, sul tavolo trovi delle note strappate, vicino alle stesse vedi un apparecchio che sembra una modifica per la pistola, ad ovest trovi la sala meeting.",
+        "roomDescription": "Stanza dove si studiano gli alieni catturati e si fanno esperimenti pre estrarre da questi il fosforo, ad ovest trovi la \u001B[32msala meeting\u001B[0m.",
+        "lookDescription": "Sei nel laboratorio, vedi un \u001B[31malieno\u001B[0m inerme che cerca di proteggersi, tra voi si frappone lo \u001B[34mSci47\u001B[0m cercando di proteggerlo, \nsul tavolo trovi delle note strappate, vicino alle stesse vedi un apparecchio che sembra una \u001B[33mmodifica\u001B[0m per la pistola, ad ovest trovi la sala \u001B[32mmeeting\u001B[0m.",
         "floorNumber": 0,
-        "locked": true,
+        "locked": false,
         "south": null,
         "north": null,
         "west": 1,
@@ -55,15 +57,17 @@
         ],
         "characters": [
             6,
-            2
+            2,
+            7
         ],
-        "oxygen": true
+        "oxygen": true,
+        "passwordRequired": true
     },
     "3": {
         "roomId": 3,
         "roomName": "Mensa",
-        "roomDescription": "Stanza dove pranzi e ceni con i tuoi colleghi",
-        "lookDescription": "Sei nella mensa, vedi seduti ai tavoli due scienziati, Sci01 e Sci02, ad ovest trovi le scale ed ad est la sala motori",
+        "roomDescription": "Stanza dove pranzi e ceni con i tuoi colleghi, ad ovest trovi le scale per andare alla sala \u001B[32mmeeting\u001B[0m, mentre a est trovi la \u001B[32msala motori\u001B[0m.",
+        "lookDescription": "Sei nella mensa, vedi seduti ai tavoli due scienziati, \u001B[34mSci01\u001B[0m e \u001B[34mSci02\u001B[0m, su di un tavolo poco lontano da loro vedi una \u001B[33mchiave\u001B[0m ad ovest trovi le scale ed ad est la \u001B[32msala motori\u001B[0m.",
         "floorNumber": -1,
         "locked": false,
         "south": null,
@@ -78,45 +82,46 @@
             4,
             2
         ],
-        "oxygen": true
+        "oxygen": true,
+        "passwordRequired": false
     },
     "4": {
         "roomId": 4,
         "roomName": "Sala motori",
-        "roomDescription": "Sala dove sono situati tutti i vari componenti che permettere alla navicella di muoversi",
-        "lookDescription": "Sei nella sala motori, vedi uno scienziato morto per terra, vicino ad esso trovi un'agenda, ad ovest trovi la mensa, a sud trovi uno stanzino.",
+        "roomDescription": "Sala dove sono situati tutti i vari componenti che permettere alla navicella di muoversi, ad est trovi la \u001B[32mmensa\u001B[0m, mentre a sud vai nello \u001B[32msgabuzzino\u001B[0m.",
+        "lookDescription": "Sei nella sala motori, vedi uno scienziato morto per terra, alzando un po' lo sguardo vedi un \u001B[31malieno\u001B[0m che ti ringhia, sembra ferito, \nad ovest trovi la \u001B[32mmensa\u001B[0m, a sud trovi uno \u001B[32msgabuzzino\u001B[0m.",
         "floorNumber": -1,
         "locked": false,
         "south": 5,
         "north": null,
         "west": 3,
         "est": null,
-        "items": [
-            3
-        ],
+        "items": [],
         "characters": [
             6,
             2
         ],
-        "oxygen": false
+        "oxygen": false,
+        "passwordRequired": false
     },
     "5": {
         "roomId": 5,
         "roomName": "Sgabuzzino",
-        "roomDescription": "Stanza molto piccola dove vengono messi i ricambi per i componenti e gli attrezzi per riparare.",
-        "lookDescription": "Stanaza vuota, ad nord trovi la sala motori",
+        "roomDescription": "Stanza molto piccola dove vengono messi i ricambi per i componenti e gli attrezzi per riparare, a nord trovi la \u001B[32msala motori\u001B[0m.",
+        "lookDescription": "Sul pavimento vedi un agente morto sbranato, ma noti dei piccoli segni di bruciatura lungo sul collo, come se qualcuno l'avesse stordito con un taser, \nnoti che stringe un \u001B[33mbiletto\u001B[0m di carta tra le mani, a nord trovi la \u001B[32msala motori\u001B[0m",
         "floorNumber": -1,
-        "locked": false,
+        "locked": true,
         "south": null,
         "north": 4,
         "west": null,
         "est": null,
         "items": [
-            4
+            3
         ],
         "characters": [
             2
         ],
-        "oxygen": false
+        "oxygen": false,
+        "passwordRequired": false
     }
 }

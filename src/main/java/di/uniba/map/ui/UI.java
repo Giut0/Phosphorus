@@ -44,6 +44,18 @@ public class UI {
                 "\t- Spara: per sparare ad un avversario.");
     }
 
+    public static void printIntro(PrintStream out){
+        out.println("\\u001B[34ml'agente13\\u001B[0m");
+        out.println(
+                        "\nTi trovi a bordo di una navicella spaziale, sei di ritorno dopo un lungo viaggio per recuperare il fosforo \n"
+                                +
+                                "che attualmente sulla terra scarseggia, avete catturato due alieni che producono fosforo naturalmente rilasciandolo come meccanismo di difesa.\n"
+                                +
+                                "Hai appena aperto gli occhi dopo un lungo sonno, senti il corpo tutto intorpidito, ti alzi dal letto, vedi il tuo collega \u001B[34ml'agente13\u001B[0m già in piedi,\n"
+                                +
+                                "senti dagli autoparlanti una voce molto fastidiosa: \"A tutti gli agenti, venite immediatamente nella sala meeting!\"");
+    }
+
     public static void printGroundFloorMap(PrintStream out){
             out.println("\n╔═════════════════════════════════════════════════════════════════╗");
             out.println("║                        Mappa piano terra                        ║");

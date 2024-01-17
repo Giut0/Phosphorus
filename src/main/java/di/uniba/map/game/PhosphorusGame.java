@@ -140,6 +140,8 @@ public class PhosphorusGame {
                         (int) result.get("floorNumber"), (boolean) result.get("oxygen"));
                 room.setAdjacentRooms((Integer) result.get("north"), (Integer) result.get("south"),
                         (Integer) result.get("est"), (Integer) result.get("west"));
+
+                room.setPasswordRequired((boolean) result.get("passwordRequired"));
                 List<Integer> charactersIDs = (List<Integer>) result.get("characters");
                 List<Integer> roomItemsIDs = (List<Integer>) result.get("items");
 
@@ -313,14 +315,7 @@ public class PhosphorusGame {
                 break;
 
             case START:
-                out.println(
-                        "\nTi trovi a bordo di una navicella spaziale, sei di ritorno dopo un lungo viaggio per recuperare il fosforo \n"
-                                +
-                                "che attualmente sulla terra scarseggia, avete catturato due alieni che producono fosforo naturalmente rilasciandolo come meccanismo di difesa.\n"
-                                +
-                                "Hai appena aperto gli occhi dopo un lungo sonno, senti il corpo tutto intorpidito, ti alzi dal letto, vedi il tuo collega l'agente13 già in piedi,\n"
-                                +
-                                "senti dagli autoparlanti una voce molto fastidiosa: \"A tutti gli agenti, venite immediatamente nella sala meeting!\"");
+                UI.printIntro(out);
 
                 setMenuLock(false);
 
@@ -378,13 +373,15 @@ public class PhosphorusGame {
                         if (this.game.getInventory().contains("bombola")
                                 || this.game.getRooms().get(this.game.getCurrentRoom().getNorth()).isOxygen()) {
                             this.game.setCurrentRoom(this.game.getRooms().get(this.game.getCurrentRoom().getNorth()));
-                            out.println("\n" + this.game.getCurrentRoom().getLookDescription());
+                            out.println("\n" + this.game.getCurrentRoom().getDescription());
                         } else {
                             out.println("\nIn "
                                     + this.game.getRooms().get(this.game.getCurrentRoom().getNorth()).getName()
                                     + " non c'è ossigeno, devi avere una bombola d'ossigeno con te per proseguire");
                         }
-
+                    } else if (this.game.getRooms().get(this.game.getCurrentRoom().getNorth()).getPasswordRequired()) {
+                        JKeypad jKeypad = new JKeypad(this.game.getRooms().get(this.game.getCurrentRoom().getNorth()));
+                        jKeypad.setVisible(true);
                     } else {
                         out.println("\nLa stanza è chiusa a chiave, non puoi entrarci.");
                     }
@@ -400,12 +397,15 @@ public class PhosphorusGame {
                         if (this.game.getInventory().contains("bombola")
                                 || this.game.getRooms().get(this.game.getCurrentRoom().getSouth()).isOxygen()) {
                             this.game.setCurrentRoom(this.game.getRooms().get(this.game.getCurrentRoom().getSouth()));
-                            out.println("\n" + this.game.getCurrentRoom().getLookDescription());
+                            out.println("\n" + this.game.getCurrentRoom().getDescription());
                         } else {
                             out.println("\nIn "
                                     + this.game.getRooms().get(this.game.getCurrentRoom().getSouth()).getName()
                                     + " non c'è ossigeno, devi avere una bombola d'ossigeno con te per proseguire");
                         }
+                    } else if (this.game.getRooms().get(this.game.getCurrentRoom().getSouth()).getPasswordRequired()) {
+                        JKeypad jKeypad = new JKeypad(this.game.getRooms().get(this.game.getCurrentRoom().getSouth()));
+                        jKeypad.setVisible(true);
                     } else {
                         out.println("\nLa stanza è chiusa a chiave, non puoi entrarci.");
                     }
@@ -416,20 +416,18 @@ public class PhosphorusGame {
                 break;
 
             case EST:
-                boolean a = false;
                 if (game.getCurrentRoom().getEast() != null) {
                     if (!this.game.getRooms().get(this.game.getCurrentRoom().getEast()).getLocked()) {
                         if (this.game.getInventory().contains("bombola")
                                 || this.game.getRooms().get(this.game.getCurrentRoom().getEast()).isOxygen()) {
                             this.game.setCurrentRoom(this.game.getRooms().get(this.game.getCurrentRoom().getEast()));
-                            out.println("\n" + this.game.getCurrentRoom().getLookDescription());
+                            out.println("\n" + this.game.getCurrentRoom().getDescription());
                         } else {
                             out.println("\nIn "
                                     + this.game.getRooms().get(this.game.getCurrentRoom().getEast()).getName()
                                     + " non c'è ossigeno, devi avere una bombola d'ossigeno con te per proseguire");
                         }
-                    } else if (this.game.getRooms().get(this.game.getCurrentRoom().getEast()).getName().toLowerCase()
-                            .equals("laboratorio")) {
+                    } else if (this.game.getRooms().get(this.game.getCurrentRoom().getEast()).getPasswordRequired()) {
                         JKeypad jKeypad = new JKeypad(this.game.getRooms().get(this.game.getCurrentRoom().getEast()));
                         jKeypad.setVisible(true);
                     } else {
@@ -447,12 +445,15 @@ public class PhosphorusGame {
                         if (this.game.getInventory().contains("bombola")
                                 || this.game.getRooms().get(this.game.getCurrentRoom().getWest()).isOxygen()) {
                             this.game.setCurrentRoom(this.game.getRooms().get(this.game.getCurrentRoom().getWest()));
-                            out.println("\n" + this.game.getCurrentRoom().getLookDescription());
+                            out.println("\n" + this.game.getCurrentRoom().getDescription());
                         } else {
                             out.println("\nIn "
                                     + this.game.getRooms().get(this.game.getCurrentRoom().getWest()).getName()
                                     + "non c'è ossigeno, devi avere una bombola d'ossigeno con te per proseguire");
                         }
+                    } else if (this.game.getRooms().get(this.game.getCurrentRoom().getWest()).getPasswordRequired()) {
+                        JKeypad jKeypad = new JKeypad(this.game.getRooms().get(this.game.getCurrentRoom().getWest()));
+                        jKeypad.setVisible(true);
                     } else {
                         out.println("\nLa stanza è chiusa a chiave, non puoi entrarci.");
                     }
@@ -499,6 +500,9 @@ public class PhosphorusGame {
                     if (p.getObject().getItemAlias().contains("modifica"))
                         this.setGunLocked(false);
 
+                    if (p.getObject().getItemName().toLowerCase().equals("chiave sgabuzzino"))
+                        this.getGame().getRooms().get(5).setLocked(false);
+
                     game.getCurrentRoom().removeItem(p.getObject().getItemName());
 
                 } else {
@@ -518,10 +522,10 @@ public class PhosphorusGame {
                 break;
 
             case OSSERVA:
-                if (!this.getGame().getCurrentRoom().isCompleted()) {
+                if (!this.getGame().getCurrentRoom().getAdvItemsAList().isEmpty()) {
                     out.println("\n" + game.getCurrentRoom().getLookDescription());
                 } else {
-                    // TODO
+                    out.println("\n" + game.getCurrentRoom().getDescription());
                 }
 
                 break;

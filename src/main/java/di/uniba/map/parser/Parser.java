@@ -5,6 +5,7 @@ import di.uniba.map.type.Action;
 import di.uniba.map.type.Character;
 import di.uniba.map.type.Item;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -45,8 +46,13 @@ public class Parser {
 
     public ParserOutput parseAction(String action, List<Action> actions, List<Item> objects,
             List<Character> characters) {
-        List<String> tokens = Utils.parseString(action, stopwords); // Elminiazione stopwords
-
+                List<String> tokens = new ArrayList<>();
+        if(action.length() > 1 ){
+            tokens = Utils.parseString(action, stopwords); // Elminiazione stopwords
+        }else{
+            tokens.add(action);
+        }
+            
         if (!tokens.isEmpty()) {
             int ic = checkForAction(tokens.get(0), actions); // Controllo se il comando dell'utente è presente nella
                                                              // azioni predefinite

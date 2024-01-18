@@ -3,6 +3,11 @@ import java.io.PrintStream;
 
 public class UI {
 
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_YELLOW = "\u001B[33m";
+    public static final String ANSI_RED = "\u001B[31m";
+    public static final String ANSI_BLUE = "\u001B[34m";
+
     public static void printTitle(PrintStream out){
         out.println("\n╔═════════════════════════════════════════════════════════════════╗  \n" + //
                     "║      ____  __                     __                            ║\n" + //
@@ -23,6 +28,7 @@ public class UI {
                 "\t- Riprendi: riprendi l'avventura da dove l'avevi lasciata,\n" + //
                 "\t- Musica: per disattivare o attivare la musica del gioco,\n" + //
                 "\t- Comandi: per una panoramica generale di tutto quello che puoi fare nel gioco.\n" + //
+                "\t- Esci: per uscire dal gioco e riprendere a viverne un altro.\n" + //
                 "\n" + //
                 "Quando sei pronto ad iniziare digita Inizia.");
     }
@@ -31,8 +37,10 @@ public class UI {
         out.println("\nLista di tutti i comandi che puoi eseguire in game:\n" + //
                 "\n" + //
                 "\t- Esci: per uscire dal gioco e tornare al menù principale,\n" + //
+                "\t- Menu: per tornare al menù principale,\n" + //
                 "\t- Musica: per disattivare o attivare la musica del gioco,\n" + //
                 "\t- Mappa: per visualizzare la mappa di gioco,\n" + //
+                "\t- Salva: per salvare i progressi di gioco,\n" + //
                 "\t- Nord: per muoversi a nord,\n" + //
                 "\t- Sud: per muoversi a sud,\n" + //
                 "\t- Est: per muoversi a est,\n" + //
@@ -49,7 +57,7 @@ public class UI {
                                 +
                                 "che attualmente sulla terra scarseggia, avete catturato due alieni che producono fosforo naturalmente rilasciandolo come meccanismo di difesa.\n"
                                 +
-                                "Hai appena aperto gli occhi dopo un lungo sonno, senti il corpo tutto intorpidito, ti alzi dal letto, vedi il tuo collega \u001B[34ml'agente13\u001B[0m già in piedi,\n"
+                                "Hai appena aperto gli occhi dopo un lungo sonno, senti il corpo tutto intorpidito, ti alzi dal letto, vedi il tuo collega \u001B[34ma13\u001B[0m già in piedi,\n"
                                 +
                                 "senti dagli autoparlanti una voce molto fastidiosa: \"A tutti gli agenti, venite immediatamente nella sala meeting!\"");
     }
@@ -99,7 +107,7 @@ public class UI {
     }
 
     public static void badEning(PrintStream out){
-        out.println("\nSono scattati gli allarmi, vedi il tuo collega che ti seguiva come un'ombra tirare fuori la pistola, te le punta addoso, vedi bianco...\n");
+        out.println("\nSono scattati gli allarmi, vedi il tuo collega che ti seguiva come un'ombra tirare fuori la pistola, te le punta addoso, vedi bianco...");
         printEnd(out);
     }
 

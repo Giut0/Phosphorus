@@ -215,7 +215,7 @@ public class PhosphorusGame {
         actions.add(use);
 
         Action start = new Action(ActionType.START, "inizia");
-        start.setCommandAlias(new String[] { "start", "comincia", "begin", "inizio", "i" });
+        start.setCommandAlias(new String[] { "start", "comincia", "begin", "inizio", "i", "s" });
         actions.add(start);
 
         Action resume = new Action(ActionType.RESUME, "continua");
@@ -231,8 +231,16 @@ public class PhosphorusGame {
         actions.add(map_ground);
 
         Action commands_help = new Action(ActionType.COMMAND_LIST, "comandi");
-        commands_help.setCommandAlias(new String[] { "commands", "help", "aiuto" });
+        commands_help.setCommandAlias(new String[] { "commands", "help", "aiuto", "h", "c" });
         actions.add(commands_help);
+
+        Action menu = new Action(ActionType.MENU, "menu");
+        menu.setCommandAlias(new String[] { "m" });
+        actions.add(menu);
+
+        Action save = new Action(ActionType.SAVE, "salva");
+        save.setCommandAlias(new String[] { "save", "salvare", "salvataggio" });
+        actions.add(save);
 
         return actions;
     }
@@ -337,13 +345,20 @@ public class PhosphorusGame {
         switch (p.getAction().getCommandType()) {
 
             case EXIT:
-                UI.printEnd(out);
-                clip.close();
+                this.setMenuLock(true);
+                UI.printMainMenu(out);
                 break;
 
             case COMMAND_LIST:
                 UI.printCommandsList(out);
                 break;
+
+            case MENU:
+                this.setMenuLock(true);
+                UI.printMainMenu(out);
+
+            case SAVE:
+                //TODO
 
             case MUSIC:
                 if (getMusicStatus()) {
@@ -378,7 +393,7 @@ public class PhosphorusGame {
                                     + " non c'è ossigeno, devi avere una bombola d'ossigeno con te per proseguire");
                         }
                     } else if (this.game.getRooms().get(this.game.getCurrentRoom().getNorth()).getPasswordRequired()) {
-                        out.println("\nInserire password..." + this.game.getRooms().get(this.game.getCurrentRoom().getNorth()).getName().toLowerCase());
+                        out.println("\nInserire password di " + this.game.getRooms().get(this.game.getCurrentRoom().getNorth()).getName().toLowerCase());
                         JKeypad jKeypad = new JKeypad(this.game.getRooms().get(this.game.getCurrentRoom().getNorth()));
                         jKeypad.setVisible(true);
                     } else {
@@ -403,7 +418,7 @@ public class PhosphorusGame {
                                     + " non c'è ossigeno, devi avere una bombola d'ossigeno con te per proseguire");
                         }
                     } else if (this.game.getRooms().get(this.game.getCurrentRoom().getSouth()).getPasswordRequired()) {
-                        out.println("\nInserire password..." + this.game.getRooms().get(this.game.getCurrentRoom().getSouth()).getName().toLowerCase());
+                        out.println("\nInserire password di " + this.game.getRooms().get(this.game.getCurrentRoom().getSouth()).getName().toLowerCase());
                         JKeypad jKeypad = new JKeypad(this.game.getRooms().get(this.game.getCurrentRoom().getSouth()));
                         jKeypad.setVisible(true);
                     } else {
@@ -428,7 +443,7 @@ public class PhosphorusGame {
                                     + " non c'è ossigeno, devi avere una bombola d'ossigeno con te per proseguire");
                         }
                     } else if (this.game.getRooms().get(this.game.getCurrentRoom().getEast()).getPasswordRequired()) {
-                        out.println("\nInserire password..." + this.game.getRooms().get(this.game.getCurrentRoom().getEast()).getName().toLowerCase());
+                        out.println("\nInserire password di " + this.game.getRooms().get(this.game.getCurrentRoom().getEast()).getName().toLowerCase());
                         JKeypad jKeypad = new JKeypad(this.game.getRooms().get(this.game.getCurrentRoom().getEast()));
                         jKeypad.setVisible(true);
                     } else {
@@ -453,7 +468,7 @@ public class PhosphorusGame {
                                     + "non c'è ossigeno, devi avere una bombola d'ossigeno con te per proseguire");
                         }
                     } else if (this.game.getRooms().get(this.game.getCurrentRoom().getWest()).getPasswordRequired()) {
-                        out.println("\nInserire password... " + this.game.getRooms().get(this.game.getCurrentRoom().getWest()).getName().toLowerCase());
+                        out.println("\nInserire password di " + this.game.getRooms().get(this.game.getCurrentRoom().getWest()).getName().toLowerCase());
                         JKeypad jKeypad = new JKeypad(this.game.getRooms().get(this.game.getCurrentRoom().getWest()));
                         jKeypad.setVisible(true);
                     } else {
@@ -494,7 +509,7 @@ public class PhosphorusGame {
             case RACCOGLI:
                 if (game.getCurrentRoom().getAdvItemsAList().size() != 0) {
                     game.getInventory().addAvdItem(p.getObject());
-                    System.out.println("\nHai raccolto: " + p.getObject().getItemName() + ", "
+                    System.out.println("\nHai raccolto: " + UI.ANSI_YELLOW + p.getObject().getItemName() + UI.ANSI_RESET +", "
                             + p.getObject().getItemDescription());
                     if (p.getObject() instanceof Weapon)
                         this.setHadGun(true);
@@ -515,7 +530,7 @@ public class PhosphorusGame {
             case INVENTARIO:
                 if (!game.getInventory().getInventory().isEmpty()) {
                     for (Item invItem : game.getInventory().getInventory()) {
-                        out.println(invItem.getItemName());
+                        out.println("- " + UI.ANSI_YELLOW + invItem.getItemName() + UI.ANSI_RESET);
                     }
                 } else {
                     out.println("\nL'inventario è vuoto");
@@ -538,7 +553,7 @@ public class PhosphorusGame {
                         if (getHadGun()) {
                             if (p.getCharacter() instanceof Enemy){
                                 this.reduceEnemyCount();
-                                out.println("\nHai sparato a: " + p.getCharacter().getCharacterName()
+                                out.println("\nHai sparato a: " + UI.ANSI_RED + p.getCharacter().getCharacterName() + UI.ANSI_RESET
                                         + ", adesso non è più in vita.");
                                 p.getCharacter().setAlive(false);
                                 if(this.checkEnd()){
@@ -546,7 +561,7 @@ public class PhosphorusGame {
                                     System.exit(0);
                                 }
                             }else if (getGunLocked() == false) {
-                                out.println("\nHai sparato a: " + p.getCharacter().getCharacterName()
+                                out.println("\nHai sparato a: " + UI.ANSI_BLUE + p.getCharacter().getCharacterName() + UI.ANSI_RESET
                                         + ", adesso non è più in vita.");
                                 p.getCharacter().setAlive(false);
                                 if (!(p.getCharacter() instanceof Enemy)) {
@@ -556,7 +571,7 @@ public class PhosphorusGame {
 
                             } else {
                                 out.println("\nLa tua pistola non è abilitata a ferire "
-                                        + p.getCharacter().getCharacterName());
+                                        + p.getCharacter().getCharacterName() + "!");
                             }
 
                         } else {

@@ -4,23 +4,23 @@ public class Enemy extends Character{
     
     private int attackDamage;
 
-    public Enemy(int id, String name, String desc, Room room, String mainDialog, String defDialog, int attackDamage) {
-        super(id, name, desc, room, mainDialog, defDialog);
+    public Enemy(int id, String name, Room room, String mainDialog, String defDialog, int attackDamage) {
+        super(id, name, room, mainDialog, defDialog);
         this.attackDamage = attackDamage;
     }
 
-    public Enemy(int id, String name, String desc, Room room, int attackDamage) {
-        super(id, name, desc, room);
+    public Enemy(int id, String name, Room room, int attackDamage) {
+        super(id, name, room);
         this.attackDamage = attackDamage;
     }
 
-    public Enemy(int id, String name, String desc, int attackDamage) {
-        super(id, name, desc);
+    public Enemy(int id, String name, int attackDamage) {
+        super(id, name);
         this.attackDamage = attackDamage;
     }
 
-    public Enemy(int id, String name, String desc){
-        super(id, name, desc);
+    public Enemy(int id, String name){
+        super(id, name);
         this.attackDamage = 1;
     }
 

@@ -27,6 +27,8 @@ public class Room {
 
     private boolean locked;
 
+    private boolean passwordRequired;
+
     private boolean oxygen;
     private boolean completed;
 
@@ -146,6 +148,14 @@ public class Room {
      */
     public void setFloorNumber(int floorNumber) {
         this.floorNumber = floorNumber;
+    }
+
+    public void setPasswordRequired(boolean passwordRequired) {
+        this.passwordRequired = passwordRequired;
+    }
+
+    public boolean getPasswordRequired(){
+        return this.passwordRequired;
     }
 
     /**

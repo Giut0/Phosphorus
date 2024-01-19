@@ -25,6 +25,8 @@ import di.uniba.map.type.Room;
 import di.uniba.map.type.Weapon;
 import di.uniba.map.ui.JKeypad;
 import di.uniba.map.ui.UI;
+import java.sql.Timestamp;
+import java.util.Date;
 
 import java.util.Scanner;
 
@@ -34,7 +36,10 @@ import javax.sound.sampled.*;
 public class PhosphorusGame {
 
     private GameEngine game;
+    private int gameID = 0;
+    Timestamp saveTimestamp;
     private boolean menuLock;
+    private List<Integer> completedRoomsIds;
     private boolean hadGun;
     private boolean gunLocked;
     private boolean musicStatus;
@@ -47,6 +52,7 @@ public class PhosphorusGame {
             this.game = new GameEngine();
             this.game.addCommands(initializeActions());
             this.game.addRooms(initializeRooms());
+            completedRoomsIds = new ArrayList<>();
             this.menuLock = true;
             this.hadGun = false;
             this.gunLocked = true;
@@ -60,6 +66,22 @@ public class PhosphorusGame {
     public PhosphorusGame() {
         initializeGame();
         this.getGame().setCurrentRoom(this.getGame().getRooms().get(0));
+    }
+
+    public int getGameID() {
+        return this.gameID;
+    }
+
+    public Timestamp getSaveTimestamp() {
+        return this.saveTimestamp;
+    }
+
+    public void setSaveTimestamp(Timestamp saveTimestamp) {
+        this.saveTimestamp = saveTimestamp;
+    }
+
+    public List<Integer> getCompletedRoomsIds() {
+        return this.completedRoomsIds;
     }
 
     public GameEngine getGame() {
@@ -358,7 +380,17 @@ public class PhosphorusGame {
                 UI.printMainMenu(out);
 
             case SAVE:
-                //TODO
+                Date date = new Date();
+                this.setSaveTimestamp(new Timestamp(date.getTime()));
+                SaveGame.clearDB();
+                boolean result = SaveGame.save(this);
+                if(result){
+                    out.println("\nSALVATAGGIO ESEGUITO CON SUCCESSO");
+                }else{
+                    out.println("\nERRORE NEL SALVATAGGIO");
+                }
+
+                break;
 
             case MUSIC:
                 if (getMusicStatus()) {
@@ -521,6 +553,9 @@ public class PhosphorusGame {
                         this.getGame().getRooms().get(5).setLocked(false);
 
                     game.getCurrentRoom().removeItem(p.getObject().getItemName());
+                    if (game.getCurrentRoom().getAdvItemsAList().isEmpty()){
+                        this.completedRoomsIds.add(game.getCurrentRoom().getRoomID());
+                    }
 
                 } else {
                     System.out.println("\nNon ci sono oggetti nella stanza");

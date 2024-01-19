@@ -2,7 +2,7 @@
     "0": {
         "roomId": 0,
         "roomName": "Dormitorio",
-        "roomDescription": "Dormitorio non molto grande dove dormi con i tuoi colleghi, a nord trovi la sala meeting\u001B[0m.",
+        "roomDescription": "Dormitorio non molto grande dove dormi con i tuoi colleghi, vicino al suo letto c'è l'agente \u001B[34ma13\u001B[0m, a nord trovi la sala \u001B[32mmeeting\u001B[0m.",
         "lookDescription": "Sei nel dormitorio, vicino a te c'è un tuo collega, l'agente \u001B[34ma13\u001B[0m sullo scaffale trovi una serie di \u001B[33mbombole\u001B[0m con dentro l'ossigeno, a nord trovi la \u001B[32msala meeting\u001B[0m.",
         "floorNumber": 0,
         "locked": false,
@@ -22,7 +22,7 @@
     "1": {
         "roomId": 1,
         "roomName": "Sala meeting",
-        "roomDescription": "Sala dove si tengono le riunioni con i colleghi, ad est trovi il \u001B[32mlaboratorio\u001B[0m, a sud il \u001B[32mdormitorio\u001B[0m, mentre a ovest trovi le scale per raggiungere la \u001B[32mmensa\u001B[0m",
+        "roomDescription": "Sala dove si tengono le riunioni con i colleghi, al centro della stanza c'è il \u001B[34mcomandante\u001B[0m, ad est trovi il \u001B[32mlaboratorio\u001B[0m, a sud il \u001B[32mdormitorio\u001B[0m, mentre a ovest trovi le scale per raggiungere la \u001B[32mmensa\u001B[0m",
         "lookDescription": "Sei nella sala meeting, al centro della stanza c'è il \u001B[34mcomandante\u001B[0m seduto sulla poltrona ergonomica, \nsul tavolo trovi una \u001B[33mpistola\u001B[0m, a sud trovi il \u001B[32mdormitorio\u001B[0m, ad est trovi il \u001B[32mlaboratorio\u001B[0m, probabilmente chiuso con password, mentre ad ovest trovi le scale per raggiungere la \u001B[32mmensa\u001B[0m.",
         "floorNumber": 0,
         "locked": false,

@@ -28,7 +28,8 @@ public class Parser {
 
     private int checkForObject(String token, List<Item> obejcts) {
         for (int i = 0; i < obejcts.size(); i++) {
-            if (obejcts.get(i).getItemName().toLowerCase().equals(token) || obejcts.get(i).getItemAlias().contains(token)) {
+            if (obejcts.get(i).getItemName().toLowerCase().equals(token)
+                    || obejcts.get(i).getItemAlias().contains(token)) {
                 return i;
             }
         }
@@ -46,13 +47,13 @@ public class Parser {
 
     public ParserOutput parseAction(String action, List<Action> actions, List<Item> objects,
             List<Character> characters) {
-                List<String> tokens = new ArrayList<>();
-        if(action.length() > 1 ){
+        List<String> tokens = new ArrayList<>();
+        if (action.length() > 1) {
             tokens = Utils.parseString(action, stopwords); // Elminiazione stopwords
-        }else{
+        } else {
             tokens.add(action);
         }
-            
+
         if (!tokens.isEmpty()) {
             int ic = checkForAction(tokens.get(0), actions); // Controllo se il comando dell'utente è presente nella
                                                              // azioni predefinite

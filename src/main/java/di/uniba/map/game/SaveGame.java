@@ -2,19 +2,36 @@ package di.uniba.map.game;
 
 import java.sql.Statement;
 
+import di.uniba.map.Utils;
 import di.uniba.map.type.Item;
+import di.uniba.map.type.KeyItem;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import di.uniba.map.type.Room;
+import di.uniba.map.type.Weapon;
+
+import java.util.List;
+import java.util.Map;
+
+import com.fasterxml.jackson.core.exc.StreamReadException;
+import com.fasterxml.jackson.databind.DatabindException;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+
+import di.uniba.map.type.Item;
 
 public class SaveGame {
 
     public static final String CONNECTION_STRING = "jdbc:h2:./resources/saves/saves";
     public static final String CREATE_GAME_TABLE = "CREATE TABLE IF NOT EXISTS game(gameID INT PRIMARY KEY,currentRoomID INT NOT NULL, saveTimestamp TIMESTAMP)";
-    public static final String CREATE_INV_TABLE = "CREATE TABLE IF NOT EXISTS inventory(itemID INT NOT NULL,gameID INT,PRIMARY KEY(itemID),FOREIGN KEY (gameID) REFERENCES game(gameID));";
-    public static final String CREATE_COMPLROOM_TABLE = "CREATE TABLE IF NOT EXISTS completedRooms(roomID INT,gameID INT,PRIMARY KEY(roomID),FOREIGN KEY (gameID) REFERENCES game(gameID));";
+    public static final String CREATE_INV_TABLE = "CREATE TABLE IF NOT EXISTS inventory(itemID INT NOT NULL,gameID INT,PRIMARY KEY(itemID, gameID),FOREIGN KEY (gameID) REFERENCES game(gameID));";
+    public static final String CREATE_COMPLROOM_TABLE = "CREATE TABLE IF NOT EXISTS completedRooms(roomID INT,gameID INT,PRIMARY KEY(roomID, gameID),FOREIGN KEY (gameID) REFERENCES game(gameID));";
 
     private final static String INSERT_GAME = "INSERT INTO game (gameID, currentRoomID, saveTimestamp) VALUES (?, ?, ?)";
     private final static String INSERT_INV = "INSERT INTO inventory (itemID, gameID) VALUES (?, ?)";
@@ -22,7 +39,7 @@ public class SaveGame {
 
     private final static String CLEAR_GAME = "DELETE FROM game;";
     private final static String CLEAR_INV = "DELETE FROM inventory;";
-    private final static String CLEAR_COMPLROOM= "DELETE FROM completedRooms;";
+    private final static String CLEAR_COMPLROOM = "DELETE FROM completedRooms;";
 
     public static boolean save(PhosphorusGame game) {
 
@@ -69,18 +86,73 @@ public class SaveGame {
         return result;
     }
 
-    public PhosphorusGame resume() {
+    public static PhosphorusGame resume(PhosphorusGame game) throws StreamReadException, DatabindException, IOException {
 
-        boolean result = true;
+        boolean resultT = true;
 
-        PhosphorusGame game = new PhosphorusGame();
+        List<Room> roomsList  = game.getGame().getRoomsAsList();
 
-        boolean createDbResult = this.createDB(CONNECTION_STRING);
+        try {
+
+            Connection conn = DriverManager.getConnection(CONNECTION_STRING);
+
+            Statement stm = conn.createStatement();
+
+            ResultSet rs = stm.executeQuery("SELECT * FROM game");
+            while (rs.next()) {
+                if (rs.getInt(1) == game.getGameID()) {
+                    game.setGameID(game.getGameID());
+                    game.getGame().setCurrentRoom(roomsList.get(rs.getInt(2)));
+                    game.setSaveTimestamp(rs.getTimestamp(3));
+                }
+            }
+            rs.close();
+            stm.close();
+            PreparedStatement pstmt = conn
+                    .prepareStatement("SELECT inventory.itemID FROM inventory WHERE inventory.gameID=?");
+            pstmt.setInt(1, game.getGameID()); // gameID
+
+            rs = pstmt.executeQuery();
+
+            List<Item> items = game.initializeItems();
+
+            while (rs.next()) { // Per aggiungere all'inventario gli oggetti della sessione precedente
+                
+                for (Item item : items) {
+
+                    if (rs.getInt(1) == item.getItemID()) {
+                        game.getGame().addItem(item);
+                    }
+                }
+            }
+
+            for (Item item : game.getGame().getInventory().getAdvItemList()) { // Per eliminare gli oggetti dell'inventario dalla mappa
+                
+                for (Room room : roomsList) {
+                    if(room.conteinItem(item)){
+                        System.out.println(room.getName());
+                        room.removeItem(item.getItemName());
+                    }
+                }
+
+            }
+
+            //TODO: Aggiungere setCompleted per le stanze
+            //TODO: Modificare i flag delle armi, modifica etc...
+            //TODO: Aggiunger il database dei nemici uccisi per ripristinae anche la sessione (in caso di uccisione setRoomCompleted)
+
+            pstmt.close();
+            rs.close();
+            conn.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         return game;
     }
 
-    public static void clearDB(){
+    public static void clearDB() {
         boolean result = createDB(CONNECTION_STRING);
         try {
             Connection conn = DriverManager.getConnection(CONNECTION_STRING);

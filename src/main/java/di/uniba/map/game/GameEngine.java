@@ -7,6 +7,7 @@ import java.util.Map;
 
 import di.uniba.map.type.Action;
 import di.uniba.map.type.Inventory;
+import di.uniba.map.type.Item;
 import di.uniba.map.type.Room;
 
 public class GameEngine {
@@ -70,6 +71,10 @@ public class GameEngine {
 
     public Inventory getInventory() {
         return this.inventory;
+    }
+    
+    public void addItem(Item item){
+        this.inventory.addAvdItem(item);
     }
 
     public Room getCurrentRoom() {

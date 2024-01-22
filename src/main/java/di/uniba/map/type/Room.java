@@ -68,6 +68,19 @@ public class Room {
         this.completed = false;
     }
 
+    public boolean conteinItem(Item item){
+
+        for (Item it : this.getAdvItemsAList()) {
+            if(it.getItemID() == item.getItemID()){
+                return true;
+            }
+
+
+        }
+
+        return false;
+    }
+
     /**
      * Sets the adjacent rooms to the current room.
      *

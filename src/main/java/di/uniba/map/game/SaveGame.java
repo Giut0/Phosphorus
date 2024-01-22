@@ -2,49 +2,39 @@ package di.uniba.map.game;
 
 import java.sql.Statement;
 
-import di.uniba.map.Utils;
+import di.uniba.map.type.Character;
 import di.uniba.map.type.Item;
-import di.uniba.map.type.KeyItem;
 
-import java.io.IOException;
+import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import di.uniba.map.type.Room;
-import di.uniba.map.type.Weapon;
 
 import java.util.List;
-import java.util.Map;
-
-import com.fasterxml.jackson.core.exc.StreamReadException;
-import com.fasterxml.jackson.databind.DatabindException;
-
-import java.util.ArrayList;
-import java.util.HashSet;
-
-import di.uniba.map.type.Item;
 
 public class SaveGame {
 
-    public static final String CONNECTION_STRING = "jdbc:h2:./resources/saves/saves";
-    public static final String CREATE_GAME_TABLE = "CREATE TABLE IF NOT EXISTS game(gameID INT PRIMARY KEY,currentRoomID INT NOT NULL, saveTimestamp TIMESTAMP)";
-    public static final String CREATE_INV_TABLE = "CREATE TABLE IF NOT EXISTS inventory(itemID INT NOT NULL,gameID INT,PRIMARY KEY(itemID, gameID),FOREIGN KEY (gameID) REFERENCES game(gameID));";
-    public static final String CREATE_COMPLROOM_TABLE = "CREATE TABLE IF NOT EXISTS completedRooms(roomID INT,gameID INT,PRIMARY KEY(roomID, gameID),FOREIGN KEY (gameID) REFERENCES game(gameID));";
+    private static final String CONNECTION_STRING = "jdbc:h2:./resources/saves/sav";
+    private static final String CREATE_GAME_TABLE = "CREATE TABLE IF NOT EXISTS game(gameID INT PRIMARY KEY,currentRoomID INT NOT NULL, enemyCount INT NOT NULL, saveTimestamp TIMESTAMP)";
+    private static final String CREATE_INV_TABLE = "CREATE TABLE IF NOT EXISTS inventory(itemID INT NOT NULL,gameID INT,PRIMARY KEY(itemID, gameID),FOREIGN KEY (gameID) REFERENCES game(gameID));";
+    private static final String CREATE_KILLED_CHARACTER_TABLE = "CREATE TABLE IF NOT EXISTS killedCharacter(characterID INT NOT NULL,gameID INT,PRIMARY KEY(characterID, gameID),FOREIGN KEY (gameID) REFERENCES game(gameID));";
 
-    private final static String INSERT_GAME = "INSERT INTO game (gameID, currentRoomID, saveTimestamp) VALUES (?, ?, ?)";
-    private final static String INSERT_INV = "INSERT INTO inventory (itemID, gameID) VALUES (?, ?)";
-    private final static String INSERT_COMPLROOM = "INSERT INTO completedRooms (roomID, gameID) VALUES (?, ?)";
+    private static final String INSERT_GAME = "INSERT INTO game (gameID, currentRoomID, enemyCount, saveTimestamp) VALUES (?, ?, ?, ?)";
+    private static final String INSERT_INV = "INSERT INTO inventory (itemID, gameID) VALUES (?, ?)";
+    private static final String INSERT_KILLED_CHARACTER = "INSERT INTO killedCharacter (characterID, gameID) VALUES (?, ?)";
 
-    private final static String CLEAR_GAME = "DELETE FROM game;";
-    private final static String CLEAR_INV = "DELETE FROM inventory;";
-    private final static String CLEAR_COMPLROOM = "DELETE FROM completedRooms;";
+    private static final String CLEAR_GAME = "DELETE FROM game;";
+    private static final String CLEAR_INV = "DELETE FROM inventory;";
+    private static final String CLEAR_KILLED_CHARACTER = "DELETE FROM killedCharacter;";
+
+    private static final String SELECT_INVENTORY = "SELECT inventory.itemID FROM inventory WHERE inventory.gameID=?";
+    private static final String SELECT_KILLED_CHARACTERS = "SELECT killedCharacter.characterID FROM killedCharacter WHERE killedCharacter.gameID=?";
 
     public static boolean save(PhosphorusGame game) {
-
-        boolean result = createDB(CONNECTION_STRING);
-
+        boolean saveResult = false;
         try {
 
             Connection conn = DriverManager.getConnection(CONNECTION_STRING);
@@ -54,7 +44,8 @@ public class SaveGame {
             // Imposta i valori
             pstmt.setInt(1, game.getGameID()); // gameID
             pstmt.setInt(2, game.getGame().getCurrentRoom().getRoomID()); // currentRoomID
-            pstmt.setTimestamp(3, game.getSaveTimestamp()); // saveTimestamp
+            pstmt.setInt(3, game.getEnemyCount()); // currentRoomID
+            pstmt.setTimestamp(4, game.getSaveTimestamp()); // saveTimestamp
             // Esegui l'aggiornamento
             pstmt.executeUpdate();
             pstmt.close();
@@ -68,29 +59,32 @@ public class SaveGame {
                 pstmt.close();
             }
 
-            for (Integer roomID : game.getCompletedRoomsIds()) {
-                pstmt = conn.prepareStatement(INSERT_COMPLROOM);
-                pstmt.setInt(1, roomID); // gameID
-                pstmt.setInt(2, game.getGameID()); // currentRoomID
-                // Esegui l'aggiornamento
-                pstmt.executeUpdate();
-                pstmt.close();
+            for (Room room : game.getGame().getRoomsAsList()) {
+                for (Character character : room.getCharacters()) {
+                    if (!character.isAlive()) {
+                        pstmt = conn.prepareStatement(INSERT_KILLED_CHARACTER);
+                        pstmt.setInt(1, character.getCharacterId()); // gameID
+                        pstmt.setInt(2, game.getGameID()); // currentRoomID
+                        // Esegui l'aggiornamento
+                        pstmt.executeUpdate();
+                        pstmt.close();
+                    }
+                }
             }
 
             conn.close();
+            saveResult = true;
 
         } catch (Exception e) {
-            e.printStackTrace(); // TODO
+            System.out.println("\nErrore nella connessione al database!");
         }
 
-        return result;
+        return saveResult;
     }
 
-    public static PhosphorusGame resume(PhosphorusGame game) throws StreamReadException, DatabindException, IOException {
+    public static PhosphorusGame resume(PhosphorusGame game) {
 
-        boolean resultT = true;
-
-        List<Room> roomsList  = game.getGame().getRoomsAsList();
+        List<Room> roomsList = game.getGame().getRoomsAsList();
 
         try {
 
@@ -103,13 +97,13 @@ public class SaveGame {
                 if (rs.getInt(1) == game.getGameID()) {
                     game.setGameID(game.getGameID());
                     game.getGame().setCurrentRoom(roomsList.get(rs.getInt(2)));
-                    game.setSaveTimestamp(rs.getTimestamp(3));
+                    game.setEnemyCount(rs.getInt(3));
+                    game.setSaveTimestamp(rs.getTimestamp(4));
                 }
             }
             rs.close();
             stm.close();
-            PreparedStatement pstmt = conn
-                    .prepareStatement("SELECT inventory.itemID FROM inventory WHERE inventory.gameID=?");
+            PreparedStatement pstmt = conn.prepareStatement(SELECT_INVENTORY);
             pstmt.setInt(1, game.getGameID()); // gameID
 
             rs = pstmt.executeQuery();
@@ -117,7 +111,7 @@ public class SaveGame {
             List<Item> items = game.initializeItems();
 
             while (rs.next()) { // Per aggiungere all'inventario gli oggetti della sessione precedente
-                
+
                 for (Item item : items) {
 
                     if (rs.getInt(1) == item.getItemID()) {
@@ -126,46 +120,59 @@ public class SaveGame {
                 }
             }
 
-            for (Item item : game.getGame().getInventory().getAdvItemList()) { // Per eliminare gli oggetti dell'inventario dalla mappa
-                
+            for (Item item : game.getGame().getInventory().getAdvItemList()) { // Per eliminare gli oggetti
+                                                                               // dell'inventario dalla mappa
+
                 for (Room room : roomsList) {
-                    if(room.conteinItem(item)){
-                        System.out.println(room.getName());
+                    if (room.conteinItem(item)) {
                         room.removeItem(item.getItemName());
                     }
                 }
 
             }
 
-            //TODO: Aggiungere setCompleted per le stanze
-            //TODO: Modificare i flag delle armi, modifica etc...
-            //TODO: Aggiunger il database dei nemici uccisi per ripristinae anche la sessione (in caso di uccisione setRoomCompleted)
+            pstmt.close();
+
+            pstmt = conn.prepareStatement(SELECT_KILLED_CHARACTERS);
+            pstmt.setInt(1, game.getGameID()); // gameID
+
+            rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                for (Room room : game.getGame().getRoomsAsList()) {
+                    for (Character character : room.getCharacters()) {
+                        if (character.getCharacterId() == rs.getInt(1)) {
+                            character.setAlive(false);
+                        }
+                    }
+                }
+
+            }
 
             pstmt.close();
             rs.close();
             conn.close();
 
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("\nErrore nell'ottenere la sessione precedente!");
         }
 
         return game;
     }
 
     public static void clearDB() {
-        boolean result = createDB(CONNECTION_STRING);
         try {
             Connection conn = DriverManager.getConnection(CONNECTION_STRING);
 
             Statement stm = conn.createStatement();
 
-            stm.executeUpdate(CLEAR_COMPLROOM);
+            stm.executeUpdate(CLEAR_INV);
 
             stm.close();
 
             stm = conn.createStatement();
 
-            stm.executeUpdate(CLEAR_INV);
+            stm.executeUpdate(CLEAR_KILLED_CHARACTER);
 
             stm.close();
 
@@ -178,16 +185,15 @@ public class SaveGame {
             conn.close();
 
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            System.out.println("\nErrore nell'inizializzare il database!");
         }
 
     }
 
-    public static boolean createDB(String connectionString) {
+    public static boolean createDB() {
         boolean result = false;
         try {
-            Connection conn = DriverManager.getConnection(connectionString);
+            Connection conn = DriverManager.getConnection(CONNECTION_STRING);
 
             Statement stm = conn.createStatement();
 
@@ -203,7 +209,7 @@ public class SaveGame {
 
             stm = conn.createStatement();
 
-            stm.executeUpdate(CREATE_COMPLROOM_TABLE);
+            stm.executeUpdate(CREATE_KILLED_CHARACTER_TABLE);
 
             stm.close();
 
@@ -211,12 +217,25 @@ public class SaveGame {
             result = true;
 
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             result = false;
-            e.printStackTrace();
+            System.out.println("\nErrore nella creazione del database!");
         }
 
         return result;
+    }
+
+    public static boolean exist() {
+
+        boolean databaseExists = false;
+
+        File db = new File("./resources/saves/sav.mv.db");
+
+        if (db.exists()) {
+            databaseExists = true;
+        }
+
+        return databaseExists;
+
     }
 
 }

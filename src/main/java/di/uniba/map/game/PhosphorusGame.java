@@ -43,8 +43,6 @@ public class PhosphorusGame {
     Timestamp saveTimestamp;
     private boolean menuLock;
     private List<Integer> completedRoomsIds;
-    private boolean hadGun;
-    private boolean gunLocked;
     private boolean musicStatus;
     private int enemyCount = 0;
     public static final String LAB_PASSWORD = "4815";
@@ -64,17 +62,18 @@ public class PhosphorusGame {
             rooms = initializeRooms();
             completedRoomsIds = new ArrayList<>();
 
-            
             this.initializeGameEngine();
             this.menuLock = true;
-            this.hadGun = false;
-            this.gunLocked = true;
             this.musicStatus = true;
 
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+    }
+
+    public void setEnemyCount(int enemyCount) {
+        this.enemyCount = enemyCount;
     }
 
     public void setActions(List<Action> actions) {
@@ -109,20 +108,25 @@ public class PhosphorusGame {
         return this.game;
     }
 
-    public void setHadGun(boolean hadGun) {
-        this.hadGun = hadGun;
-    }
-
     public boolean getHadGun() {
-        return this.hadGun;
+
+        for (Item item : game.getInventory().getAdvItemList()) {
+            if (item instanceof Weapon) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
-    public boolean getGunLocked() {
-        return this.gunLocked;
-    }
+    public boolean isGunLocked() {
 
-    public void setGunLocked(boolean gunLocked) {
-        this.gunLocked = gunLocked;
+        for (Item item : game.getInventory().getAdvItemList()) {
+            if (item.getItemName().equals("modifica pistola")) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public boolean getMenuLock() {
@@ -246,7 +250,7 @@ public class PhosphorusGame {
         actions.add(talk);
 
         Action invetory = new Action(ActionType.INVENTARIO, "inventario");
-        invetory.setCommandAlias(new String[] { "zaino", "oggeti", "items" });
+        invetory.setCommandAlias(new String[] { "zaino", "oggeti", "items", "inv" });
         actions.add(invetory);
 
         Action shot = new Action(ActionType.SPARA_A, "spara");
@@ -364,22 +368,23 @@ public class PhosphorusGame {
                 }
                 break;
 
-            case START: // ************************************************************************************************************************************************
-                        // */
+            case START:
                 UI.printIntro(out);
-
                 setMenuLock(false);
 
                 break;
 
             case RESUME: // TODO
-                try {
+                if (SaveGame.exist() == true) {
                     SaveGame.resume(this);
-                } catch (IOException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
+                    out.println("\nTi rinfersco un po la memoria, ti trovi in "
+                            + this.getGame().getCurrentRoom().getName().toLowerCase() + ", "
+                            + this.getGame().getCurrentRoom().getDescription().toLowerCase());
+                    setMenuLock(false);
+                } else {
+                    System.out.println("\nNon sono disponibili salvataggi da ripristinare!");
                 }
-                setMenuLock(false);
+
                 break;
 
             default:
@@ -408,6 +413,9 @@ public class PhosphorusGame {
             case SAVE:
                 Date date = new Date();
                 this.setSaveTimestamp(new Timestamp(date.getTime()));
+                if (!SaveGame.exist()) {
+                    SaveGame.createDB();
+                }
                 SaveGame.clearDB();
                 boolean result = SaveGame.save(this);
                 if (result) {
@@ -546,17 +554,17 @@ public class PhosphorusGame {
             case PARLA_CON:
                 if (game.getCurrentRoom().getCharacters().size() != 0) {
                     if (p.getCharacter().isAlive()) {
-                        System.out.print("\n[" + p.getCharacter().getCharacterName() + "]: \"");
+                        out.print("\n[" + p.getCharacter().getCharacterName() + "]: \"");
                         if (!p.getCharacter().getCompleted()) {
 
-                            System.out.println(p.getCharacter().getMainDialog() + "\"");
+                            out.println(p.getCharacter().getMainDialog() + "\"");
                             p.getCharacter().setCompleted(true);
                         } else {
-                            System.out.println(p.getCharacter().getDefaultDialog() + "\"");
+                            out.println(p.getCharacter().getDefaultDialog() + "\"");
                         }
 
                     } else {
-                        System.out.println("\n" + p.getCharacter().getCharacterName() + " è morto, non puoi parlarci.");
+                        out.println("\n" + p.getCharacter().getCharacterName() + " è morto, non puoi parlarci.");
                     }
 
                 } else {
@@ -572,14 +580,9 @@ public class PhosphorusGame {
             case RACCOGLI:
                 if (game.getCurrentRoom().getAdvItemsAList().size() != 0) {
                     game.getInventory().addAvdItem(p.getObject());
-                    System.out.println(
+                    out.println(
                             "\nHai raccolto: " + UI.ANSI_YELLOW + p.getObject().getItemName() + UI.ANSI_RESET + ", "
                                     + p.getObject().getItemDescription());
-                    if (p.getObject() instanceof Weapon)
-                        this.setHadGun(true);
-
-                    if (p.getObject().getItemAlias().contains("modifica"))
-                        this.setGunLocked(false);
 
                     if (p.getObject().getItemName().toLowerCase().equals("chiave sgabuzzino"))
                         this.getGame().getRooms().get(5).setLocked(false);
@@ -590,7 +593,7 @@ public class PhosphorusGame {
                     }
 
                 } else {
-                    System.out.println("\nNon ci sono oggetti nella stanza");
+                    out.println("\nNon ci sono oggetti nella stanza");
                 }
                 break;
 
@@ -628,7 +631,7 @@ public class PhosphorusGame {
                                     UI.trueEnding(out);
                                     System.exit(0);
                                 }
-                            } else if (getGunLocked() == false) {
+                            } else if (isGunLocked() == false) {
                                 out.println("\nHai sparato a: " + UI.ANSI_BLUE + p.getCharacter().getCharacterName()
                                         + UI.ANSI_RESET
                                         + ", adesso non è più in vita.");

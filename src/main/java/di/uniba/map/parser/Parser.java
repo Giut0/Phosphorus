@@ -17,16 +17,16 @@ public class Parser {
         this.stopwords = stopwords;
     }
 
-    private int checkForAction(String token, List<Action> Actions) {
-        for (int i = 0; i < Actions.size(); i++) {
-            if (Actions.get(i).getCommandName().equals(token) || Actions.get(i).getCommandAlias().contains(token)) {
+    private int checkForAction(String token, List<Action> actions) {
+        for (int i = 0; i < actions.size(); i++) {
+            if (actions.get(i).getActionName().equals(token) || actions.get(i).getActionAlias().contains(token)) {
                 return i;
             }
         }
         return -1;
     }
 
-    private int checkForObject(String token, List<Item> obejcts) {
+    private int checkForItem(String token, List<Item> obejcts) {
         for (int i = 0; i < obejcts.size(); i++) {
             if (obejcts.get(i).getItemName().toLowerCase().equals(token)
                     || obejcts.get(i).getItemAlias().contains(token)) {
@@ -58,7 +58,7 @@ public class Parser {
             int ic = checkForAction(tokens.get(0), actions); // Controllo se il comando dell'utente è presente nella
                                                              // azioni predefinite
             if (ic > -1 && tokens.size() > 1) {
-                int ob = checkForObject(tokens.get(1), objects);
+                int ob = checkForItem(tokens.get(1), objects);
 
                 if (ob > -1) {
                     return new ParserOutput(actions.get(ic), objects.get(ob)); // <Action> <Object>

@@ -10,70 +10,54 @@ public class Character {
     private String mainDialog;
     private boolean completed;
 
-    public Character(int id, String name, Room room, String mainDialog, String defaultDialog) {
-        this.characterId = id;
-        this.characterName = name;
-        this.currentRoom = room;
-        this.mainDialog = mainDialog;
-        this.defaultDialog = defaultDialog;
-        this.completed = false;
-
-    }
-
-    public Character(int id, String name, Room room) {
-        this.characterId = id;
-        this.characterName = name;
-        this.currentRoom = room;
-        this.completed = false;
-    }
-
     public Character(int id, String name) {
-        this.characterId = id;
-        this.characterName = name;
-        
+        this.setCharacterId(id);
+        this.setCharacterName(name);
+        this.setCurrentRoom(null);
+        this.setDefaultDialog("");
+        this.setMainDialog("");
+        this.setCompleted(false);
 
-    }
-
-    public int getCharacterId() {
-        return characterId;
-    }
-
-    public String getCharacterName() {
-        return characterName;
-    }
-
- 
-
-    public Boolean isAlive() {
-        return this.alive;
     }
 
     public void setCharacterId(int characterId) {
         this.characterId = characterId;
     }
 
+    public int getCharacterId() {
+        return characterId;
+    }
+
     public void setCharacterName(String characterName) {
         this.characterName = characterName;
+    }
+
+    public String getCharacterName() {
+        return characterName;
     }
 
     public void setAlive(Boolean alive) {
         this.alive = alive;
     }
 
-    public Room getCurrentRoom() {
-        return currentRoom;
+    public Boolean isAlive() {
+        return this.alive;
     }
 
     public void setCurrentRoom(Room currentRoom) {
         this.currentRoom = currentRoom;
     }
 
-    public String getDefaultDialog() {
-        return defaultDialog;
+    public Room getCurrentRoom() {
+        return currentRoom;
     }
 
     public void setDefaultDialog(String defaultDialog) {
         this.defaultDialog = defaultDialog;
+    }
+
+    public String getDefaultDialog() {
+        return defaultDialog;
     }
 
     public void setMainDialog(String mainDialog) {
@@ -87,8 +71,8 @@ public class Character {
     public void setCompleted(boolean completed) {
         this.completed = completed;
     }
-    
-    public boolean getCompleted(){
+
+    public boolean getCompleted() {
         return this.completed;
     }
 

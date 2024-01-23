@@ -51,7 +51,7 @@ public class SaveGame {
             pstmt.executeUpdate();
             pstmt.close();
 
-            for (Item item : game.getGame().getInventory().getAdvItemList()) {
+            for (Item item : game.getGame().getInventory().getItems()) {
                 pstmt = conn.prepareStatement(INSERT_INV);
                 pstmt.setInt(1, item.getItemID()); // gameID
                 pstmt.setInt(2, game.getGameID()); // currentRoomID
@@ -61,7 +61,7 @@ public class SaveGame {
             }
 
             for (Room room : game.getGame().getRoomsAsList()) {
-                for (Character character : room.getCharacters()) {
+                for (Character character : room.getRoomCharacters()) {
                     if (!character.isAlive()) {
                         pstmt = conn.prepareStatement(INSERT_KILLED_CHARACTER);
                         pstmt.setInt(1, character.getCharacterId()); // gameID
@@ -123,11 +123,11 @@ public class SaveGame {
                 }
             }
 
-            for (Item item : game.getGame().getInventory().getAdvItemList()) { // Per eliminare gli oggetti
+            for (Item item : game.getGame().getInventory().getItems()) { // Per eliminare gli oggetti
                                                                                // dell'inventario dalla mappa
 
                 for (Room room : roomsList) {
-                    if (room.conteinItem(item)) {
+                    if (room.containItem(item)) {
                         room.removeItem(item.getItemName());
                     }
                 }
@@ -143,7 +143,7 @@ public class SaveGame {
 
             while (rs.next()) {
                 for (Room room : game.getGame().getRoomsAsList()) {
-                    for (Character character : room.getCharacters()) {
+                    for (Character character : room.getRoomCharacters()) {
                         if (character.getCharacterId() == rs.getInt(1)) {
                             character.setAlive(false);
                         }

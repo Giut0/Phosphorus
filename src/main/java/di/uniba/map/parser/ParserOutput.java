@@ -1,61 +1,60 @@
 package di.uniba.map.parser;
 
 import di.uniba.map.type.Action;
+
 import di.uniba.map.type.Character;
 import di.uniba.map.type.Item;
 
 public class ParserOutput {
-    
+
     private Action action;
 
     private Item item;
-    
+
     private Character character;
 
-    public ParserOutput(Action Action, Item item) {
-        this.action = Action;
-        this.item = item;
+    public ParserOutput(Action action, Item item) {
+        this.setAction(action);
+        this.setItem(item);
     }
 
-    public ParserOutput(Action Action, Character character) {
-        this.action = Action;
+    public ParserOutput(Action action, Character character) {
+        this.setAction(action);
+        this.setCharacter(character);
+    }
+
+    public ParserOutput(Action action) {
+        this.setAction(action);
+    }
+
+    public ParserOutput(Action action, Item item, Character character) {
+        this.action = action;
+        this.item = item;
         this.character = character;
     }
 
-    public ParserOutput(Action Action) {
-        this.action = Action;
+    public void setAction(Action action) {
+        this.action = action;
     }
-
-    public ParserOutput(Action Action, Item item, Character character) {
-        this.action = Action;
-        this.item = item;
-        this.character = character;
-    }
-
-
 
     public Action getAction() {
         return action;
     }
 
-    public void setAction(Action Action) {
-        this.action = Action;
+    public void setItem(Item item) {
+        this.item = item;
     }
 
-    public Item getObject() {
+    public Item getItem() {
         return item;
     }
 
-    public void setObject(Item item) {
-        this.item = item;
+    public void setCharacter(Character character) {
+        this.character = character;
     }
 
     public Character getCharacter() {
         return character;
     }
 
-    public void setCharacter(Character character) {
-        this.character = character;
-    }
-    
 }

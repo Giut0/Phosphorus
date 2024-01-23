@@ -6,7 +6,7 @@ public class KeyItem extends Item {
 
     public KeyItem(int id, String name, String description, int itemLocation) {
         super(id, name, description, itemLocation);
-        this.keyUsed = false;
+        this.setKeyUsed(false);
         
     }
 
@@ -16,11 +16,6 @@ public class KeyItem extends Item {
 
     public boolean isKeyUsed(){
         return this.keyUsed;
-    }
-
-    @Override
-    public void use() {
-        // TODO USO PER KEY
     }
 
 }

@@ -7,8 +7,8 @@ public class Weapon extends Item {
 
     public Weapon(int id, String name, String description, int itemLocation) {
         super(id, name, description, itemLocation);
-        this.weaponDamage = 1;
-        this.humanLock = true;
+        this.setDamage(1);
+        this.setHumanLock(true);
 
     }
 
@@ -20,17 +20,16 @@ public class Weapon extends Item {
         this.weaponDamage = damage;
     }
 
-    public boolean isHumanLocked(){
+    public void setHumanLock(boolean humanLock) {
+        this.humanLock = humanLock;
+    }
+
+    public boolean isHumanLocked() {
         return this.humanLock;
     }
 
-    public void unlockWeapon(){
+    public void unlockWeapon() {
         this.humanLock = false;
-    }
-
-    @Override
-    public void use() {
-        // TODO USO PER ARMA
     }
 
 }

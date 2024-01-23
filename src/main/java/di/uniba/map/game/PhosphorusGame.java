@@ -51,7 +51,7 @@ public class PhosphorusGame {
     private void initializeGameEngine() {
 
         this.game = new GameEngine();
-        this.game.addCommands(this.actions);
+        this.game.addActions(this.actions);
         this.game.addRooms(this.rooms);
         this.getGame().setCurrentRoom(this.getGame().getRooms().get(0));
 
@@ -119,7 +119,7 @@ public class PhosphorusGame {
 
     public boolean getHadGun() {
 
-        for (Item item : game.getInventory().getAdvItemList()) {
+        for (Item item : game.getInventory().getItems()) {
             if (item instanceof Weapon) {
                 return true;
             }
@@ -130,7 +130,7 @@ public class PhosphorusGame {
 
     public boolean isGunLocked() {
 
-        for (Item item : game.getInventory().getAdvItemList()) {
+        for (Item item : game.getInventory().getItems()) {
             if (item.getItemName().equals("modifica pistola")) {
                 return false;
             }
@@ -202,10 +202,10 @@ public class PhosphorusGame {
                 List<Integer> roomItemsIDs = (List<Integer>) result.get("items");
 
                 for (Integer itemID : roomItemsIDs) {
-                    room.addAdvItem(items.get(itemID));
+                    room.addItem(items.get(itemID));
                 }
                 for (Integer characterID : charactersIDs) {
-                    room.addCharacter(characters.get(characterID));
+                    room.addRoomCharacter(characters.get(characterID));
                 }
 
                 if ((boolean) result.get("locked")) {
@@ -225,77 +225,77 @@ public class PhosphorusGame {
 
         List<Action> actions = new ArrayList<>();
 
-        Action nord = new Action(ActionType.NORD, "nord");
-        nord.setCommandAlias(new String[] { "n", "N", "Nord", "NORD" });
-        actions.add(nord);
+        Action north = new Action(ActionType.NORTH, "nord");
+        north.setActionAlias(new String[] { "n", "N", "Nord", "NORD" });
+        actions.add(north);
 
-        Action sud = new Action(ActionType.SUD, "sud");
-        sud.setCommandAlias(new String[] { "s", "S", "Sud", "SUD" });
-        actions.add(sud);
+        Action south = new Action(ActionType.SOUTH, "sud");
+        south.setActionAlias(new String[] { "s", "S", "Sud", "SUD" });
+        actions.add(south);
 
-        Action est = new Action(ActionType.EST, "est");
-        est.setCommandAlias(new String[] { "e", "E", "Est", "EST" });
-        actions.add(est);
+        Action east = new Action(ActionType.EAST, "est");
+        east.setActionAlias(new String[] { "e", "E", "Est", "EST" });
+        actions.add(east);
 
-        Action ovest = new Action(ActionType.OVEST, "ovest");
-        ovest.setCommandAlias(new String[] { "o", "O", "Ovest", "OVEST" });
-        actions.add(ovest);
+        Action west = new Action(ActionType.WEST, "ovest");
+        west.setActionAlias(new String[] { "o", "O", "Ovest", "OVEST" });
+        actions.add(west);
 
         Action end = new Action(ActionType.EXIT, "end");
-        end.setCommandAlias(
+        end.setActionAlias(
                 new String[] { "end", "fine", "esci", "muori", "ammazzati", "ucciditi", "suicidati", "exit" });
         actions.add(end);
 
-        Action look = new Action(ActionType.OSSERVA, "osserva");
-        look.setCommandAlias(new String[] { "guarda", "vedi", "trova", "cerca", "descrivi" });
+        Action look = new Action(ActionType.WATCH, "osserva");
+        look.setActionAlias(new String[] { "guarda", "vedi", "trova", "cerca", "descrivi" });
         actions.add(look);
 
-        Action pickup = new Action(ActionType.RACCOGLI, "raccogli");
-        pickup.setCommandAlias(new String[] { "prendi" });
+        Action pickup = new Action(ActionType.PICKUP, "raccogli");
+        pickup.setActionAlias(new String[] { "prendi" });
         actions.add(pickup);
 
-        Action talk = new Action(ActionType.PARLA_CON, "parla");
-        talk.setCommandAlias(new String[] { "parla", "chiedi", "conversa" });
+        Action talk = new Action(ActionType.TALK, "parla");
+        talk.setActionAlias(new String[] { "parla", "chiedi", "conversa" });
         actions.add(talk);
 
-        Action invetory = new Action(ActionType.INVENTARIO, "inventario");
-        invetory.setCommandAlias(new String[] { "zaino", "oggeti", "items", "inv" });
+        Action invetory = new Action(ActionType.INVENTORY, "inventario");
+        invetory.setActionAlias(new String[] { "zaino", "oggeti", "items", "inv" });
         actions.add(invetory);
 
-        Action shot = new Action(ActionType.SPARA_A, "spara");
-        shot.setCommandAlias(new String[] { "uccidi", "ammazza", "elimina", "termina", "fredda" });
-        actions.add(shot);
+        Action shoot = new Action(ActionType.SHOOT, "spara");
+        shoot.setActionAlias(new String[] { "uccidi", "ammazza", "elimina", "termina", "fredda" });
+        actions.add(shoot);
 
-        Action use = new Action(ActionType.USA, "usa");
-        use.setCommandAlias(new String[] { "interagisci", "utilizza" });
+        Action use = new Action(ActionType.USE, "usa");
+        use.setActionAlias(new String[] { "interagisci", "utilizza" });
         actions.add(use);
 
         Action start = new Action(ActionType.START, "inizia");
-        start.setCommandAlias(new String[] { "start", "comincia", "begin", "inizio", "i", "s" });
+        start.setActionAlias(new String[] { "start", "comincia", "begin", "inizio", "i", "s" });
         actions.add(start);
 
         Action resume = new Action(ActionType.RESUME, "continua");
-        resume.setCommandAlias(new String[] { "resume", "riprendi" });
+        resume.setActionAlias(new String[] { "resume", "riprendi" });
         actions.add(resume);
 
         Action music = new Action(ActionType.MUSIC, "musica");
-        music.setCommandAlias(new String[] { "music", "canzone", "musichetta" });
+        music.setActionAlias(new String[] { "music", "canzone", "musichetta" });
         actions.add(music);
 
-        Action map_ground = new Action(ActionType.MAPPA, "mappa");
-        map_ground.setCommandAlias(new String[] { "piantina" });
+        Action map_ground = new Action(ActionType.MAP, "mappa");
+        map_ground.setActionAlias(new String[] { "piantina" });
         actions.add(map_ground);
 
         Action commands_help = new Action(ActionType.COMMAND_LIST, "comandi");
-        commands_help.setCommandAlias(new String[] { "commands", "help", "aiuto", "h", "c" });
+        commands_help.setActionAlias(new String[] { "commands", "help", "aiuto", "h", "c" });
         actions.add(commands_help);
 
         Action menu = new Action(ActionType.MENU, "menu");
-        menu.setCommandAlias(new String[] { "m" });
+        menu.setActionAlias(new String[] { "m" });
         actions.add(menu);
 
         Action save = new Action(ActionType.SAVE, "salva");
-        save.setCommandAlias(new String[] { "save", "salvare", "salvataggio" });
+        save.setActionAlias(new String[] { "save", "salvare", "salvataggio" });
         actions.add(save);
 
         return actions;
@@ -357,7 +357,7 @@ public class PhosphorusGame {
     }
 
     public void menuMove(ParserOutput p, PrintStream out, Clip clip, GameTimer timer) {
-        switch (p.getAction().getCommandType()) {
+        switch (p.getAction().getActionType()) {
 
             case EXIT:
                 UI.printEnd(out, timer);
@@ -380,9 +380,7 @@ public class PhosphorusGame {
             case START:
                 UI.printIntro(out);
                 setMenuLock(false);
-                timer.reset();
-                timer.startTimer();
-
+                timer.resetTimer();
                 break;
 
             case RESUME: // TODO
@@ -390,8 +388,8 @@ public class PhosphorusGame {
                     SaveGame.resume(this);
                     out.println("\nRiprisinato salvataggio: [" + this.getSaveTimestamp() + "]");
                     out.println("\nTi rinfersco un po la memoria, ti trovi in "
-                            + this.getGame().getCurrentRoom().getName().toLowerCase() + ", "
-                            + this.getGame().getCurrentRoom().getDescription().toLowerCase());
+                            + this.getGame().getCurrentRoom().getRoomName().toLowerCase() + ", "
+                            + this.getGame().getCurrentRoom().getRoomDescription().toLowerCase());
                     timer.setSeconds(this.getGameTime());
                     setMenuLock(false);
                 } else {
@@ -408,12 +406,13 @@ public class PhosphorusGame {
 
     public void nextMove(ParserOutput p, PrintStream out, Clip clip, GameTimer timer)
             throws InvocationTargetException, InterruptedException {
-        switch (p.getAction().getCommandType()) {
+        switch (p.getAction().getActionType()) {
 
             case EXIT:
                 this.setMenuLock(true);
+                this.getGame().getInventory().getItems().clear();
                 UI.printMainMenu(out);
-                
+
                 break;
 
             case COMMAND_LIST:
@@ -453,7 +452,7 @@ public class PhosphorusGame {
                 }
                 break;
 
-            case MAPPA:
+            case MAP:
                 if (game.getCurrentRoom().getFloorNumber() == 0) {
                     UI.printGroundFloorMap(out);
                 } else {
@@ -461,21 +460,21 @@ public class PhosphorusGame {
                 }
                 break;
 
-            case NORD:
+            case NORTH:
                 if (game.getCurrentRoom().getNorth() != null) {
                     if (!this.game.getRooms().get(this.game.getCurrentRoom().getNorth()).getLocked()) {
                         if (this.game.getInventory().contains("bombola")
                                 || this.game.getRooms().get(this.game.getCurrentRoom().getNorth()).isOxygen()) {
                             this.game.setCurrentRoom(this.game.getRooms().get(this.game.getCurrentRoom().getNorth()));
-                            out.println("\n" + this.game.getCurrentRoom().getDescription());
+                            out.println("\n" + this.game.getCurrentRoom().getRoomDescription());
                         } else {
                             out.println("\nIn "
-                                    + this.game.getRooms().get(this.game.getCurrentRoom().getNorth()).getName()
+                                    + this.game.getRooms().get(this.game.getCurrentRoom().getNorth()).getRoomName()
                                     + " non c'è ossigeno, devi avere una bombola d'ossigeno con te per proseguire");
                         }
                     } else if (this.game.getRooms().get(this.game.getCurrentRoom().getNorth()).getPasswordRequired()) {
                         out.println("\nInserire password di " + this.game.getRooms()
-                                .get(this.game.getCurrentRoom().getNorth()).getName().toLowerCase());
+                                .get(this.game.getCurrentRoom().getNorth()).getRoomName().toLowerCase());
                         JKeypad jKeypad = new JKeypad(this.game.getRooms().get(this.game.getCurrentRoom().getNorth()));
                         jKeypad.setVisible(true);
                     } else {
@@ -487,21 +486,21 @@ public class PhosphorusGame {
                 }
                 break;
 
-            case SUD:
+            case SOUTH:
                 if (game.getCurrentRoom().getSouth() != null) {
                     if (!this.game.getRooms().get(this.game.getCurrentRoom().getSouth()).getLocked()) {
                         if (this.game.getInventory().contains("bombola")
                                 || this.game.getRooms().get(this.game.getCurrentRoom().getSouth()).isOxygen()) {
                             this.game.setCurrentRoom(this.game.getRooms().get(this.game.getCurrentRoom().getSouth()));
-                            out.println("\n" + this.game.getCurrentRoom().getDescription());
+                            out.println("\n" + this.game.getCurrentRoom().getRoomDescription());
                         } else {
                             out.println("\nIn "
-                                    + this.game.getRooms().get(this.game.getCurrentRoom().getSouth()).getName()
+                                    + this.game.getRooms().get(this.game.getCurrentRoom().getSouth()).getRoomName()
                                     + " non c'è ossigeno, devi avere una bombola d'ossigeno con te per proseguire");
                         }
                     } else if (this.game.getRooms().get(this.game.getCurrentRoom().getSouth()).getPasswordRequired()) {
                         out.println("\nInserire password di " + this.game.getRooms()
-                                .get(this.game.getCurrentRoom().getSouth()).getName().toLowerCase());
+                                .get(this.game.getCurrentRoom().getSouth()).getRoomName().toLowerCase());
                         JKeypad jKeypad = new JKeypad(this.game.getRooms().get(this.game.getCurrentRoom().getSouth()));
                         jKeypad.setVisible(true);
                     } else {
@@ -513,21 +512,21 @@ public class PhosphorusGame {
                 }
                 break;
 
-            case EST:
+            case EAST:
                 if (game.getCurrentRoom().getEast() != null) {
                     if (!this.game.getRooms().get(this.game.getCurrentRoom().getEast()).getLocked()) {
                         if (this.game.getInventory().contains("bombola")
                                 || this.game.getRooms().get(this.game.getCurrentRoom().getEast()).isOxygen()) {
                             this.game.setCurrentRoom(this.game.getRooms().get(this.game.getCurrentRoom().getEast()));
-                            out.println("\n" + this.game.getCurrentRoom().getDescription());
+                            out.println("\n" + this.game.getCurrentRoom().getRoomDescription());
                         } else {
                             out.println("\nIn "
-                                    + this.game.getRooms().get(this.game.getCurrentRoom().getEast()).getName()
+                                    + this.game.getRooms().get(this.game.getCurrentRoom().getEast()).getRoomName()
                                     + " non c'è ossigeno, devi avere una bombola d'ossigeno con te per proseguire");
                         }
                     } else if (this.game.getRooms().get(this.game.getCurrentRoom().getEast()).getPasswordRequired()) {
                         out.println("\nInserire password di " + this.game.getRooms()
-                                .get(this.game.getCurrentRoom().getEast()).getName().toLowerCase());
+                                .get(this.game.getCurrentRoom().getEast()).getRoomName().toLowerCase());
                         JKeypad jKeypad = new JKeypad(this.game.getRooms().get(this.game.getCurrentRoom().getEast()));
                         jKeypad.setVisible(true);
                     } else {
@@ -539,22 +538,22 @@ public class PhosphorusGame {
                 }
                 break;
 
-            case OVEST:
+            case WEST:
                 if (game.getCurrentRoom().getWest() != null) {
                     if (!this.game.getRooms().get(this.game.getCurrentRoom().getWest()).getLocked()) {
                         if (this.game.getInventory().contains("bombola")
                                 || this.game.getRooms().get(this.game.getCurrentRoom().getWest()).isOxygen()) {
                             this.game.setCurrentRoom(this.game.getRooms().get(this.game.getCurrentRoom().getWest()));
-                            out.println("\n" + this.game.getCurrentRoom().getDescription());
+                            out.println("\n" + this.game.getCurrentRoom().getRoomDescription());
                         } else {
                             out.println("\nIn "
-                                    + this.game.getRooms().get(this.game.getCurrentRoom().getWest()).getName()
+                                    + this.game.getRooms().get(this.game.getCurrentRoom().getWest()).getRoomName()
                                             .toLowerCase()
                                     + "non c'è ossigeno, devi avere una bombola d'ossigeno con te per proseguire");
                         }
                     } else if (this.game.getRooms().get(this.game.getCurrentRoom().getWest()).getPasswordRequired()) {
                         out.println("\nInserire password di " + this.game.getRooms()
-                                .get(this.game.getCurrentRoom().getWest()).getName().toLowerCase());
+                                .get(this.game.getCurrentRoom().getWest()).getRoomName().toLowerCase());
                         JKeypad jKeypad = new JKeypad(this.game.getRooms().get(this.game.getCurrentRoom().getWest()));
                         jKeypad.setVisible(true);
                     } else {
@@ -566,8 +565,8 @@ public class PhosphorusGame {
                 }
                 break;
 
-            case PARLA_CON:
-                if (game.getCurrentRoom().getCharacters().size() != 0) {
+            case TALK:
+                if (game.getCurrentRoom().getRoomCharacters().size() != 0) {
                     if (p.getCharacter().isAlive()) {
                         out.print("\n[" + p.getCharacter().getCharacterName() + "]: \"");
                         if (!p.getCharacter().getCompleted()) {
@@ -582,28 +581,22 @@ public class PhosphorusGame {
                         out.println("\n" + p.getCharacter().getCharacterName() + " è morto, non puoi parlarci.");
                     }
 
-                } else {
-                    out.println("\n" + p.getCharacter().getCharacterName() + "Non è presente in questa stanza."); // TODO:
-                                                                                                                  // veriricare
-                                                                                                                  // e è
-                                                                                                                  // da
-                                                                                                                  // ogliere
                 }
 
                 break;
 
-            case RACCOGLI:
-                if (game.getCurrentRoom().getAdvItemsAList().size() != 0) {
-                    game.getInventory().addAvdItem(p.getObject());
+            case PICKUP:
+                if (game.getCurrentRoom().getRoomItems().size() != 0) {
+                    game.getInventory().addItem(p.getItem());
                     out.println(
-                            "\nHai raccolto: " + UI.ANSI_YELLOW + p.getObject().getItemName() + UI.ANSI_RESET + ", "
-                                    + p.getObject().getItemDescription());
+                            "\nHai raccolto: " + UI.ANSI_YELLOW + p.getItem().getItemName() + UI.ANSI_RESET + ", "
+                                    + p.getItem().getItemDescription());
 
-                    if (p.getObject().getItemName().toLowerCase().equals("chiave sgabuzzino"))
+                    if (p.getItem().getItemName().toLowerCase().equals("chiave sgabuzzino"))
                         this.getGame().getRooms().get(5).setLocked(false);
 
-                    game.getCurrentRoom().removeItem(p.getObject().getItemName());
-                    if (game.getCurrentRoom().getAdvItemsAList().isEmpty()) {
+                    game.getCurrentRoom().removeItem(p.getItem().getItemName());
+                    if (game.getCurrentRoom().getRoomItems().isEmpty()) {
                         this.completedRoomsIds.add(game.getCurrentRoom().getRoomID());
                     }
 
@@ -612,9 +605,9 @@ public class PhosphorusGame {
                 }
                 break;
 
-            case INVENTARIO:
-                if (!game.getInventory().getInventory().isEmpty()) {
-                    for (Item invItem : game.getInventory().getInventory()) {
+            case INVENTORY:
+                if (!game.getInventory().getItems().isEmpty()) {
+                    for (Item invItem : game.getInventory().getItems()) {
                         out.println("- " + UI.ANSI_YELLOW + invItem.getItemName() + UI.ANSI_RESET);
                     }
                 } else {
@@ -623,16 +616,16 @@ public class PhosphorusGame {
 
                 break;
 
-            case OSSERVA:
-                if (!this.getGame().getCurrentRoom().getAdvItemsAList().isEmpty()) {
+            case WATCH:
+                if (!this.getGame().getCurrentRoom().getRoomItems().isEmpty()) {
                     out.println("\n" + game.getCurrentRoom().getLookDescription());
                 } else {
-                    out.println("\n" + game.getCurrentRoom().getDescription());
+                    out.println("\n" + game.getCurrentRoom().getRoomDescription());
                 }
 
                 break;
 
-            case SPARA_A:
+            case SHOOT:
                 if (!(p.getCharacter() == null)) {
                     if (p.getCharacter().isAlive()) {
                         if (getHadGun()) {
@@ -692,8 +685,8 @@ public class PhosphorusGame {
         while (scanner.hasNextLine()) {
             String command = scanner.nextLine();
             ParserOutput p = parser.parseAction(command, this.getGame().getCommandsAsList(),
-                    this.getGame().getCurrentRoom().getAdvItemsAList(),
-                    this.getGame().getCurrentRoom().getCharacters());
+                    this.getGame().getCurrentRoom().getRoomItems(),
+                    this.getGame().getCurrentRoom().getRoomCharacters());
             if (p.getAction() == null) {
                 out.println("\nNon ho capito");
                 out.print("\n>> ");

@@ -18,11 +18,11 @@ import java.util.List;
 public class SaveGame {
 
     private static final String CONNECTION_STRING = "jdbc:h2:./resources/saves/sav";
-    private static final String CREATE_GAME_TABLE = "CREATE TABLE IF NOT EXISTS game(gameID INT PRIMARY KEY,currentRoomID INT NOT NULL, enemyCount INT NOT NULL, saveTimestamp TIMESTAMP)";
+    private static final String CREATE_GAME_TABLE = "CREATE TABLE IF NOT EXISTS game(gameID INT PRIMARY KEY,currentRoomID INT NOT NULL, enemyCount INT NOT NULL, gameTime INT NOT NULL, saveTimestamp TIMESTAMP)";
     private static final String CREATE_INV_TABLE = "CREATE TABLE IF NOT EXISTS inventory(itemID INT NOT NULL,gameID INT,PRIMARY KEY(itemID, gameID),FOREIGN KEY (gameID) REFERENCES game(gameID));";
     private static final String CREATE_KILLED_CHARACTER_TABLE = "CREATE TABLE IF NOT EXISTS killedCharacter(characterID INT NOT NULL,gameID INT,PRIMARY KEY(characterID, gameID),FOREIGN KEY (gameID) REFERENCES game(gameID));";
 
-    private static final String INSERT_GAME = "INSERT INTO game (gameID, currentRoomID, enemyCount, saveTimestamp) VALUES (?, ?, ?, ?)";
+    private static final String INSERT_GAME = "INSERT INTO game (gameID, currentRoomID, enemyCount, gameTime, saveTimestamp) VALUES (?, ?, ?, ?, ?)";
     private static final String INSERT_INV = "INSERT INTO inventory (itemID, gameID) VALUES (?, ?)";
     private static final String INSERT_KILLED_CHARACTER = "INSERT INTO killedCharacter (characterID, gameID) VALUES (?, ?)";
 
@@ -45,7 +45,8 @@ public class SaveGame {
             pstmt.setInt(1, game.getGameID()); // gameID
             pstmt.setInt(2, game.getGame().getCurrentRoom().getRoomID()); // currentRoomID
             pstmt.setInt(3, game.getEnemyCount()); // currentRoomID
-            pstmt.setTimestamp(4, game.getSaveTimestamp()); // saveTimestamp
+            pstmt.setInt(4, game.getGameTime()); // currentRoomID
+            pstmt.setTimestamp(5, game.getSaveTimestamp()); // saveTimestamp
             // Esegui l'aggiornamento
             pstmt.executeUpdate();
             pstmt.close();
@@ -76,6 +77,7 @@ public class SaveGame {
             saveResult = true;
 
         } catch (Exception e) {
+            e.printStackTrace();
             System.out.println("\nErrore nella connessione al database!");
         }
 
@@ -98,7 +100,8 @@ public class SaveGame {
                     game.setGameID(game.getGameID());
                     game.getGame().setCurrentRoom(roomsList.get(rs.getInt(2)));
                     game.setEnemyCount(rs.getInt(3));
-                    game.setSaveTimestamp(rs.getTimestamp(4));
+                    game.setGameTime(rs.getInt(4));
+                    game.setSaveTimestamp(rs.getTimestamp(5));
                 }
             }
             rs.close();

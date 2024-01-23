@@ -45,6 +45,7 @@ public class PhosphorusGame {
     private List<Integer> completedRoomsIds;
     private boolean musicStatus;
     private int enemyCount = 0;
+    private int gameTime = 0;
     public static final String LAB_PASSWORD = "4815";
 
     private void initializeGameEngine() {
@@ -70,6 +71,14 @@ public class PhosphorusGame {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+    }
+
+    public void setGameTime(int gameTime) {
+        this.gameTime = gameTime;
+    }
+
+    public int getGameTime() {
+        return gameTime;
     }
 
     public void setEnemyCount(int enemyCount) {
@@ -347,11 +356,11 @@ public class PhosphorusGame {
         return characters;
     }
 
-    public void menuMove(ParserOutput p, PrintStream out, Clip clip) {
+    public void menuMove(ParserOutput p, PrintStream out, Clip clip, GameTimer timer) {
         switch (p.getAction().getCommandType()) {
 
             case EXIT:
-                UI.printEnd(out);
+                UI.printEnd(out, timer);
                 clip.close();
                 System.exit(0);
                 break;
@@ -371,15 +380,19 @@ public class PhosphorusGame {
             case START:
                 UI.printIntro(out);
                 setMenuLock(false);
+                timer.reset();
+                timer.startTimer();
 
                 break;
 
             case RESUME: // TODO
                 if (SaveGame.exist() == true) {
                     SaveGame.resume(this);
+                    out.println("\nRiprisinato salvataggio: [" + this.getSaveTimestamp() + "]");
                     out.println("\nTi rinfersco un po la memoria, ti trovi in "
                             + this.getGame().getCurrentRoom().getName().toLowerCase() + ", "
                             + this.getGame().getCurrentRoom().getDescription().toLowerCase());
+                    timer.setSeconds(this.getGameTime());
                     setMenuLock(false);
                 } else {
                     System.out.println("\nNon sono disponibili salvataggi da ripristinare!");
@@ -393,13 +406,14 @@ public class PhosphorusGame {
         }
     }
 
-    public void nextMove(ParserOutput p, PrintStream out, Clip clip)
+    public void nextMove(ParserOutput p, PrintStream out, Clip clip, GameTimer timer)
             throws InvocationTargetException, InterruptedException {
         switch (p.getAction().getCommandType()) {
 
             case EXIT:
                 this.setMenuLock(true);
                 UI.printMainMenu(out);
+                
                 break;
 
             case COMMAND_LIST:
@@ -417,6 +431,7 @@ public class PhosphorusGame {
                     SaveGame.createDB();
                 }
                 SaveGame.clearDB();
+                this.setGameTime(timer.getTime());
                 boolean result = SaveGame.save(this);
                 if (result) {
                     out.println("\nSALVATAGGIO ESEGUITO CON SUCCESSO");
@@ -628,7 +643,7 @@ public class PhosphorusGame {
                                         + ", adesso non è più in vita.");
                                 p.getCharacter().setAlive(false);
                                 if (this.checkEnd()) {
-                                    UI.trueEnding(out);
+                                    UI.trueEnding(out, timer);
                                     System.exit(0);
                                 }
                             } else if (isGunLocked() == false) {
@@ -637,7 +652,7 @@ public class PhosphorusGame {
                                         + ", adesso non è più in vita.");
                                 p.getCharacter().setAlive(false);
                                 if (!(p.getCharacter() instanceof Enemy)) {
-                                    UI.badEning(out);
+                                    UI.badEnding(out, timer);
                                     System.exit(0);
                                 }
 
@@ -664,7 +679,7 @@ public class PhosphorusGame {
         }
     }
 
-    public void initGame(PrintStream out, Clip clip)
+    public void initGame(PrintStream out, Clip clip, GameTimer timer)
             throws IOException, InvocationTargetException, InterruptedException {
 
         UI.printTitle(out);
@@ -684,14 +699,14 @@ public class PhosphorusGame {
                 out.print("\n>> ");
             } else {
                 if (this.getMenuLock()) {
-                    this.menuMove(p, out, clip);
+                    this.menuMove(p, out, clip, timer);
                     out.print("\n>> ");
                 } else {
                     if (!this.checkEnd()) {
-                        this.nextMove(p, out, clip);
+                        this.nextMove(p, out, clip, timer);
                         out.print("\n>> ");
                     } else {
-                        UI.printEnd(out);
+                        UI.printEnd(out, timer);
                         System.exit(0);
                     }
 

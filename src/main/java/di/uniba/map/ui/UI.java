@@ -1,6 +1,8 @@
 package di.uniba.map.ui;
 import java.io.PrintStream;
 
+import di.uniba.map.game.GameTimer;
+
 public class UI {
 
     public static final String ANSI_RESET = "\u001B[0m";
@@ -106,13 +108,14 @@ public class UI {
            out.println("╚═════════════════════════════════════════════════════════════════╝");
     }
 
-    public static void badEning(PrintStream out){
+    public static void badEnding(PrintStream out, GameTimer timer){
         out.println("\nSono scattati gli allarmi, vedi il tuo collega che ti seguiva come un'ombra tirare fuori la pistola, te le punta addoso, vedi bianco...");
-        printEnd(out);
+        printEnd(out, timer);
     }
 
-    public static void printEnd(PrintStream out) {
+    public static void printEnd(PrintStream out, GameTimer timer) {
         out.println("\nGrazie mille per aver giocato a phosphorus!");
+        out.println("\nTempo di gioco: " + timer.getTime() + " secondi!");
         out.println("\nArt director: Vito Proscia \n" + //
                 "Game designer: Vito Proscia \n" + //
                 "Graphic designer: Vito Proscia \n" + //
@@ -125,8 +128,8 @@ public class UI {
                 "Game tester: Vito Proscia\n");
     }
 
-    public static void trueEnding(PrintStream out){
+    public static void trueEnding(PrintStream out, GameTimer timer){
         out.println("\nAdesso tutti e due gli alieni sono morti, una vocina nella tua testa ti sussurra \"hai completato la missione, contribuendo allo sruttamento di altri esseri viventi per il benessere di altri, complimenti!\"");
-        printEnd(out);
+        printEnd(out, timer);
     }
 }

@@ -12,7 +12,7 @@ import di.uniba.map.type.Room;
 
 public class GameEngine {
 
-    private Map<String, Action> commands;
+    private Map<String, Action> actions;
 
     private Map<Integer, Room> rooms;
 
@@ -21,25 +21,31 @@ public class GameEngine {
     private Inventory inventory;
 
     public GameEngine(Map<String, Action> commands, Map<Integer, Room> rooms) {
-        this.commands = commands;
+        this.actions = commands;
         this.rooms = rooms;
         this.inventory = new Inventory();
     }
 
     public GameEngine() {
-        this.commands = new HashMap<String, Action>();
+        this.actions = new HashMap<String, Action>();
         this.rooms = new HashMap<Integer, Room>();
         this.inventory = new Inventory();
     }
 
-    public void addCommand(Action action) {
-        this.commands.put(action.getCommandName(), action);
+    public void addActions(Action action) {
+        this.actions.put(action.getActionName(), action);
     }
 
-    public void addCommands(List<Action> actions) {
+    public void addActions(List<Action> actions) {
         for (Action action : actions) {
-            this.commands.put(action.getCommandName(), action);
+            this.actions.put(action.getActionName(), action);
         }
+    }
+
+    public List<Action> getCommandsAsList() {
+        List<Action> actions = new ArrayList<>();
+        actions.addAll(this.actions.values());
+        return actions;
     }
 
     public void addRooms(List<Room> list) {
@@ -53,16 +59,6 @@ public class GameEngine {
         return this.rooms;
     }
 
-    public Map<String, Action> getCommands() {
-        return this.commands;
-    }
-
-    public List<Action> getCommandsAsList() {
-        List<Action> actions = new ArrayList<>();
-        actions.addAll(this.commands.values());
-        return actions;
-    }
-
     public List<Room> getRoomsAsList() {
         List<Room> rooms = new ArrayList<>();
         rooms.addAll(this.rooms.values());
@@ -72,9 +68,9 @@ public class GameEngine {
     public Inventory getInventory() {
         return this.inventory;
     }
-    
-    public void addItem(Item item){
-        this.inventory.addAvdItem(item);
+
+    public void addItem(Item item) {
+        this.inventory.addItem(item);
     }
 
     public Room getCurrentRoom() {

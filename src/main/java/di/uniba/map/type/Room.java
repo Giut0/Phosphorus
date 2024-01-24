@@ -1,9 +1,8 @@
 package di.uniba.map.type;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Represents a location or room within game world.
@@ -32,18 +31,8 @@ public class Room {
     private boolean oxygen;
     private boolean completed;
 
-    private Map<String, Item> advItems = new HashMap<>();
-    private List<Character> characters = new ArrayList<>();
-
-    /**
-     * Constructs a Room object with a given ID.
-     *
-     * @param id The unique identifier for the room.
-     */
-    public Room(int id) {
-        this.roomID = id;
-        this.completed = false;
-    }
+    private List<Item> roomItems = new ArrayList<>();
+    private List<Character> roomCharacters = new ArrayList<>();
 
     /**
      * Constructs a Room object with specified attributes.
@@ -59,8 +48,8 @@ public class Room {
     public Room(int id, String name, String description, String lookDescription, int floorNumber,
             boolean oxy) {
         this.roomID = id;
-        this.setName(name);
-        this.setDescription(description);
+        this.setRoomName(name);
+        this.setRoomDescription(description);
         this.setLookDescription(lookDescription);
         this.setFloorNumber(floorNumber);
         this.setOxygen(oxy);
@@ -68,17 +57,72 @@ public class Room {
         this.completed = false;
     }
 
-    public boolean conteinItem(Item item){
+    /**
+     * Constructs a Room object with a given ID.
+     *
+     * @param id The unique identifier for the room.
+     */
+    public Room(int id) {
+        this.roomID = id;
+        this.completed = false;
+    }
 
-        for (Item it : this.getAdvItemsAList()) {
-            if(it.getItemID() == item.getItemID()){
-                return true;
-            }
+    /**
+     * Retrieves the unique identifier of the room.
+     *
+     * @return The unique room identifier.
+     */
+    public int getRoomID() {
+        return this.roomID;
+    }
 
+    /**
+     * Sets the name of the room.
+     *
+     * @param name The new name for the room.
+     */
+    public void setRoomName(String name) {
+        this.roomName = name;
+    }
 
-        }
+    /**
+     * Retrieves the name of the room.
+     *
+     * @return The name of the room.
+     */
+    public String getRoomName() {
+        return roomName;
+    }
 
-        return false;
+    /**
+     * Sets the description of the room.
+     *
+     * @param name The new description for the room.
+     */
+    public void setRoomDescription(String description) {
+        this.roomDescription = description;
+    }
+
+    /**
+     * Retrieves the description of the room.
+     *
+     * @return The description of the room.
+     */
+    public String getRoomDescription() {
+        return roomDescription;
+    }
+
+    public void setLookDescription(String lookDescription) {
+        this.lookDescription = lookDescription;
+    }
+
+    /**
+     * Retrieves the visual description of the room.
+     *
+     * @return The visual description of the room.
+     */
+    public String getLookDescription() {
+        return this.lookDescription;
     }
 
     /**
@@ -96,62 +140,36 @@ public class Room {
         this.setWest(west);
     }
 
-    /**
-     * Retrieves the unique identifier of the room.
-     *
-     * @return The unique room identifier.
-     */
-    public int getRoomID() {
-        return this.roomID;
+    public void setSouth(Integer south) {
+        this.south = south;
     }
 
-    /**
-     * Retrieves the name of the room.
-     *
-     * @return The name of the room.
-     */
-    public String getName() {
-        return roomName;
+    public Integer getSouth() {
+        return south;
     }
 
-    public void removeItem(String itemName){
-        this.advItems.remove(itemName.toLowerCase());
+    public void setNorth(Integer north) {
+        this.north = north;
     }
 
-    /**
-     * Sets the name of the room.
-     *
-     * @param name The new name for the room.
-     */
-    public void setName(String name) {
-        this.roomName = name;
+    public Integer getNorth() {
+        return north;
     }
 
-    /**
-     * Retrieves the description of the room.
-     *
-     * @return The description of the room.
-     */
-    public String getDescription() {
-        return roomDescription;
+    public void setEast(Integer east) {
+        this.east = east;
     }
 
-    /**
-     * Sets the description of the room.
-     *
-     * @param name The new description for the room.
-     */
-    public void setDescription(String description) {
-        this.roomDescription = description;
+    public Integer getEast() {
+        return east;
     }
 
-    /**
-     * Retrieves the floor number of the room.
-     *
-     * @return The floor number of the room.
-     */
-    public int getFloorNumber() {
-        return floorNumber;
+    public void setWest(Integer west) {
+        this.west = west;
+    }
+
+    public Integer getWest() {
+        return west;
     }
 
     /**
@@ -163,21 +181,29 @@ public class Room {
         this.floorNumber = floorNumber;
     }
 
+    /**
+     * Retrieves the floor number of the room.
+     *
+     * @return The floor number of the room.
+     */
+    public int getFloorNumber() {
+        return floorNumber;
+    }
+
+    public void setLocked(boolean locked) {
+        this.locked = locked;
+    }
+
+    public boolean getLocked() {
+        return locked;
+    }
+
     public void setPasswordRequired(boolean passwordRequired) {
         this.passwordRequired = passwordRequired;
     }
 
-    public boolean getPasswordRequired(){
+    public boolean getPasswordRequired() {
         return this.passwordRequired;
-    }
-
-    /**
-     * Checks if the room contains breathable oxygen.
-     *
-     * @return True if the room has oxygen, otherwise false.
-     */
-    public boolean isOxygen() {
-        return this.oxygen;
     }
 
     /**
@@ -189,65 +215,58 @@ public class Room {
         this.oxygen = oxy;
     }
 
-    public boolean isCompleted() {
-        return this.completed;
+    /**
+     * Checks if the room contains breathable oxygen.
+     *
+     * @return True if the room has oxygen, otherwise false.
+     */
+    public boolean isOxygen() {
+        return this.oxygen;
     }
 
     public void setCompleted(boolean completed) {
         this.completed = completed;
     }
 
-    public Integer getSouth() {
-        return south;
+    public boolean isCompleted() {
+        return this.completed;
     }
 
-    public void setSouth(Integer south) {
-        this.south = south;
-    }
-
-    public Integer getNorth() {
-        return north;
-    }
-
-    public void setNorth(Integer north) {
-        this.north = north;
-    }
-
-    public Integer getEast() {
-        return east;
-    }
-
-    public void setEast(Integer east) {
-        this.east = east;
-    }
-
-    public Integer getWest() {
-        return west;
-    }
-
-    public void setWest(Integer west) {
-        this.west = west;
-    }
-
-    public void setAdvItems(List<Item> items) {
+    public void setRoomItems(List<Item> items) {
         for (Item item : items) {
-            this.advItems.put(item.getItemName(), item);
+            this.roomItems.add(item);
         }
 
     }
 
-    public Map<String, Item> getAdvItems() {
-        return advItems;
+    public List<Item> getRoomItems() {
+        return this.roomItems;
     }
 
-    public List<Item> getAdvItemsAList(){
-        List<Item> items = new ArrayList<>();
-        items.addAll(this.advItems.values());
-        return items;
+    public void addItem(Item item) {
+        this.roomItems.add(item);
     }
 
-    public void addAdvItem(Item item) {
-        this.advItems.put(item.getItemName(), item);
+    public void removeItem(String itemName) {
+
+        Iterator<Item> iter = this.roomItems.iterator();
+        while (iter.hasNext()) {
+            Item item = iter.next();
+            if (item.getItemName().toLowerCase().equals(itemName.toLowerCase())) {
+                iter.remove();
+            }
+        }
+    }
+
+    public boolean containItem(Item item) {
+
+        for (Item it : this.getRoomItems()) {
+            if (it.getItemID() == item.getItemID()) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
@@ -255,12 +274,16 @@ public class Room {
      *
      * @param character The character to be added.
      */
-    public void setCharacters(List<Character> characters) {
-        this.characters = characters;
+    public void setRoomCharacters(List<Character> characters) {
+        this.roomCharacters = characters;
     }
 
-    public List<Character> getCharacters() {
-        return this.characters;
+    public List<Character> getRoomCharacters() {
+        return this.roomCharacters;
+    }
+
+    public void addRoomCharacter(Character character) {
+        this.roomCharacters.add(character);
     }
 
     /**
@@ -268,57 +291,8 @@ public class Room {
      *
      * @param character The character to be removed.
      */
-    public void removeCharacter(Character character) {
-        this.characters.remove(character);
-    }
-
-    public void addCharacter(Character character) {
-        this.characters.add(character);
-    }
-
-    /**
-     * Retrieves the visual description of the room.
-     *
-     * @return The visual description of the room.
-     */
-    public String getLookDescription() {
-        return this.lookDescription;
-    }
-
-    public void setLookDescription(String lookDescription) {
-        this.lookDescription = lookDescription;
-    }
-
-    public void setLocked(boolean locked) {
-        this.locked = locked;
-    }
-
-    public boolean getLocked() {
-        return locked;
-    }
-
-    /**
-     * Compares this Room object to another object for equality.
-     *
-     * @param obj The object to compare with.
-     * @return True if both objects are equal, false otherwise.
-     */
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Room other = (Room) obj;
-        if (this.roomID != other.roomID) {
-            return false;
-        }
-        return true;
+    public void removeRoomCharacter(Character character) {
+        this.roomCharacters.remove(character);
     }
 
 }

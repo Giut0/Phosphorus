@@ -2,6 +2,7 @@ package di.uniba.map.game;
 
 import java.sql.Statement;
 
+import di.uniba.map.Utils;
 import di.uniba.map.type.Character;
 import di.uniba.map.type.Item;
 
@@ -38,35 +39,35 @@ public class SaveGame {
         try {
 
             Connection conn = DriverManager.getConnection(CONNECTION_STRING);
-            // Crea un PreparedStatement per l'inserimento dei dati
+
             PreparedStatement pstmt = conn.prepareStatement(INSERT_GAME);
 
-            // Imposta i valori
+            // Save game attributes
             pstmt.setInt(1, game.getGameID()); // gameID
             pstmt.setInt(2, game.getGame().getCurrentRoom().getRoomID()); // currentRoomID
-            pstmt.setInt(3, game.getEnemyCount()); // currentRoomID
-            pstmt.setInt(4, game.getGameTime()); // currentRoomID
+            pstmt.setInt(3, game.getEnemyCount()); // enemyCount
+            pstmt.setInt(4, game.getGameTime()); // gameTimer
             pstmt.setTimestamp(5, game.getSaveTimestamp()); // saveTimestamp
-            // Esegui l'aggiornamento
+
             pstmt.executeUpdate();
             pstmt.close();
 
-            for (Item item : game.getGame().getInventory().getAdvItemList()) {
+            // Save inventory
+            for (Item item : game.getGame().getInventory().getItems()) {
                 pstmt = conn.prepareStatement(INSERT_INV);
-                pstmt.setInt(1, item.getItemID()); // gameID
-                pstmt.setInt(2, game.getGameID()); // currentRoomID
-                // Esegui l'aggiornamento
+                pstmt.setInt(1, item.getItemID()); // itemID
+                pstmt.setInt(2, game.getGameID()); // gameID
                 pstmt.executeUpdate();
                 pstmt.close();
             }
 
+            // Save killed enemies
             for (Room room : game.getGame().getRoomsAsList()) {
-                for (Character character : room.getCharacters()) {
+                for (Character character : room.getRoomCharacters()) {
                     if (!character.isAlive()) {
                         pstmt = conn.prepareStatement(INSERT_KILLED_CHARACTER);
-                        pstmt.setInt(1, character.getCharacterId()); // gameID
-                        pstmt.setInt(2, game.getGameID()); // currentRoomID
-                        // Esegui l'aggiornamento
+                        pstmt.setInt(1, character.getCharacterId()); // characterID
+                        pstmt.setInt(2, game.getGameID()); // gameID
                         pstmt.executeUpdate();
                         pstmt.close();
                     }
@@ -92,28 +93,30 @@ public class SaveGame {
 
             Connection conn = DriverManager.getConnection(CONNECTION_STRING);
 
+            // Game attributes restoration
             Statement stm = conn.createStatement();
-
             ResultSet rs = stm.executeQuery("SELECT * FROM game");
+
             while (rs.next()) {
                 if (rs.getInt(1) == game.getGameID()) {
-                    game.setGameID(game.getGameID());
-                    game.getGame().setCurrentRoom(roomsList.get(rs.getInt(2)));
-                    game.setEnemyCount(rs.getInt(3));
-                    game.setGameTime(rs.getInt(4));
-                    game.setSaveTimestamp(rs.getTimestamp(5));
+                    game.setGameID(game.getGameID()); // gameID
+                    game.getGame().setCurrentRoom(roomsList.get(rs.getInt(2))); // curretRoomID
+                    game.setEnemyCount(rs.getInt(3)); // enemyCount
+                    game.setGameTime(rs.getInt(4)); // gameTimer
+                    game.setSaveTimestamp(rs.getTimestamp(5)); // saveTimestamp
                 }
             }
             rs.close();
             stm.close();
+
+            // Inventory restoration
             PreparedStatement pstmt = conn.prepareStatement(SELECT_INVENTORY);
             pstmt.setInt(1, game.getGameID()); // gameID
-
             rs = pstmt.executeQuery();
 
-            List<Item> items = game.initializeItems();
+            List<Item> items = Utils.initializeItems();
 
-            while (rs.next()) { // Per aggiungere all'inventario gli oggetti della sessione precedente
+            while (rs.next()) {
 
                 for (Item item : items) {
 
@@ -123,11 +126,11 @@ public class SaveGame {
                 }
             }
 
-            for (Item item : game.getGame().getInventory().getAdvItemList()) { // Per eliminare gli oggetti
-                                                                               // dell'inventario dalla mappa
+            // Remove inventory items from other rooms
+            for (Item item : game.getGame().getInventory().getItems()) {
 
                 for (Room room : roomsList) {
-                    if (room.conteinItem(item)) {
+                    if (room.containItem(item)) {
                         room.removeItem(item.getItemName());
                     }
                 }
@@ -136,6 +139,7 @@ public class SaveGame {
 
             pstmt.close();
 
+            // Killed enemies restoration
             pstmt = conn.prepareStatement(SELECT_KILLED_CHARACTERS);
             pstmt.setInt(1, game.getGameID()); // gameID
 
@@ -143,7 +147,7 @@ public class SaveGame {
 
             while (rs.next()) {
                 for (Room room : game.getGame().getRoomsAsList()) {
-                    for (Character character : room.getCharacters()) {
+                    for (Character character : room.getRoomCharacters()) {
                         if (character.getCharacterId() == rs.getInt(1)) {
                             character.setAlive(false);
                         }

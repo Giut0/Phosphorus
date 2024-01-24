@@ -6,65 +6,48 @@ import java.util.Set;
 
 public class Action {
 
-    private ActionType commandType;
-    private String commandName;
-    private Set<String> commandAlias;
+    private ActionType actionType;
+    private String actionName;
+    private Set<String> actionAlias;
 
     public Action(ActionType type, String name, Set<String> alias) {
-        this.commandType = type;
-        this.commandName = name;
-        this.commandAlias = new HashSet<String>(alias);
+        this.setActionType(type);
+        this.setActionName(name);;
+        this.actionAlias = new HashSet<String>(alias);
     }
 
     public Action(ActionType type, String name) {
-        this.commandType = type;
-        this.commandName = name;
-        this.commandAlias = new HashSet<String>();
+        this.actionType = type;
+        this.actionName = name;
+        this.actionAlias = new HashSet<String>();
     }
 
-    public void setCommandType(ActionType commandType) {
-        this.commandType = commandType;
+    public void setActionType(ActionType actionType) {
+        this.actionType = actionType;
     }
 
-    public void setCommandName(String commandName) {
-        this.commandName = commandName;
+    public ActionType getActionType() {
+        return actionType;
     }
 
-    public void setCommandAlias(String[] alias) {
-        this.commandAlias = new HashSet<>(Arrays.asList(alias));
+    public void setActionName(String actionName) {
+        this.actionName = actionName;
     }
 
-    public void addCommandAlias(String newAlias){
-        this.commandAlias.add(newAlias);
+    public String getActionName() {
+        return actionName;
     }
 
-    public ActionType getCommandType() {
-        return commandType;
+    public void setActionAlias(String[] alias) {
+        this.actionAlias = new HashSet<>(Arrays.asList(alias));
     }
 
-    public String getCommandName() {
-        return commandName;
+    public void addActionAlias(String newAlias) {
+        this.actionAlias.add(newAlias);
     }
 
-    public Set<String> getCommandAlias() {
-        return commandAlias;
+    public Set<String> getActionAlias() {
+        return actionAlias;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Action other = (Action) obj;
-        if (this.commandType != other.commandType) {
-            return false;
-        }
-        return true;
-    }
 }

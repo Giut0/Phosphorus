@@ -34,7 +34,6 @@
             0
         ],
         "characters": [
-            0,
             1,
             2
         ],
@@ -108,7 +107,7 @@
         "roomId": 5,
         "roomName": "Sgabuzzino",
         "roomDescription": "Sgabuzzino molto piccolo dove vengono messi i ricambi per i componenti e gli attrezzi per riparare, a nord trovi la \u001B[32msala motori\u001B[0m.",
-        "lookDescription": "Sul pavimento vedi un agente morto sbranato, ma noti dei piccoli segni di bruciatura lungo sul collo, come se qualcuno l'avesse stordito con un taser, \nnoti che stringe un \u001B[33mbiletto\u001B[0m di carta tra le mani, a nord trovi la \u001B[32msala motori\u001B[0m",
+        "lookDescription": "Sul pavimento vedi un agente morto sbranato, ma noti dei piccoli segni di bruciatura lungo sul collo, come se qualcuno l'avesse stordito con un taser, \nnoti che stringe un \u001B[33mbiglietto\u001B[0m di carta tra le mani, a nord trovi la \u001B[32msala motori\u001B[0m",
         "floorNumber": -1,
         "locked": true,
         "south": null,

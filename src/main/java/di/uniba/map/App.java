@@ -17,7 +17,8 @@ public class App {
 
         PhosphorusGame game = new PhosphorusGame();     
 
-        String audioFilePath = "resources/music/Short_circuit.wav"; // Percorso assoluto del tuo file audio
+        String audioFilePath = "resources/music/Short_circuit.wav";
+
         GameTimer timer = new GameTimer();
 
         try {
@@ -32,7 +33,6 @@ public class App {
 
             audioClip.loop(Clip.LOOP_CONTINUOUSLY);
 
-            // Attendi fino a quando il clip non è terminato
             while (!audioClip.isRunning()) {
                 Thread.sleep(10);
             }

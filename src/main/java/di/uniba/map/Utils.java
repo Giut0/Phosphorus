@@ -134,6 +134,10 @@ public class Utils {
         save.setActionAlias(new String[] { "save", "salvare", "salvataggio" });
         actions.add(save);
 
+        Action probe = new Action(ActionType.PROBE, "sonda");
+        probe.setActionAlias(new String[] { "probe" });
+        actions.add(probe);
+
         return actions;
     }
 

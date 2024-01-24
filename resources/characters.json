@@ -2,8 +2,8 @@
     "0": {
         "characterId": 0,
         "characterName": "a13",
-        "mainDialog": "Buongiorno f24, ho saputo che sei nuovo, hai sentito il comandante, dobbiamo andare in sala meeting. Il comandante è un tipo un po all'antica, sembra fermo al 1984, ma vabbè andiamo.",
-        "defaultDialog": "Cosa c'è non ti ricordi dove si trova la sala meeting? Appena a nord di quì.",
+        "mainDialog": "Buongiorno f24, ho saputo che sei nuovo, ti spiego in breve la situazione, sulla terra è quasi finito il fosforo, quest'ultimo è essenziale per la crescita delle piante e senza le piante non verrebbe più prodototto l'ossigeno, assorbita l'anidride carbnica e senza questi,... insomma l'atmosfera sarebbe invivibile, per questo catturiamo alieni in grado di produrre il fosforo, puoi controllare tu stesso con la tua sonda, ti dirà i parametri della qualità' dell'aria del tuo paese, ma adesso basta chiacchiere, dobbiamo andare in sala meeting, è a nord di quì.",
+        "defaultDialog": "Hai sentito il comandante, dobbiamo andare in sala meeting. Il comandante è un tipo un po all'antica, sembra fermo al 1984, ma vabbè andiamo, cosa c'è non ti ricordi dove si trova la sala meeting? Appena a nord di quì.",
         "type": "friend"
     },
     "1": {

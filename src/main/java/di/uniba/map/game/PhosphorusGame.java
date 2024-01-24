@@ -495,6 +495,18 @@ public class PhosphorusGame {
                 }
                 break;
 
+            case PROBE:
+
+                AirQuality airQuality = new AirQuality();
+                if(airQuality.getRequestStatus()){
+                    UI.printAirQuality(out, airQuality);
+                }else{
+                    out.println("\nErrore nel reperire i parametri, riprovare più tardi!");
+                }
+                
+
+                break;
+
             default:
                 break;
         }

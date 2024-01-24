@@ -18,5 +18,6 @@ public enum ActionType {
     USE,
     EXIT,
     SHOOT,
-    WATCH
+    WATCH,
+    PROBE
 }

@@ -17,7 +17,6 @@ public class GameTimer extends Thread{
 
     public void resetTimer(){
         this.seconds = 0;
-        this.start();
     }
 
     public void setSeconds(int seconds) {

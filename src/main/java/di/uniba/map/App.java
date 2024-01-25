@@ -17,7 +17,7 @@ import javax.sound.sampled.*;
  */
 
 public class App {
-    public static void main(String[] args) throws StreamReadException, DatabindException, IOException {
+    public static void main(String[] args){
 
         PhosphorusGame game = new PhosphorusGame();
 

@@ -1,9 +1,6 @@
 package di.uniba.map;
 
-import java.io.IOException;
 import java.io.File;
-import com.fasterxml.jackson.core.exc.StreamReadException;
-import com.fasterxml.jackson.databind.DatabindException;
 
 import di.uniba.map.game.GameTimer;
 import di.uniba.map.game.PhosphorusGame;

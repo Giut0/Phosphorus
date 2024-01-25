@@ -362,6 +362,7 @@ public class PhosphorusGame {
                             + this.getGame().getCurrentRoom().getRoomName().toLowerCase() + ", "
                             + this.getGame().getCurrentRoom().getRoomDescription().toLowerCase());
                     timer.setSeconds(this.getGameTime());
+                    timer.startTimer();
                     setMenuLock(false);
                 } else {
                     System.out.println("\nNon sono disponibili salvataggi da ripristinare!");

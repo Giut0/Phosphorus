@@ -26,8 +26,20 @@ import di.uniba.map.type.Character;
 
 @SuppressWarnings("unchecked")
 
+/**
+ * Utility class for data manipulation.
+ */
 public class Utils {
 
+    /**
+     * Reads a JSON file and converts it into a map.
+     *
+     * @param filePath The path of the JSON file.
+     * @return A map representing the JSON file.
+     * @throws StreamReadException If there is a problem reading the data stream.
+     * @throws DatabindException   If there is a problem binding the data.
+     * @throws IOException         If there is an I/O problem.
+     */
     public static Map<String, Object> readJSON(String filePath)
             throws StreamReadException, DatabindException, IOException {
         File JSON_SOURCE = new File(filePath);
@@ -36,6 +48,13 @@ public class Utils {
         return jsonFile;
     }
 
+    /**
+     * Loads a list of strings from a file into a set.
+     *
+     * @param file The file to read from.
+     * @return A set containing the strings from the file.
+     * @throws IOException If there is an I/O problem.
+     */
     public static Set<String> loadFileListInSet(File file) throws IOException {
         Set<String> set = new HashSet<>();
         BufferedReader reader = new BufferedReader(new FileReader(file));
@@ -46,6 +65,13 @@ public class Utils {
         return set;
     }
 
+    /**
+     * Parses a string into tokens, excluding stopwords.
+     *
+     * @param string    The string to parse.
+     * @param stopwords The set of stopwords to exclude.
+     * @return A list of tokens from the string, excluding stopwords.
+     */
     public static List<String> parseString(String string, Set<String> stopwords) {
         List<String> tokens = new ArrayList<>();
         String[] split = string.toLowerCase().split("\\s+|\'");
@@ -57,6 +83,14 @@ public class Utils {
         return tokens;
     }
 
+    /**
+     * Initializes a list of actions for a game.
+     *
+     * Each action has an associated ActionType, a name, and an array of aliases.
+     * The aliases are alternative commands that can trigger the action.
+     *
+     * @return A list of initialized actions.
+     */
     public static List<Action> initializeActions() {
 
         List<Action> actions = new ArrayList<>();
@@ -83,7 +117,8 @@ public class Utils {
         actions.add(end);
 
         Action look = new Action(ActionType.WATCH, "osserva");
-        look.setActionAlias(new String[] { "guarda", "vedi", "trova", "cerca", "descrivi" });
+        look.setActionAlias(new String[] { "guarda", "vedi", "trova", "cerca", "descrivi", "inspeziona", "ispezionare",
+                "scruta", "scrutare" });
         actions.add(look);
 
         Action pickup = new Action(ActionType.PICKUP, "raccogli");
@@ -94,17 +129,13 @@ public class Utils {
         talk.setActionAlias(new String[] { "parla", "chiedi", "conversa" });
         actions.add(talk);
 
-        Action invetory = new Action(ActionType.INVENTORY, "inventario");
-        invetory.setActionAlias(new String[] { "zaino", "oggeti", "items", "inv" });
-        actions.add(invetory);
+        Action inventory = new Action(ActionType.INVENTORY, "inventario");
+        inventory.setActionAlias(new String[] { "zaino", "oggeti", "items", "inv" });
+        actions.add(inventory);
 
         Action shoot = new Action(ActionType.SHOOT, "spara");
         shoot.setActionAlias(new String[] { "uccidi", "ammazza", "elimina", "termina", "fredda" });
         actions.add(shoot);
-
-        Action use = new Action(ActionType.USE, "usa");
-        use.setActionAlias(new String[] { "interagisci", "utilizza" });
-        actions.add(use);
 
         Action start = new Action(ActionType.START, "inizia");
         start.setActionAlias(new String[] { "start", "comincia", "begin", "inizio", "i", "s" });
@@ -141,6 +172,19 @@ public class Utils {
         return actions;
     }
 
+    /**
+     * Initializes a list of rooms for a game from a JSON file.
+     *
+     * Each room has an associated ID, name, description, look description, floor
+     * number, and oxygen status.
+     * The method also sets adjacent rooms, password requirement, items, and
+     * characters for each room.
+     *
+     * @return A list of initialized rooms.
+     * @throws StreamReadException If there is a problem reading the data stream.
+     * @throws DatabindException   If there is a problem binding the data.
+     * @throws IOException         If there is an I/O problem.
+     */
     public static List<Room> initializeRooms() throws StreamReadException, DatabindException, IOException {
 
         Map<String, Object> roomsFile = Utils.readJSON("resources/rooms.json");
@@ -181,6 +225,17 @@ public class Utils {
         return rooms;
     }
 
+    /**
+     * Initializes a list of items for a game from a JSON file.
+     *
+     * Each item has an associated ID, name, description, and location.
+     * The method also sets item aliases for each item.
+     *
+     * @return A list of initialized items.
+     * @throws StreamReadException If there is a problem reading the data stream.
+     * @throws DatabindException   If there is a problem binding the data.
+     * @throws IOException         If there is an I/O problem.
+     */
     public static List<Item> initializeItems() throws StreamReadException, DatabindException, IOException {
 
         Map<String, Object> itemsFile = Utils.readJSON("resources/items.json");
@@ -207,6 +262,17 @@ public class Utils {
         return items;
     }
 
+    /**
+     * Initializes a list of characters for a game from a JSON file.
+     *
+     * Each character has an associated ID and name.
+     * The method also sets main dialog and default dialog for each character.
+     *
+     * @return A list of initialized characters.
+     * @throws StreamReadException If there is a problem reading the data stream.
+     * @throws DatabindException   If there is a problem binding the data.
+     * @throws IOException         If there is an I/O problem.
+     */
     private static List<Character> initializeCharacters() throws StreamReadException, DatabindException, IOException {
         Map<String, Object> charactersFile = Utils.readJSON("resources/characters.json");
         List<Character> characters = new ArrayList<>();

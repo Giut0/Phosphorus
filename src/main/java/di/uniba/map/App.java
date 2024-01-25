@@ -11,11 +11,15 @@ import java.util.Scanner;
 
 import javax.sound.sampled.*;
 
+/**
+ *
+ * @author Giut0
+ */
 
 public class App {
     public static void main(String[] args) throws StreamReadException, DatabindException, IOException {
 
-        PhosphorusGame game = new PhosphorusGame();     
+        PhosphorusGame game = new PhosphorusGame();
 
         String audioFilePath = "resources/music/Short_circuit.wav";
 
@@ -47,6 +51,7 @@ public class App {
             audioStream.close();
 
         } catch (Exception e) {
+            System.out.println("\nErrore nel caricamento dell'avventura testuale!");
             e.printStackTrace();
         }
 

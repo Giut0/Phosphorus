@@ -26,6 +26,10 @@ import java.util.Scanner;
 
 import javax.sound.sampled.*;
 
+/**
+ * The main game class for the Phosphorus game.
+ * It contains all the game data and methods for managing the game state.
+ */
 public class PhosphorusGame {
 
     List<Action> gameActions;
@@ -42,6 +46,12 @@ public class PhosphorusGame {
     private int gameTime = 0;
     public static final String LAB_PASSWORD = "4815";
 
+    /**
+     * Initializes the game engine with the given actions and rooms.
+     *
+     * @param actions The actions to add to the game engine.
+     * @param rooms   The rooms to add to the game engine.
+     */
     private void initializeGameEngine(List<Action> actions, List<Room> rooms) {
 
         this.game = new GameEngine();
@@ -51,6 +61,10 @@ public class PhosphorusGame {
 
     }
 
+    /**
+     * Constructs a new PhosphorusGame.
+     * Initializes the game actions and rooms, and sets up the game engine.
+     */
     public PhosphorusGame() {
         try {
             this.setGameActions(Utils.initializeActions());
@@ -63,92 +77,192 @@ public class PhosphorusGame {
             this.setMenuLock(true);
             this.setMusicStatus(true);
 
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+        } catch (Exception e) {
+            System.out.println("\nErrore nel caricamento dell'avventura testuale!");
         }
     }
 
+    /**
+     * Sets the list of actions for the game.
+     *
+     * @param actions The list of actions to set.
+     */
     public void setGameActions(List<Action> actions) {
         this.gameActions = actions;
     }
 
+    /**
+     * Returns the list of actions for the game.
+     *
+     * @return The list of actions for the game.
+     */
     public List<Action> getGameActions() {
         return gameActions;
     }
 
+    /**
+     * Sets the list of rooms for the game.
+     *
+     * @param rooms The list of rooms to set.
+     */
     public void setGameRooms(List<Room> rooms) {
         this.gameRooms = rooms;
     }
 
+    /**
+     * Returns the list of rooms for the game.
+     *
+     * @return The list of rooms for the game.
+     */
     public List<Room> getGameRooms() {
         return gameRooms;
     }
 
+    /**
+     * Returns the game engine.
+     *
+     * @return The game engine.
+     */
     public GameEngine getGame() {
         return this.game;
     }
 
+    /**
+     * Sets the game ID.
+     *
+     * @param gameID The game ID to set.
+     */
     public void setGameID(int gameID) {
         this.gameID = gameID;
     }
 
+    /**
+     * Returns the game ID.
+     *
+     * @return The game ID.
+     */
     public int getGameID() {
         return this.gameID;
     }
 
+    /**
+     * Sets the save timestamp for the game.
+     *
+     * @param saveTimestamp The save timestamp to set.
+     */
     public void setSaveTimestamp(Timestamp saveTimestamp) {
         this.saveTimestamp = saveTimestamp;
     }
 
+    /**
+     * Returns the save timestamp for the game.
+     *
+     * @return The save timestamp for the game.
+     */
     public Timestamp getSaveTimestamp() {
         return this.saveTimestamp;
     }
 
+    /**
+     * Sets the menu lock status for the game.
+     *
+     * @param menuLock The menu lock status to set.
+     */
     public void setMenuLock(boolean menuLock) {
         this.menuLock = menuLock;
     }
 
+    /**
+     * Returns the menu lock status for the game.
+     *
+     * @return The menu lock status for the game.
+     */
     public boolean getMenuLock() {
         return this.menuLock;
     }
 
+    /**
+     * Returns the list of completed room IDs for the game.
+     *
+     * @return The list of completed room IDs for the game.
+     */
     public List<Integer> getCompletedRoomsIds() {
         return this.completedRoomsIds;
     }
 
+    /**
+     * Sets the music status for the game.
+     *
+     * @param musicStatus The music status to set.
+     */
     public void setMusicStatus(boolean musicStatus) {
         this.musicStatus = musicStatus;
     }
 
+    /**
+     * Returns the music status for the game.
+     *
+     * @return The music status for the game.
+     */
     public boolean getMusicStatus() {
         return this.musicStatus;
     }
 
+    /**
+     * Sets the enemy count for the game.
+     *
+     * @param enemyCount The enemy count to set.
+     */
     public void setEnemyCount(int enemyCount) {
         this.enemyCount = enemyCount;
     }
 
+    /**
+     * Returns the enemy count for the game.
+     *
+     * @return The enemy count for the game.
+     */
     public int getEnemyCount() {
         return enemyCount;
     }
 
+    /**
+     * Increases the enemy count by one.
+     */
     public void updateEnemyCount() {
         this.enemyCount++;
     }
 
+    /**
+     * Decreases the enemy count by one.
+     */
     public void reduceEnemyCount() {
         this.enemyCount--;
     }
 
+    /**
+     * Sets the game time.
+     *
+     * @param gameTime The game time to set.
+     */
     public void setGameTime(int gameTime) {
         this.gameTime = gameTime;
     }
 
+    /**
+     * Returns the game time.
+     *
+     * @return The game time.
+     */
     public int getGameTime() {
         return gameTime;
     }
 
+    /**
+     * Checks if the player has a weapon.
+     *
+     * @return true if the player has a weapon, false otherwise.
+     */
     public boolean checkWeapon() {
 
         for (Item item : game.getInventory().getItems()) {
@@ -159,6 +273,11 @@ public class PhosphorusGame {
         return false;
     }
 
+    /**
+     * Checks if the weapon is locked.
+     *
+     * @return true if the weapon is locked, false otherwise.
+     */
     public boolean checkWeaponLocked() {
 
         for (Item item : game.getInventory().getItems()) {
@@ -169,6 +288,11 @@ public class PhosphorusGame {
         return true;
     }
 
+    /**
+     * Checks if the oxygen is locked.
+     *
+     * @return true if the oxygen is locked, false otherwise.
+     */
     public boolean checkOxyLocked() {
         for (Item item : game.getInventory().getItems()) {
             if (item.getItemName().equals("bombola")) {
@@ -178,10 +302,29 @@ public class PhosphorusGame {
         return true;
     }
 
+    /**
+     * Checks if the game has ended.
+     *
+     * @return true if the game has ended, false otherwise.
+     */
     public boolean checkEnd() {
         return this.getEnemyCount() == 0;
     }
 
+    /**
+     * Handles the menu action in the game.
+     *
+     * This method takes a ParserOutput object, a PrintStream object, a Clip object,
+     * and a GameTimer object as parameters.
+     * It uses a switch statement to handle different action types and perform the
+     * corresponding operations.
+     *
+     * @param p     The ParserOutput object that contains the action to be
+     *              performed.
+     * @param out   The PrintStream object that is used for output.
+     * @param clip  The Clip object that is used for playing music.
+     * @param timer The GameTimer object that is used for tracking the game time.
+     */
     public void menuMove(ParserOutput p, PrintStream out, Clip clip, GameTimer timer) {
 
         switch (p.getAction().getActionType()) {
@@ -223,7 +366,6 @@ public class PhosphorusGame {
                 } else {
                     System.out.println("\nNon sono disponibili salvataggi da ripristinare!");
                 }
-
                 break;
 
             default:
@@ -232,6 +374,22 @@ public class PhosphorusGame {
         }
     }
 
+    /**
+     * Handles the next move in the game.
+     *
+     * This method takes a ParserOutput object, a PrintStream object, a Clip object,
+     * and a GameTimer object as parameters.
+     * It uses a switch statement to handle different action types and perform the
+     * corresponding operations.
+     *
+     * @param p     The ParserOutput object that contains the action to be
+     *              performed.
+     * @param out   The PrintStream object that is used for output.
+     * @param clip  The Clip object that is used for playing music.
+     * @param timer The GameTimer object that is used for tracking the game time.
+     * @throws InvocationTargetException If an invoked method throws an exception.
+     * @throws InterruptedException      If the execution is interrupted.
+     */
     public void nextMove(ParserOutput p, PrintStream out, Clip clip, GameTimer timer)
             throws InvocationTargetException, InterruptedException {
 
@@ -395,18 +553,23 @@ public class PhosphorusGame {
 
             case TALK:
                 if (game.getCurrentRoom().getRoomCharacters().size() != 0) {
-                    if (p.getCharacter().isAlive()) {
-                        out.print("\n[" + p.getCharacter().getCharacterName() + "]: \"");
-                        if (!p.getCharacter().getCompleted()) {
+                    if (!(p.getCharacter() == null)) {
 
-                            out.println(p.getCharacter().getMainDialog() + "\"");
-                            p.getCharacter().setCompleted(true);
+                        if (p.getCharacter().isAlive()) {
+                            out.print("\n[" + p.getCharacter().getCharacterName() + "]: \"");
+                            if (!p.getCharacter().getCompleted()) {
+
+                                out.println(p.getCharacter().getMainDialog() + "\"");
+                                p.getCharacter().setCompleted(true);
+                            } else {
+                                out.println(p.getCharacter().getDefaultDialog() + "\"");
+                            }
+
                         } else {
-                            out.println(p.getCharacter().getDefaultDialog() + "\"");
+                            out.println("\n" + p.getCharacter().getCharacterName() + " è morto, non puoi parlarci.");
                         }
-
                     } else {
-                        out.println("\n" + p.getCharacter().getCharacterName() + " è morto, non puoi parlarci.");
+                        out.println("\nLa persona con la quale vuoi parlare non è presente nella stanza!");
                     }
 
                 }
@@ -415,17 +578,24 @@ public class PhosphorusGame {
 
             case PICKUP:
                 if (game.getCurrentRoom().getRoomItems().size() != 0) {
-                    game.getInventory().addItem(p.getItem());
-                    out.println(
-                            "\nHai raccolto: " + UI.ANSI_YELLOW + p.getItem().getItemName() + UI.ANSI_RESET + ", "
-                                    + p.getItem().getItemDescription());
+                    if (!(p.getItem() == null)) {
 
-                    if (p.getItem().getItemName().toLowerCase().equals("chiave sgabuzzino"))
-                        this.getGame().getRooms().get(5).setLocked(false);
+                        game.getInventory().addItem(p.getItem());
+                        out.println(
+                                "\nHai raccolto: " + UI.ANSI_YELLOW + p.getItem().getItemName() + UI.ANSI_RESET + ", "
+                                        + p.getItem().getItemDescription());
 
-                    game.getCurrentRoom().removeItem(p.getItem().getItemName());
-                    if (game.getCurrentRoom().getRoomItems().isEmpty()) {
-                        this.completedRoomsIds.add(game.getCurrentRoom().getRoomID());
+                        if (p.getItem().getItemName().toLowerCase().equals("chiave sgabuzzino"))
+                            this.getGame().getRooms().get(5).setLocked(false);
+
+                        game.getCurrentRoom().removeItem(p.getItem().getItemName());
+                        if (game.getCurrentRoom().getRoomItems().isEmpty()) {
+                            this.completedRoomsIds.add(game.getCurrentRoom().getRoomID());
+                        }
+
+                    } else {
+                        out.println(
+                                "\nNon ho capito quale oggetto vuoi prendere, ti ricordo di osservare l'ambiente circostante.");
                     }
 
                 } else {
@@ -498,20 +668,35 @@ public class PhosphorusGame {
             case PROBE:
 
                 AirQuality airQuality = new AirQuality();
-                if(airQuality.getRequestStatus()){
+                if (airQuality.getRequestStatus()) {
                     UI.printAirQuality(out, airQuality);
-                }else{
+                } else {
                     out.println("\nErrore nel reperire i parametri, riprovare più tardi!");
                 }
-                
 
                 break;
 
             default:
+                out.println("\nNon puoi effettuare questa azione!");
                 break;
         }
     }
 
+    /**
+     * Initializes the game.
+     *
+     * This method takes a PrintStream object, a Clip object, and a GameTimer object
+     * as parameters.
+     * It prints the game title and main menu, creates a Parser object and a Scanner
+     * object, and enters a loop to handle player commands.
+     *
+     * @param out   The PrintStream object that is used for output.
+     * @param clip  The Clip object that is used for playing music.
+     * @param timer The GameTimer object that is used for tracking the game time.
+     * @throws IOException               If there is an I/O problem.
+     * @throws InvocationTargetException If an invoked method throws an exception.
+     * @throws InterruptedException      If the execution is interrupted.
+     */
     public void initGame(PrintStream out, Clip clip, GameTimer timer)
             throws IOException, InvocationTargetException, InterruptedException {
 
@@ -542,11 +727,8 @@ public class PhosphorusGame {
                         UI.printEnd(out, timer);
                         System.exit(0);
                     }
-
                 }
-
             }
-
         }
         scanner.close();
     }

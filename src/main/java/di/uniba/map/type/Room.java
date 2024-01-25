@@ -5,11 +5,8 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * Represents a location or room within game world.
- * Each room serves as a distinct space where interactions occur and holds
- * various attributes
- * describing its characteristics and contents.
- */
+ * The Room class represents a room in the game.
+ */
 public class Room {
 
     private final int roomID;
@@ -35,16 +32,14 @@ public class Room {
     private List<Character> roomCharacters = new ArrayList<>();
 
     /**
-     * Constructs a Room object with specified attributes.
-     *
-     * @param id              The unique identifier for the room.
-     * @param name            The name of the room.
-     * @param description     The description of the room.
-     * @param lookDescription The visual description of the room.
-     * @param floorNumber     The floor number where the room is located.
-     * @param visible         Determines if the room is visible.
-     * @param oxy             Indicates if the room has oxygen.
-     */
+     * Constructor for the Room class.
+     * @param id The ID of the room.
+     * @param name The name of the room.
+     * @param description The description of the room.
+     * @param lookDescription The look description of the room.
+     * @param floorNumber The floor number of the room.
+     * @param oxy The oxygen status of the room.
+     */
     public Room(int id, String name, String description, String lookDescription, int floorNumber,
             boolean oxy) {
         this.roomID = id;
@@ -58,80 +53,76 @@ public class Room {
     }
 
     /**
-     * Constructs a Room object with a given ID.
-     *
-     * @param id The unique identifier for the room.
-     */
+     * Constructor for the Room class.
+     * @param id The ID of the room.
+     */
     public Room(int id) {
         this.roomID = id;
         this.completed = false;
     }
-
+  
     /**
-     * Retrieves the unique identifier of the room.
-     *
-     * @return The unique room identifier.
+     * Gets the room ID.
+     * @return The room ID.
      */
     public int getRoomID() {
         return this.roomID;
     }
 
     /**
-     * Sets the name of the room.
-     *
-     * @param name The new name for the room.
+     * Sets the room name.
+     * @param name The room name to set.
      */
     public void setRoomName(String name) {
         this.roomName = name;
     }
 
     /**
-     * Retrieves the name of the room.
-     *
-     * @return The name of the room.
+     * Gets the room name.
+     * @return The room name.
      */
     public String getRoomName() {
         return roomName;
     }
 
     /**
-     * Sets the description of the room.
-     *
-     * @param name The new description for the room.
+     * Sets the room description.
+     * @param description The room description to set.
      */
     public void setRoomDescription(String description) {
         this.roomDescription = description;
     }
 
     /**
-     * Retrieves the description of the room.
-     *
-     * @return The description of the room.
+     * Gets the room description.
+     * @return The room description.
      */
     public String getRoomDescription() {
         return roomDescription;
     }
 
+    /**
+     * Sets the look description of the room.
+     * @param lookDescription The look description to set.
+     */
     public void setLookDescription(String lookDescription) {
         this.lookDescription = lookDescription;
     }
 
     /**
-     * Retrieves the visual description of the room.
-     *
-     * @return The visual description of the room.
+     * Gets the look description of the room.
+     * @return The look description of the room.
      */
     public String getLookDescription() {
         return this.lookDescription;
     }
 
     /**
-     * Sets the adjacent rooms to the current room.
-     *
-     * @param north The room ID in the north direction.
-     * @param south The room ID in the south direction.
-     * @param east  The room ID in the east direction.
-     * @param west  The room ID in the west direction.
+     * Sets the adjacent rooms of the room.
+     * @param north The room to the north.
+     * @param south The room to the south.
+     * @param east The room to the east.
+     * @param west The room to the west.
      */
     public void setAdjacentRooms(Integer north, Integer south, Integer east, Integer west) {
         this.setNorth(north);
@@ -140,113 +131,180 @@ public class Room {
         this.setWest(west);
     }
 
+    /**
+     * Sets the room to the south.
+     * @param south The room to the south.
+     */
     public void setSouth(Integer south) {
         this.south = south;
     }
 
+    /**
+     * Gets the room to the south.
+     * @return The room to the south.
+     */
     public Integer getSouth() {
         return south;
     }
 
+    /**
+     * Sets the room to the north.
+     * @param north The room to the north.
+     */
     public void setNorth(Integer north) {
         this.north = north;
     }
 
+    /**
+     * Gets the room to the north.
+     * @return The room to the north.
+     */
     public Integer getNorth() {
         return north;
     }
 
+    /**
+     * Sets the room to the east.
+     * @param east The room to the east.
+     */
     public void setEast(Integer east) {
         this.east = east;
     }
 
+    /**
+     * Gets the room to the east.
+     * @return The room to the east.
+     */
     public Integer getEast() {
         return east;
     }
 
+    /**
+     * Sets the room to the west.
+     * @param west The room to the west.
+     */
     public void setWest(Integer west) {
         this.west = west;
     }
 
+    /**
+     * Gets the room to the west.
+     * @return The room to the west.
+     */
     public Integer getWest() {
         return west;
     }
 
     /**
      * Sets the floor number of the room.
-     *
-     * @param name The new floor number for the room.
+     * @param floorNumber The floor number to set.
      */
     public void setFloorNumber(int floorNumber) {
         this.floorNumber = floorNumber;
     }
 
     /**
-     * Retrieves the floor number of the room.
-     *
+     * Gets the floor number of the room.
      * @return The floor number of the room.
      */
     public int getFloorNumber() {
         return floorNumber;
     }
 
+    /**
+     * Sets the locked status of the room.
+     * @param locked The locked status to set.
+     */
     public void setLocked(boolean locked) {
         this.locked = locked;
     }
 
+    /**
+     * Gets the locked status of the room.
+     * @return The locked status of the room.
+     */
     public boolean getLocked() {
         return locked;
     }
 
+    /**
+     * Sets the password required status of the room.
+     * @param passwordRequired The password required status to set.
+     */
     public void setPasswordRequired(boolean passwordRequired) {
         this.passwordRequired = passwordRequired;
     }
 
+    /**
+     * Gets the password required status of the room.
+     * @return The password required status of the room.
+     */
     public boolean getPasswordRequired() {
         return this.passwordRequired;
     }
 
     /**
-     * Sets the presence of breathable oxygen in the room.
-     *
-     * @param oxy True if the room has oxygen, otherwise false.
+     * Sets the oxygen status of the room.
+     * @param oxy The oxygen status to set.
      */
     public void setOxygen(boolean oxy) {
         this.oxygen = oxy;
     }
 
     /**
-     * Checks if the room contains breathable oxygen.
-     *
-     * @return True if the room has oxygen, otherwise false.
+     * Gets the oxygen status of the room.
+     * @return The oxygen status of the room.
      */
     public boolean isOxygen() {
         return this.oxygen;
     }
 
+    /**
+     * Sets the completed status of the room.
+     * @param completed The completed status to set.
+     */
     public void setCompleted(boolean completed) {
         this.completed = completed;
     }
 
+    /**
+     * Gets the completed status of the room.
+     * @return The completed status of the room.
+     */
     public boolean isCompleted() {
         return this.completed;
     }
 
+    /**
+     * Sets the items in the room.
+     * @param items The list of items to set in the room.
+     */
     public void setRoomItems(List<Item> items) {
         for (Item item : items) {
             this.roomItems.add(item);
         }
-
     }
 
+    /**
+     * Gets the items in the room.
+     * @return The list of items in the room.
+     */
     public List<Item> getRoomItems() {
         return this.roomItems;
     }
 
+    /**
+     * Adds an item to the room.
+     * @param item The item to add to the room.
+     */
     public void addItem(Item item) {
         this.roomItems.add(item);
     }
 
+    /**
+     * Removes an item from the room.
+     * @param itemName The name of the item to remove from the room.
+     */
     public void removeItem(String itemName) {
 
         Iterator<Item> iter = this.roomItems.iterator();
@@ -258,6 +316,11 @@ public class Room {
         }
     }
 
+    /**
+     * Checks if an item is in the room.
+     * @param item The item to check for in the room.
+     * @return A boolean indicating whether the item is in the room.
+     */
     public boolean containItem(Item item) {
 
         for (Item it : this.getRoomItems()) {
@@ -270,26 +333,32 @@ public class Room {
     }
 
     /**
-     * Adds a character to the room.
-     *
-     * @param character The character to be added.
+     * Sets the characters in the room.
+     * @param characters The list of characters to set in the room.
      */
     public void setRoomCharacters(List<Character> characters) {
         this.roomCharacters = characters;
     }
 
+    /**
+     * Gets the characters in the room.
+     * @return The list of characters in the room.
+     */
     public List<Character> getRoomCharacters() {
         return this.roomCharacters;
     }
 
+    /**
+     * Adds a character to the room.
+     * @param character The character to add to the room.
+     */
     public void addRoomCharacter(Character character) {
         this.roomCharacters.add(character);
     }
 
     /**
      * Removes a character from the room.
-     *
-     * @param character The character to be removed.
+     * @param character The character to remove from the room.
      */
     public void removeRoomCharacter(Character character) {
         this.roomCharacters.remove(character);

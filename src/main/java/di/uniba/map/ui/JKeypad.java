@@ -5,10 +5,6 @@ import javax.swing.JOptionPane;
 import di.uniba.map.game.PhosphorusGame;
 import di.uniba.map.type.Room;
 
-/**
- *
- * @author giuto
- */
 public class JKeypad extends javax.swing.JFrame {
 
     private boolean passCheck;

@@ -16,6 +16,9 @@ import di.uniba.map.type.Room;
 
 import java.util.List;
 
+/**
+ * The SaveGame class provides methods to save and resume a game.
+ */
 public class SaveGame {
 
     private static final String CONNECTION_STRING = "jdbc:h2:./resources/saves/sav";
@@ -34,6 +37,12 @@ public class SaveGame {
     private static final String SELECT_INVENTORY = "SELECT inventory.itemID FROM inventory WHERE inventory.gameID=?";
     private static final String SELECT_KILLED_CHARACTERS = "SELECT killedCharacter.characterID FROM killedCharacter WHERE killedCharacter.gameID=?";
 
+    /**
+     * Saves the current state of the game to a database.
+     * 
+     * @param game The game to save.
+     * @return A boolean indicating whether the save was successful.
+     */
     public static boolean save(PhosphorusGame game) {
         boolean saveResult = false;
         try {
@@ -78,13 +87,18 @@ public class SaveGame {
             saveResult = true;
 
         } catch (Exception e) {
-            e.printStackTrace();
             System.out.println("\nErrore nella connessione al database!");
         }
 
         return saveResult;
     }
 
+    /**
+     * Resumes a game from a saved state in a database.
+     * 
+     * @param game The game to resume.
+     * @return The resumed game.
+     */
     public static PhosphorusGame resume(PhosphorusGame game) {
 
         List<Room> roomsList = game.getGame().getRoomsAsList();
@@ -100,7 +114,7 @@ public class SaveGame {
             while (rs.next()) {
                 if (rs.getInt(1) == game.getGameID()) {
                     game.setGameID(game.getGameID()); // gameID
-                    game.getGame().setCurrentRoom(roomsList.get(rs.getInt(2))); // curretRoomID
+                    game.getGame().setCurrentRoom(roomsList.get(rs.getInt(2))); // currentRoomID
                     game.setEnemyCount(rs.getInt(3)); // enemyCount
                     game.setGameTime(rs.getInt(4)); // gameTimer
                     game.setSaveTimestamp(rs.getTimestamp(5)); // saveTimestamp
@@ -167,6 +181,10 @@ public class SaveGame {
         return game;
     }
 
+    /**
+     * Clears the database by deleting all entries from the game, inventory, and
+     * killedCharacter tables.
+     */
     public static void clearDB() {
         try {
             Connection conn = DriverManager.getConnection(CONNECTION_STRING);
@@ -197,6 +215,12 @@ public class SaveGame {
 
     }
 
+    /**
+     * Creates the database by executing the SQL commands to create the game,
+     * inventory, and killedCharacter tables.
+     * 
+     * @return A boolean indicating whether the database was successfully created.
+     */
     public static boolean createDB() {
         boolean result = false;
         try {
@@ -231,6 +255,11 @@ public class SaveGame {
         return result;
     }
 
+    /**
+     * Checks if the database file exists.
+     * 
+     * @return A boolean indicating whether the database file exists.
+     */
     public static boolean exist() {
 
         boolean databaseExists = false;

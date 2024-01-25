@@ -5,6 +5,10 @@ import java.io.PrintStream;
 import di.uniba.map.game.AirQuality;
 import di.uniba.map.game.GameTimer;
 
+/**
+ *  * The UI class handles the user interface of the game.
+ *  
+ */
 public class UI {
 
     public static final String ANSI_RESET = "\u001B[0m";
@@ -12,6 +16,11 @@ public class UI {
     public static final String ANSI_RED = "\u001B[31m";
     public static final String ANSI_BLUE = "\u001B[34m";
 
+    /**
+     *      * Prints the title of the game.
+     *      * @param out The PrintStream to print the title to.
+     *      
+     */
     public static void printTitle(PrintStream out) {
         out.println("\n╔═════════════════════════════════════════════════════════════════╗  \n" + //
                 "║      ____  __                     __                            ║\n" + //
@@ -25,6 +34,11 @@ public class UI {
                 "╚═════════════════════════════════════════════════════════════════╝");
     }
 
+    /**
+     *      * Prints the main menu of the game.
+     *      * @param out The PrintStream to print the main menu to.
+     *      
+     */
     public static void printMainMenu(PrintStream out) {
         out.println(
                 "\nBenvenut* nell'avventura testuale phosporus, ecco una lista di comandi che possono aiutarti nel corso della tua impresa:\n"
@@ -39,6 +53,11 @@ public class UI {
                         "Quando sei pronto ad iniziare digita Inizia.");
     }
 
+    /**
+     *      * Prints the list of commands that can be executed in the game.
+     *      * @param out The PrintStream to print the commands list to.
+     *      
+     */
     public static void printCommandsList(PrintStream out) {
         out.println("\nLista di tutti i comandi che puoi eseguire in game:\n" + //
                 "\n" + //
@@ -59,6 +78,11 @@ public class UI {
                 "\t- Spara: per sparare ad un avversario.");
     }
 
+    /**
+     *      * Prints the introduction of the game.
+     *      * @param out The PrintStream to print the introduction to.
+     *      
+     */
     public static void printIntro(PrintStream out) {
         out.println(
                 "\nTi trovi a bordo di una navicella spaziale, sei di ritorno dopo un lungo viaggio per recuperare il fosforo \n"
@@ -70,6 +94,11 @@ public class UI {
                         "senti dagli autoparlanti una voce molto fastidiosa: \"A tutti gli agenti, venite immediatamente nella sala meeting!\"");
     }
 
+    /**
+     * Prints the map of the ground floor.
+     * 
+     * @param out The PrintStream to print the map to.
+     */
     public static void printGroundFloorMap(PrintStream out) {
         out.println("\n╔═════════════════════════════════════════════════════════════════╗");
         out.println("║                        Mappa piano terra                        ║");
@@ -92,6 +121,11 @@ public class UI {
         out.println("╚═════════════════════════════════════════════════════════════════╝");
     }
 
+    /**
+     * Prints the map of the first floor.
+     * 
+     * @param out The PrintStream to print the map to.
+     */
     public static void printFirstFloorMap(PrintStream out) {
         out.println("\n╔═════════════════════════════════════════════════════════════════╗");
         out.println("║                        Mappa primo piano                        ║");
@@ -114,31 +148,49 @@ public class UI {
         out.println("╚═════════════════════════════════════════════════════════════════╝");
     }
 
+    /**
+     * Prints the air quality.
+     * 
+     * @param out        The PrintStream to print the air quality to.
+     * @param airQuality The air quality to print.
+     */
     public static void printAirQuality(PrintStream out, AirQuality airQuality) {
 
         out.printf("\n╔═════════════════════╦══════════════╦═════════╗ \n" +
                 "║ Indicatori ambient. ║    Valori    ║  Esito  ║ \n" +
                 "╠═════════════════════╬══════════════╬═════════╣ \n" +
                 "║                     ║              ║         ║ \n" +
-                "║  EU_AQI	      ║     %d       ║  %s  ║ \n" +
-                "║  Ozone O₃           ║  %.2f μg/m³ ║  %s  ║ \n" +
-                "║  Sulphur Dio. SO₂   ║   %.2f μg/m³ ║  %s  ║ \n" +
-                "║  UV_index:          ║   %.2f       ║  %s  ║  \n" +
-                "║  Nitrogen Dio. NO₂  ║   %.2f μg/m³║  %s  ║ \n" +
+                "║  EU_AQI	      ║     %d       ║  %s   ║ \n" +
+                "║  Ozone O₃           ║  %.2f μg/m³ ║  %s   ║ \n" +
+                "║  Sulphur Dio. SO₂   ║   %.2f μg/m³ ║  %s   ║ \n" +
+                "║  UV_index:          ║   %.2f       ║  %s   ║  \n" +
+                "║  Nitrogen Dio. NO₂  ║  %.2f μg/m³  ║  %s   ║ \n" +
                 "║                     ║              ║	       ║ \n" +
                 "╚═════════════════════╩══════════════╩═════════╝\n", airQuality.getEuropeanAqi(),
                 airQuality.checkEuropeanAqi(), airQuality.getOzone(), airQuality.checkOzone(),
                 airQuality.getSulphurDioxide(), airQuality.checkSulphurDioxide(), airQuality.getUvIndex(),
-                airQuality.checkUvIndex(), airQuality.getNitrogenDioxide(), airQuality.checkNitrogenDioxide());
+                airQuality.checkUVIndex(), airQuality.getNitrogenDioxide(), airQuality.checkNitrogenDioxide());
 
     }
 
+    /**
+     * Prints the bad ending of the game.
+     * 
+     * @param out   The PrintStream to print the bad ending to.
+     * @param timer The GameTimer to print the game time.
+     */
     public static void badEnding(PrintStream out, GameTimer timer) {
         out.println(
                 "\nSono scattati gli allarmi, vedi il tuo collega che ti seguiva come un'ombra tirare fuori la pistola, te le punta addoso, vedi bianco...");
         printEnd(out, timer);
     }
 
+    /**
+     * Prints the end of the game.
+     * 
+     * @param out   The PrintStream to print the end to.
+     * @param timer The GameTimer to print the game time.
+     */
     public static void printEnd(PrintStream out, GameTimer timer) {
         out.println("\nGrazie mille per aver giocato a phosphorus!");
         out.println("\nTempo di gioco: " + timer.getTime() + " secondi!");
@@ -154,6 +206,12 @@ public class UI {
                 "Game tester: Vito Proscia\n");
     }
 
+    /**
+     * Prints the true ending of the game.
+     * 
+     * @param out   The PrintStream to print the true ending to.
+     * @param timer The GameTimer to print the game time.
+     */
     public static void trueEnding(PrintStream out, GameTimer timer) {
         out.println(
                 "\nAdesso tutti e due gli alieni sono morti, una vocina nella tua testa ti sussurra \"hai completato la missione, contribuendo allo sruttamento di altri esseri viventi per il benessere di altri, complimenti!\"");

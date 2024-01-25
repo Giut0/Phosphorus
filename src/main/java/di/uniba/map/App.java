@@ -1,9 +1,6 @@
 package di.uniba.map;
 
-import java.io.IOException;
 import java.io.File;
-import com.fasterxml.jackson.core.exc.StreamReadException;
-import com.fasterxml.jackson.databind.DatabindException;
 
 import di.uniba.map.game.GameTimer;
 import di.uniba.map.game.PhosphorusGame;
@@ -11,11 +8,15 @@ import java.util.Scanner;
 
 import javax.sound.sampled.*;
 
+/**
+ *
+ * @author Giut0
+ */
 
 public class App {
-    public static void main(String[] args) throws StreamReadException, DatabindException, IOException {
+    public static void main(String[] args){
 
-        PhosphorusGame game = new PhosphorusGame();     
+        PhosphorusGame game = new PhosphorusGame();
 
         String audioFilePath = "resources/music/Short_circuit.wav";
 
@@ -47,6 +48,7 @@ public class App {
             audioStream.close();
 
         } catch (Exception e) {
+            System.out.println("\nErrore nel caricamento dell'avventura testuale!");
             e.printStackTrace();
         }
 

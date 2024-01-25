@@ -9,7 +9,7 @@
     "1": {
         "characterId": 1,
         "characterName": "Comandante",
-        "mainDialog": "Bentrovati a tutti, non prediamoci in chaicchiere, vi ho convocati con così poco preavviso perchè dovete indagare sulla fuga di alcuni alieni dal laboratorio, f24 prendi la pistola dal quel tavolo, potrebbero essere ostili.\nTi accompagnerà l'agente \u001B[34ma17\u001B[0m, GLORIA AD INGSOC! \nAh quasi dimenticavo... la fuga ha compromesso la sala motori, ti conviene recuperare la bombola d'ossigeno dal dormitorio.",
+        "mainDialog": "Bentrovati a tutti, non prediamoci in chaicchiere, vi ho convocati con così poco preavviso perchè dovete indagare sulla fuga di alcuni alieni dal laboratorio, f24 prendi la pistola dal quel tavolo, potrebbero essere ostili. Ti accompagnerà l'agente \u001B[34ma17\u001B[0m, GLORIA AD INGSOC! Ah quasi dimenticavo... la fuga ha compromesso la sala motori, ti conviene recuperare la bombola d'ossigeno dal dormitorio.",
         "defaultDialog": "Cosa c'è ancora? Quale parte di indagate sulla fuga di alcuni alieni non avete capito? Dai su, provate ad andare in laboratorio, solo che ci vuole il codice d'accesso, vedetevela voi, ricordatevi la bombola d'ossigeno nel dormitorio. GLORIA AD INGSOC!",
         "type": "friend"
     },
@@ -31,7 +31,7 @@
         "characterId": 4,
         "characterName": "s99",
         "mainDialog": "Salve agenti... *tosse* cosa vi porta quì? La *tosse* password per il laboratorio, *tosse*, mi dispiace ma non tanto sto bene *tosse*, non ricordo...*tosse*, forse è nello sgabuzzino della sala motori *tosse*.",
-        "defaultDialog": "Provate ad andare nella sala motori, *tosse*",
+        "defaultDialog": "Provate ad andare nella sala motori, *tosse*.",
         "type": "friend"
     },
     "5": {

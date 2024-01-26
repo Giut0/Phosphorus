@@ -1,0 +1,103 @@
+\documentclass[italian,12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{mathtools}
+\usepackage{blkarray, bigstrut} %
+\usepackage{babel}
+\usepackage{graphicx}
+\usepackage{subfig}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{colortbl}
+\usepackage{pgf-pie}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{algorithmicx}
+\usepackage{placeins}
+\usepackage{svg}
+\usepackage{tabularx}
+\title{Università degli studi di Bari facoltà di scienze MM.FF.NN}
+\date{} % clear date
+\hypersetup{
+	colorlinks=true,
+	linkcolor=black,
+	filecolor=magenta,      
+	urlcolor=cyan,
+	pdfpagemode=FullScreen,
+}
+\graphicspath{ {./img/} }
+\RequirePackage[subfigure]{tocloft}
+
+\cftsetindents{section}{0em}{2em}
+\cftsetindents{subsection}{0em}{2em}
+
+\renewcommand\cfttoctitlefont{\hfill\Large\bfseries}
+\renewcommand\cftaftertoctitle{\hfill\mbox{}}
+
+\algrenewcommand\algorithmicrequire{\textbf{Input:}}
+\algrenewcommand\algorithmicensure{\textbf{Output:}}
+
+\setcounter{tocdepth}{2}
+\begin{document}
+	\maketitle
+	\thispagestyle{empty}
+	\begin{center}
+		\huge	\textbf{Progetto Metodi Avanzati di Programmazione} \\
+		\vspace{20px}
+		\Large \textbf{Phosphorus textual-adventure}
+	\end{center}
+	
+	\begin{center}
+		by \\
+		\Large \textbf{Vito Proscia mat. 735975} \\
+	\end{center}
+	\vspace{5px}
+	\begin{center}
+		Email: \href{mailto:v.proscia3@studenti.uniba.it}{v.proscia3@studenti.uniba.it}
+	\end{center}
+	\vspace{30px}
+	\begin{figure}[hb]
+		\centering
+		\includegraphics[width=5cm]{image.png}
+	\end{figure}
+	\vspace{50px}
+	\begin{center}
+		Repository github: \href{https://github.com/Giut0/Phosphorus}{Phosphorus}
+	\end{center}
+	
+	\vfill
+	\begin{center}
+		Anno accadenico 2022-2023
+	\end{center}
+	
+	\newpage
+	
+	\tableofcontents
+	
+	\newpage
+	
+	\section{Introduzione}
+	\subsection{Trama}
+	\subsection{Soluzione gioco}
+	\subsection{Organizzazione progetto}
+	
+	
+	\section{Dettagli implementativi}
+	\subsection{File}
+	\subsection{Database}
+	\subsection{Threads}
+	\subsection{Api REST}
+	\subsection{Java Swing}
+	
+	\section{Conclusioni}
+
+	\section{Considerazioni finali}
+	
+	\appendix
+	\renewcommand{\thesection}{\Roman{section}}
+	\section{Appendice Musica}
+	\subsection{Composizione}
+	\subsection{Produzione}
+	
+	
+\end{document}

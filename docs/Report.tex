@@ -91,14 +91,14 @@
 		
 		\begin{figure}[!h]
 			\centering
-			\includegraphics[width=8cm]{map1.jpeg}
+			\includegraphics[width=8.5cm]{map1.jpeg}
 			\caption{Mappa primo piano}
 			\label{fig:mappa_1}
 		\end{figure}
 		
 		\begin{figure}[!h]
 			\centering
-			\includegraphics[width=8cm]{map2.jpeg}
+			\includegraphics[width=8.5cm]{map2.jpeg}
 			\caption{Mappa secondo piano}
 			\label{fig:mappa_2}
 		\end{figure}
@@ -167,16 +167,65 @@
 	\end{figure}
 	
 	\subsection{Threads}
+	I Thread sono unità di esecuzione meno complesse dei processi, essi consentono a un programma di eseguire più operazioni in modo concorrente, migliorando l'efficienza e consentendo l'esecuzione simultanea di diverse attività. \\
+	Per il progetto i thread non stati usati per due scopi differenti:
+	
+	\begin{enumerate}
+		\item \texttt{di.uniba.map.game.GameTimer}: per scandire il tempo di gioco;
+		\item \texttt{di.uniba.map.App}: per la riprodizione della musica in sottofondo durante l'esecuzione del gioco, per ulteriori dettagli sulla composizione e produzione della musica, consulta l'Appendice~\ref{appendix:musica}
+	\end{enumerate}
+	
 	\subsection{Api REST}
+	Le API RESTful (Representational State Transfer) sono un'architettura di comunicazione stateless basata su standard web che utilizza metodi HTTP standard, ogni risorsa è unica e raggiungibile attraverso URI  (Uniform Resource Identifier).\\
+	Nel nostro caso le API sono state utilizzate per recuperare le informazioni relative alla qualità dell'aria della città di Bari (41.12° N, 16.86° E) quali:
+	
+		\begin{itemize}
+			\item European AQI: indice europeo della qualità dell'aria; 
+			\item UV index: livello di radiazione UV solare sulla superficie terrestre;
+			\item Ozone $O_3$: quantità di ozono nella stratosfera;
+			\item Sulphur dioxide $SO_2$: quantità del gas nocivo diossido di zolfo nell'ambiente;
+			\item Nitrogen dioxide $NO_2$: quantità del gas nocivo diossido di azoto nell'ambiente;
+			
+		\end{itemize}
+	Si è scelto di reprerire questi valori per una maggiore immersività nella'avventura.\\
+	Esempio:
+	\begin{figure}[!h]
+		\centering
+		\includegraphics[width=7.5cm]{screen_api}
+		\caption{Risultato della chiamata API con valutazione}
+		\label{fig:screenapi}
+	\end{figure}
+	
+
 	\subsection{Java Swing}
+	
+	Java Swing è un toolkit grafico incluso nella libreria standard di Java per la creazione di interfacce utente (UI) per applicazioni desktop.\\
+	Il framework è stato utilizzato per la creazione di un tastierino numerico con i tasti cliccabili (keypad) usato per accedere al laboratorio inserendo la giusta password.
+	
+	\begin{figure}[!h]
+		\centering
+		\includegraphics[width=7cm]{screen_keypad}
+		\caption{Interfaccia grafica keypad}
+		\label{fig:screen_key}
+	\end{figure}
+	
+	
+	\begin{figure}
+		\centering
+		\includegraphics[width=6cm]{screen_corr}\hspace{1cm}
+		\includegraphics[width=6cm]{screen_err}
+		\caption{Messaggi in caso di risposta corretta/errata}
+		\label{fig:screen_allineate}
+	\end{figure}
 	
 	\section{Conclusioni}
 
 	\section{Considerazioni finali}
 	
 	\appendix
+	
 	\renewcommand{\thesection}{\Roman{section}}
-	\section{Appendice Musica}
+	\section{Appendice Musica}\label{appendix:musica}
 	\subsection{Composizione}
 	
 	Per arricchire l'atmosfera ho incluso nel progetto una mia improvvisazione musicale, cercando di trasmettere un po' quel senso di mistero che avvolge la vicenda di gioco, al fine di far immergere il giocatore ancora meglio nell'avventura.

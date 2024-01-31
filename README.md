@@ -8,6 +8,8 @@ Il protagonista, l’agente f24, si trova su una navicella spaziale in ritorno a
 
 Inizialmente, f24 si sveglierà dal sonno criogenico nel dormitorio con un ordine, impartito dal comandante, di indagare sulla misteriosa scomparsa di due alieni prigionieri. Il protagonista cercherà i due fuggitivi, districandosi tra le stanze dell’astronave ed interrogando i membri dell’equipaggio, fino a scoprire cosa viene fatto agli alieni prigionieri. Sarà solo a lui decidere se mantenere lo _status quo_ o cambiare la situazione.
 
+![](docs/img/map_sv.png)
+
 ## Requisiti 📜
 - [**Java**](https://www.java.com) v11 o versioni successive.
 

@@ -56,6 +56,7 @@ To use this program, follow these steps:
 - `parla {nome_personaggio}`: per parlare ad un personaggio.
 - `osserva`: per osservare l'ambiente cicostante.
 - `spara {nome_personaggio}`: per eliminare un nemico.
+- `mappa`: per visualizzare la mappa del piano corrente.
 - `sonda`: per visualizzare i valori relativi alla qualità dell'aria di Bari.
 
 

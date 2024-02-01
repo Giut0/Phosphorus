@@ -11,8 +11,14 @@
 \contentsline {subsection}{\numberline {2.4}Threads}{8}{subsection.2.4}%
 \contentsline {subsection}{\numberline {2.5}Api REST}{8}{subsection.2.5}%
 \contentsline {subsection}{\numberline {2.6}Java Swing}{9}{subsection.2.6}%
-\contentsline {section}{\numberline {3}Conclusioni}{10}{section.3}%
-\contentsline {section}{\numberline {4}Considerazioni finali}{10}{section.4}%
-\contentsline {section}{\numberline {I}Appendice Musica}{10}{appendix.A}%
-\contentsline {subsection}{\numberline {I.1}Composizione}{10}{subsection.A.1}%
-\contentsline {subsection}{\numberline {I.2}Produzione}{10}{subsection.A.2}%
+\contentsline {section}{\numberline {3}Sommario classi implementate}{10}{section.3}%
+\contentsline {subsection}{\numberline {3.1}\texttt {di.uniba.map}}{10}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}\texttt {di.uniba.map.game}}{10}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}\texttt {di.uniba.map.parser}}{10}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}\texttt {di.uniba.map.type}}{11}{subsection.3.4}%
+\contentsline {subsection}{\numberline {3.5}\texttt {di.uniba.map.ui}}{11}{subsection.3.5}%
+\contentsline {section}{\numberline {4}Conclusioni}{11}{section.4}%
+\contentsline {section}{\numberline {5}Considerazioni finali}{11}{section.5}%
+\contentsline {section}{\numberline {A}Musica}{11}{appendix.A}%
+\contentsline {subsection}{\numberline {A.1}Composizione}{11}{subsection.A.1}%
+\contentsline {subsection}{\numberline {A.2}Produzione}{12}{subsection.A.2}%

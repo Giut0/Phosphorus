@@ -114,7 +114,7 @@
 	Nello specifico si sono andate a progettare e realizzare una serie di classi garantendo l'incapsulamento di dati e operazioni, di modo che l'accesso a quest'ultimi sia limitato ai metodi della stessa classe, il che promuove la sicurezza e la modularità del codice.\\
 	\linebreak
 	Al fine di chiarire la struttura delle classi e delle loro relazioni, abbiamo utilizzato il linguaggio di modellazione UML (Unified Modeling Language) per appresentare in modo visuale la progettazione del software in modo chiaro e conciso.\\
-	Il diagramm è presente al seguente link: \href{AGGIUNGERE LINK ALL'IMMAGINE DELL'UML}{diagramma\_uml}  ???????????????????????????
+	Il diagramma delle classi è presente al seguente link: \href{AGGIUNGERE LINK ALL'IMMAGINE DELL'UML}{class\_diagram\_uml}  ???????????????????????????
 
 	
 	\subsection{File}
@@ -135,7 +135,7 @@
 	
 	\subsection{Database}
 	
-	I salvataggi di gioco sono stati gestiti mediante l'uso della basi di dati, in particolare sono state progettate tre relazioni:
+	I salvataggi di gioco sono stati gestiti mediante l'uso della basi di dati utilizzando JDBC (Java Database Connectivity), in particolare sono state progettate tre relazioni:
 	
 	\begin{itemize}
 		\item game: memorizza i dati relativi al giocatore, come l'id, la stanza in cui si trova, il numero di nemici eliminati e il timestamp del salvataggio;
@@ -172,13 +172,13 @@
 	
 	\begin{enumerate}
 		\item \texttt{di.uniba.map.game.GameTimer}: per scandire il tempo di gioco;
-		\item \texttt{di.uniba.map.App}: per la riprodizione della musica in sottofondo durante l'esecuzione del gioco, per ulteriori dettagli sulla composizione e produzione della musica, consulta l'Appendice~\ref{appendix:musica}
+		\item \texttt{di.uniba.map.App}: per la riprodizione della musica in sottofondo durante l'esecuzione del gioco, per ulteriori dettagli sulla composizione e produzione della musica, consulta l'Appendice~\ref{appendix:musica}.
 	\end{enumerate}
 	
 	\subsection{Api REST}
-	Le API RESTful (Representational State Transfer) sono un'architettura di comunicazione stateless basata su standard web che utilizza metodi HTTP standard, ogni risorsa è unica e raggiungibile attraverso URI  (Uniform Resource Identifier).\\
+	Le API RESTful (Representational State Transfer) sono un'architettura di comunicazione stateless basata su standard web che utilizza metodi HTTP standard, ogni risorsa è unica e raggiungibile attraverso URI  (Uniform Resource Identifier).
 	Nel nostro caso le API sono state utilizzate per recuperare le informazioni relative alla qualità dell'aria della città di Bari (41.12° N, 16.86° E) quali:
-	
+
 		\begin{itemize}
 			\item European AQI: indice europeo della qualità dell'aria; 
 			\item UV index: livello di radiazione UV solare sulla superficie terrestre;
@@ -196,7 +196,6 @@
 		\label{fig:screenapi}
 	\end{figure}
 	
-
 	\subsection{Java Swing}
 	
 	Java Swing è un toolkit grafico incluso nella libreria standard di Java per la creazione di interfacce utente (UI) per applicazioni desktop.\\
@@ -218,14 +217,64 @@
 		\label{fig:screen_allineate}
 	\end{figure}
 	
+	\section{Sommario classi implementate}
+	In questa sezioni sarà presentata una breve panoramica delle classi implementate nel progetto.
+	
+	\subsection{\texttt{di.uniba.map}}
+		In questo package sono contenute la classi principali per l'avvio del gioco:
+		
+		\begin{itemize}
+			\item App: classe che fa partire il gico contenente il metodo \textit{main};
+			\item Utils: classe contenente tutti i vari metodi di supporto alle altre classi del progetto.
+		\end{itemize}
+	
+	\subsection{\texttt{di.uniba.map.game}}
+		Nucle centrale del progetto, questo package ingloba tutte le classi necessarie al funzionamento e del gioco collegando le altre classi insieme:
+		
+		\begin{itemize}
+			\item AirQuality: classe che si occupa di gestire la chiamata API al servizio di \href{https://open-meteo.com/en/docs/air-quality-api}{open-meteo};
+			\item GameEngine: classe che regola lo scheletro di gioco corrente inglobando le tutti le vari azioni effettuabili, le stanze disponibili, l'inventario e la stanza corrente;
+			\item GameTimer: si occupa dell'esecuzione del thread timer;
+			\item PhosphorusGame: gestisce le varie azioni disponibili, sia del menù che del gioco vero e proprio;
+			\item SaveGame: classe che coordina i salvataggi di gioco, contiene i metodi per salvare e riprendere la sessione di gioco.
+		\end{itemize}
+		
+	
+	\subsection{\texttt{di.uniba.map.parser}}
+	Le classi all'interno di questo package gestiscono l'input del giocatore convertendolo in azioni di gioco:
+	\begin{itemize}
+		\item Parser: classe che analizza l'input del giocatore cercando di meglio intrpretalo per convertire il tutto in azioni di gioco (azione, azione-oggetto e azione-personaggio);
+		\item ParserOutput: classe che compone il comando che il giocatre impartisce.
+	\end{itemize}
+	
+	\subsection{\texttt{di.uniba.map.type}}
+	Questo package contiene tutti i tipi progettati per che compongono il gioco:
+	\begin{itemize}
+		\item Action: rappresenta le azioni di gioco;
+		\item ActionType: contiene tutte le tipologia di azioni;
+		\item Character: descrive le caratteristiche dei personaggi di gioco;
+		\item Enemy: specializzazione della classe Character che gestisce le informazioni dei nemici;
+		\item Inventory: rappresenta l'inventario di gioco; 
+		\item Item: descrive un oggetto di gioco;
+		\item KetItem: specializzazione di item per rappresentare gli oggetti chiave;
+		\item Room: rappresenta le sanze le compongono il gioco;
+		\item Weapon: specializzazione della classe item per rappresentare gli oggetti che possono danneggiare i personaggi.
+	\end{itemize}
+	
+	\subsection{\texttt{di.uniba.map.ui}}
+	Le classi contenutevi compongono l'interfaccia utente del gioco: 
+	\begin{itemize}
+		\item JKeypad: classe che gestisce la GUI (Graphical User Interface) del tastierino numerico utile ad accedere al laboratorio andando ad inserire una passowrd;
+		\item UI:che contiene tutti i metodi relativi alla stampa a schermo delle vari comonenti del gioco, quali la mappa, il menu, i vari finiali, etc\dots.
+	\end{itemize}
 	\section{Conclusioni}
 
 	\section{Considerazioni finali}
 	
-	\appendix
 	
-	\renewcommand{\thesection}{\Roman{section}}
-	\section{Appendice Musica}\label{appendix:musica}
+	
+	\appendix
+	\section{Musica}\label{appendix:musica}
 	\subsection{Composizione}
 	
 	Per arricchire l'atmosfera ho incluso nel progetto una mia improvvisazione musicale, cercando di trasmettere un po' quel senso di mistero che avvolge la vicenda di gioco, al fine di far immergere il giocatore ancora meglio nell'avventura.

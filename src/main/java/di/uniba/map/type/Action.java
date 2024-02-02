@@ -23,7 +23,6 @@ public class Action {
     public Action(ActionType type, String name, Set<String> alias) {
         this.setActionType(type);
         this.setActionName(name);
-        ;
         this.actionAlias = new HashSet<String>(alias);
     }
 

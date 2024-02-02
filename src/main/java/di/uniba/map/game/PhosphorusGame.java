@@ -32,13 +32,13 @@ import javax.sound.sampled.*;
  */
 public class PhosphorusGame {
 
-    List<Action> gameActions;
-    List<Room> gameRooms;
+    private List<Action> gameActions;
+    private List<Room> gameRooms;
 
     private GameEngine game;
 
     private int gameID = 0;
-    Timestamp saveTimestamp;
+    private Timestamp saveTimestamp;
     private boolean menuLock;
     private List<Integer> completedRoomsIds;
     private boolean musicStatus;

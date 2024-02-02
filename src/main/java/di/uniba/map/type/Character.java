@@ -7,7 +7,7 @@ public class Character {
 
     private int characterId;
     private String characterName;
-    private Boolean alive = true;
+    private boolean alive = true;
     private Room currentRoom;
     private String defaultDialog;
     private String mainDialog;

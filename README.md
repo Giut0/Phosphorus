@@ -2,7 +2,7 @@
 
 Progetto finale per il corso di Metodi Avanzati di Programmazione [Uniba](https://www.uniba.it/it/ricerca/dipartimenti/informatica).
 
-Documentazione completa: [Report](docs/Report.pdf)
+**Documentazione completa** [Report](docs/Report.pdf)
 
 ## Trama 🪐
 

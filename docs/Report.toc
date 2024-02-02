@@ -18,7 +18,7 @@
 \contentsline {subsection}{\numberline {3.4}\texttt {di.uniba.map.type}}{11}{subsection.3.4}%
 \contentsline {subsection}{\numberline {3.5}\texttt {di.uniba.map.ui}}{11}{subsection.3.5}%
 \contentsline {section}{\numberline {4}Conclusioni}{11}{section.4}%
-\contentsline {section}{\numberline {5}Considerazioni finali}{11}{section.5}%
-\contentsline {section}{\numberline {A}Musica}{11}{appendix.A}%
-\contentsline {subsection}{\numberline {A.1}Composizione}{11}{subsection.A.1}%
-\contentsline {subsection}{\numberline {A.2}Produzione}{12}{subsection.A.2}%
+\contentsline {section}{\numberline {5}Sviluppi futuri}{12}{section.5}%
+\contentsline {section}{\numberline {A}Musica}{12}{appendix.A}%
+\contentsline {subsection}{\numberline {A.1}Composizione}{12}{subsection.A.1}%
+\contentsline {subsection}{\numberline {A.2}Produzione}{13}{subsection.A.2}%

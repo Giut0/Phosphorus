@@ -22,3 +22,7 @@
 \contentsline {section}{\numberline {A}Musica}{12}{appendix.A}%
 \contentsline {subsection}{\numberline {A.1}Composizione}{12}{subsection.A.1}%
 \contentsline {subsection}{\numberline {A.2}Produzione}{13}{subsection.A.2}%
+\contentsline {section}{\numberline {B}Specifica algebrica della Lista}{14}{appendix.B}%
+\contentsline {subsection}{\numberline {B.1}Specifica sintattica}{14}{subsection.B.1}%
+\contentsline {subsection}{\numberline {B.2}Specifica semantica}{14}{subsection.B.2}%
+\contentsline {subsection}{\numberline {B.3}Specifica di restrizione}{15}{subsection.B.3}%

@@ -65,7 +65,7 @@ public class UI {
                 "\t- Menu: per tornare al menù principale,\n" + //
                 "\t- Musica: per disattivare o attivare la musica del gioco,\n" + //
                 "\t- Mappa: per visualizzare la mappa di gioco,\n" + //
-                "\t- Sonda: per visualizzare i parametri della qualità dell'aria del tuo paese in tempo reale, \n" +
+                "\t- Sonda: per visualizzare i parametri della qualità dell'aria del tuo paese in tempo reale,\n" +
                 "\t- Salva: per salvare i progressi di gioco,\n" + //
                 "\t- Nord: per muoversi a nord,\n" + //
                 "\t- Sud: per muoversi a sud,\n" + //
@@ -89,7 +89,7 @@ public class UI {
                         +
                         "che attualmente sulla terra scarseggia, avete catturato due alieni che producono fosforo naturalmente rilasciandolo come meccanismo di difesa.\n"
                         +
-                        "Hai appena aperto gli occhi dopo un lungo sonno, senti il corpo tutto intorpidito, ti alzi dal letto, vedi il tuo collega \u001B[34ma13\u001B[0m già in piedi,\n"
+                        "\nHai appena aperto gli occhi dopo un lungo sonno, senti il corpo tutto intorpidito, ti alzi dal letto, vedi il tuo collega \u001B[34ma13\u001B[0m già in piedi,\n"
                         +
                         "senti dagli autoparlanti una voce molto fastidiosa: \"A tutti gli agenti, venite immediatamente nella sala meeting!\"");
     }

@@ -41,7 +41,7 @@ public class UI {
      */
     public static void printMainMenu(PrintStream out) {
         out.println(
-                "\nBenvenut* nell'avventura testuale phosphorus, ecco una lista di comandi che possono aiutarti nel corso della tua impresa:\n"
+                "\nBenvenut* nell'avventura testuale Phosphorus, ecco una lista di comandi che possono aiutarti nel corso della tua impresa:\n"
                         + //
                         "\n" + //
                         "\t- Inizia: da il via ad una nuova partita,\n" + //

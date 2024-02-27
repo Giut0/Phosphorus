@@ -22,7 +22,7 @@ Inizialmente, f24 si sveglierà dal sonno criogenico nel dormitorio con un ordin
 To use this program, follow these steps:
 
 1. Assicurati di avere [Java](https://www.java.com) installato sul tuo sistema;
-2. Effettua il Download del file zip `Phosphorus-v1.0.zip` dalla sezione Releases di questo repository;
+2. Effettua il download del file zip `Phosphorus-v1.0.zip` dalla sezione Releases di questo repository;
 3. Estrai il file zip; 
 4. Esegui il file jar all'interno della cartella estratta con un doppio click o ```java -jar Phosphorus.jar``` da terminale;
 5. Goditi l'avventura.
@@ -31,7 +31,7 @@ To use this program, follow these steps:
 
 ### Comandi generali
 
-- `inizia` oppure `i`: Da il via all'avventura.
+- `inizia` oppure `i`: da il via all'avventura.
 - `riprendi`: carica il salvataggio della sessione precedente.
 - `musica`: disattiva o riattiva la musica di gioco.
 - `comandi`: per una panoramica generale di tutto quello che puoi fare nel gioco.
@@ -57,9 +57,6 @@ To use this program, follow these steps:
 - `spara {nome_personaggio}`: per eliminare un nemico.
 - `mappa`: per visualizzare la mappa del piano corrente.
 - `sonda`: per visualizzare i valori relativi alla qualità dell'aria di Bari.
-
-
-
 
 ## Organizzazione repository 📐
 

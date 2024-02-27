@@ -3,7 +3,7 @@
         "itemID": 0,
         "itemType": "Weapon",
         "itemName": "pistola",
-        "itemDescription": "Particolare pistola, ha un meccanismo particolare che ti impedisce si ferire gli esseri umani.",
+        "itemDescription": "Particolare pistola, ha un meccanismo che ti impedisce si ferire gli esseri umani.",
         "itemLocation": 1,
         "itemAction": "spara",
         "itemAlias": [
@@ -56,7 +56,7 @@
         "itemID": 4,
         "itemType": "Other",
         "itemName": "bombola",
-        "itemDescription": "Una bombola contenente l'ossigeno, d'ora in poi potrai entrare nella stanze prive di quest'ultimo.",
+        "itemDescription": "Una bombola contenente l'ossigeno, d'ora in poi potrai entrare nelle stanze prive di quest'ultimo.",
         "itemLocation": 0,
         "itemAction": "",
         "itemAlias": [

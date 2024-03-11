@@ -19,7 +19,7 @@ Inizialmente, f24 si sveglierà dal sonno criogenico nel dormitorio con un ordin
 
 ## Usage 💪
 
-Per giocare all'avventura segui questi setp:
+Per giocare all'avventura segui questi step:
 
 1. Assicurati di avere [Java](https://www.java.com) installato sul tuo sistema;
 2. Effettua il download del file zip `Phosphorus-v1.0.zip` dalla sezione Releases di questo repository;

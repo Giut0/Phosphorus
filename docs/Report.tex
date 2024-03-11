@@ -108,13 +108,13 @@
 	
 	\subsection{Progettazione Object-Oriented}
 	
-	La progettazione orientata agli oggetti (OOD) è un paradigma di programmazione che utilizza "oggetti" come unità fondamentali per progettare, organizzare e implementare software. Gli oggetti sono istanze di classi, che sono astrazioni che rappresentano concetti, dati e operazioni associati al dominio del problema che si sta affrontando, questa metodologia di progettazione garantisce riutilizzabilità del codice, facilità di manutenzione, chiarezza nel flusso di controllo e scalabilità.\\
+	La progettazione orientata agli oggetti (OOD) è un paradigma di programmazione che utilizza "oggetti" come unità fondamentali per progettare, organizzare ed implementare software. Gli oggetti sono istanze di classi cioè astrazioni che rappresentano concetti, dati e operazioni associati al dominio del problema che si sta affrontando, questa metodologia di progettazione garantisce riutilizzabilità del codice, facilità di manutenzione, chiarezza nel flusso di controllo e scalabilità.\\
 	\linebreak
 	Nello specifico si sono andate a progettare e realizzare una serie di classi garantendo l'incapsulamento di dati e operazioni, di modo che l'accesso a quest'ultimi sia limitato ai metodi della stessa classe, il che promuove la sicurezza e la modularità del codice.\\
 	\linebreak
-	Al fine di chiarire la struttura delle classi e delle loro relazioni, abbiamo utilizzato il linguaggio di modellazione UML (Unified Modeling Language) per rappresentare in modo visuale la progettazione del software in modo chiaro e conciso.\\
+	Al fine di chiarire la struttura delle classi e delle loro relazioni, si è utilizzato il linguaggio di modellazione UML (Unified Modeling Language) per rappresentare in modo visuale la progettazione del software in modo chiaro e conciso.\\
 	\linebreak
-	Il diagramma delle classi è presente al seguente link: \href{https://github.com/Giut0/Phosphorus/blob/main/docs/img/class_diagram.jpeg}{class\_diagram\_uml}
+	Il diagramma delle classi è presente al seguente link: \href{https://github.com/Giut0/Phosphorus-textual-adventure/blob/main/docs/img/class_diagram.jpeg}{class\_diagram\_uml}
 	
 	\subsection{File}
 	Nel progetto i file sono stati utilizzati per modellare gli elementi narrativi e non, dell'avventura, in particolare si hanno a disposizione tre file JSON (JavaScript Object Notation) che vanno a descrivere le stanze, i personaggi e gli oggetti di gioco in modo che le informazioni legate a questi siano facilmente modificabili ed estendibili per migliorare l'avventura, magari aggiungendo più stanze, modificando i dialoghi dei personaggi e perfino stravolgere la trama di gioco. \\
@@ -171,7 +171,7 @@
 	
 	\begin{enumerate}
 		\item \texttt{di.uniba.map.game.GameTimer}: per scandire il tempo di gioco;
-		\item \texttt{di.uniba.map.App}: per la riproduzione della musica in sottofondo durante l'esecuzione del gioco, per ulteriori dettagli sulla composizione e produzione della musica, consulta l'Appendice~\ref{appendix:musica}.
+		\item \texttt{di.uniba.map.App}: per la riproduzione della musica in sottofondo durante l'esecuzione del gioco, per ulteriori dettagli sulla composizione e produzione della musica, consultare l'Appendice~\ref{appendix:musica}.
 	\end{enumerate}
 	
 	\subsection{Api REST}
@@ -257,7 +257,7 @@
 		\item Item: descrive un oggetto di gioco;
 		\item KetItem: specializzazione di Item per rappresentare gli oggetti chiave;
 		\item Room: rappresenta le stanze le compongono il gioco;
-		\item Weapon: specializzazione della classe Item che rappresentare gli oggetti che possono danneggiare i personaggi.
+		\item Weapon: specializzazione della classe Item, rappresenta gli oggetti che possono danneggiare i personaggi.
 	\end{itemize}
 	
 	\subsection{\texttt{di.uniba.map.ui}}
@@ -300,7 +300,7 @@
 	\subsection{Produzione}
 	La parte relativa alla produzione musicale è stata una delle più ardue ed al contempo una delle più divertenti, personalmente non mi ero mai cimentato, fino a questo momento, nella produzione di un brano musicale.\\
 	\linebreak
-	Nello specifico, con la funzione record del pianoforte digitale, ho registrato il brano per poi salvarlo in formato MIDI (Musical Instrument Digital Interface), successivamente ho esportato il file nell'applicazione per iPad Garageband, che permette, amatorialmente, di creare musica, per poi modificare lo strumento di esecuzione, aggiungere degli effetti sonori come il wabble ed il riverbero ed andare ad editare la traccia audio, tagliando o registrando nuovamente delle parti, infine ho salvato il tutto sotto froma di WAV (Waveform) per poi imporare il brano nel progetto facendo sì che sia riprodotto in loop durante il gioco. 
+	Nello specifico, con la funzione record del pianoforte digitale, ho registrato il brano per poi salvarlo in formato MIDI (Musical Instrument Digital Interface), successivamente ho esportato il file nell'applicazione per iPad Garageband, che permette, amatorialmente, di creare musica, per poi modificare lo strumento di esecuzione, aggiungere degli effetti sonori come il wabble ed il riverbero ed andare ad editare la traccia audio, tagliando o registrando nuovamente delle parti, infine ho salvato il tutto sotto froma di WAV (Waveform) per poi imporare il brano nel progetto facendo sì che sia riprodotto in loop durante il gioco. \\
 	\linebreak
 	\begin{figure}[!h]
 		\centering
@@ -352,7 +352,6 @@
 		\caption{Tabella per la costruzione degli operatori della specifica semantica}
 		\label{tab:esempio}
 	\end{table}
-
 	\textbf{Declere}:
 	\begin{itemize}
 		\item $l$ : Lista<Elemento>

@@ -3,7 +3,7 @@
         "itemID": 0,
         "itemType": "Weapon",
         "itemName": "pistola",
-        "itemDescription": "Particolare pistola, ha un meccanismo che ti impedisce si ferire gli esseri umani.",
+        "itemDescription": "Particolare pistola, ha un meccanismo che ti impedisce di ferire gli esseri umani.",
         "itemLocation": 1,
         "itemAction": "spara",
         "itemAlias": [

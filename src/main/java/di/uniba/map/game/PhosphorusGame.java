@@ -455,7 +455,7 @@ public class PhosphorusGame {
                         if (!checkOxyLocked()
                                 || this.game.getRooms().get(currentRoom.getNorth()).isOxygen()) {
                             this.game.setCurrentRoom(this.game.getRooms().get(currentRoom.getNorth()));
-                            out.println("\n" + currentRoom.getRoomDescription());
+                            out.println("\n" + this.game.getRooms().get(currentRoom.getNorth()).getRoomDescription());
                         } else {
                             out.println("\nIn "
                                     + this.game.getRooms().get(currentRoom.getNorth()).getRoomName()
@@ -481,7 +481,7 @@ public class PhosphorusGame {
                         if (!checkOxyLocked()
                                 || this.game.getRooms().get(currentRoom.getSouth()).isOxygen()) {
                             this.game.setCurrentRoom(this.game.getRooms().get(currentRoom.getSouth()));
-                            out.println("\n" + currentRoom.getRoomDescription());
+                            out.println("\n" + this.game.getRooms().get(currentRoom.getSouth()).getRoomDescription());
                         } else {
                             out.println("\nIn "
                                     + this.game.getRooms().get(currentRoom.getSouth()).getRoomName()
@@ -507,7 +507,7 @@ public class PhosphorusGame {
                         if (!checkOxyLocked()
                                 || this.game.getRooms().get(currentRoom.getEast()).isOxygen()) {
                             this.game.setCurrentRoom(this.game.getRooms().get(currentRoom.getEast()));
-                            out.println("\n" + currentRoom.getRoomDescription());
+                            out.println("\n" + this.game.getRooms().get(currentRoom.getEast()).getRoomDescription());
                         } else {
                             out.println("\nIn "
                                     + this.game.getRooms().get(currentRoom.getEast()).getRoomName()
@@ -533,7 +533,7 @@ public class PhosphorusGame {
                         if (!checkOxyLocked()
                                 || this.game.getRooms().get(currentRoom.getWest()).isOxygen()) {
                             this.game.setCurrentRoom(this.game.getRooms().get(currentRoom.getWest()));
-                            out.println("\n" + currentRoom.getRoomDescription());
+                            out.println("\n" + this.game.getRooms().get(currentRoom.getWest()).getRoomDescription());
                         } else {
                             out.println("\nIn "
                                     + this.game.getRooms().get(currentRoom.getWest()).getRoomName()

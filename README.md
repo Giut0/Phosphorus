@@ -17,7 +17,7 @@ Inizialmente, f24 si sveglierà dal sonno criogenico nel dormitorio con un ordin
 ## Requisiti 📜
 - [**Java**](https://www.java.com) v11 o versioni successive.
 
-## Usage 💪
+## Uso 💪
 
 Per giocare all'avventura segui questi step:
 

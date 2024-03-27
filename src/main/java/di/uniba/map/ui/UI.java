@@ -47,7 +47,7 @@ public class UI {
                         "\t- Inizia: da il via ad una nuova partita,\n" + //
                         "\t- Riprendi: riprendi l'avventura da dove l'avevi lasciata,\n" + //
                         "\t- Musica: per disattivare o attivare la musica del gioco,\n" + //
-                        "\t- Comandi: per una panoramica generale di tutto quello che puoi fare nel gioco.\n" + //
+                        "\t- Comandi: per una panoramica generale di tutto quello che puoi fare nel gioco,\n" + //
                         "\t- Esci: per uscire dal gioco e riprendere a viverne un altro.\n" + //
                         "\n" + //
                         "Quando sei pronto ad iniziare digita Inizia.");
@@ -74,7 +74,7 @@ public class UI {
                 "\t- Parla: per parlare ad un NPC,\n" + //
                 "\t- Raccogli: per prendere un oggetto,\n" + //
                 "\t- Inventario: per visualizzare tutti gli oggetti che hai raccolto,\n" + //
-                "\t- Osserva: per ispezionare l'ambente circostante,\n" + //
+                "\t- Osserva: per ispezionare l'ambiente circostante,\n" + //
                 "\t- Spara: per sparare ad un avversario.");
     }
 
